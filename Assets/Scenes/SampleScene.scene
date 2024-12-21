@@ -172,7 +172,7 @@ MonoBehaviour:
   tilemap: {fileID: 789448208}
   grid: {fileID: 681608618}
   tile1: {fileID: 11400000, guid: 0b77ab3e948d8ff449768dcfbf6754db, type: 2}
-  tile2: {fileID: 11400000, guid: be1f3e01f8b23084a8f5b7379f93d269, type: 2}
+  tile2: {fileID: 11400000, guid: 8530a7f007d19b540ba1cdb0694fffb6, type: 2}
   tile3: {fileID: 11400000, guid: 570f77a32b41c8b46a2916f572588e4e, type: 2}
 --- !u!1 &519420028
 GameObject:
@@ -236,7 +236,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -483,7 +483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a89085abb9009764e99b35df3adc2858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tile: {fileID: 11400000, guid: 570f77a32b41c8b46a2916f572588e4e, type: 2}
+  tile: {fileID: 11400000, guid: 42ef6a5ca2bdcb747a117037a5546927, type: 2}
   grid: {fileID: 681608618}
   tilemap: {fileID: 789448208}
 --- !u!1660057539 &9223372036854775807

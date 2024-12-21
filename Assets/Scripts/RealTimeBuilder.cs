@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,29 +10,53 @@ public class RealTimeBuilder : MonoBehaviour
     public Grid grid;
     public Tilemap tilemap;
     Vector3Int lastPosition;
+    TileBase lastTile;
+    Color translucent;
+    bool building;
     // Start is called before the first frame update
     void Start()
     {
-        
+        translucent = new Color(1, 1, 1, 0.8f);
+        lastTile = tilemap.GetTile(lastPosition);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3Int v = grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        v.z = 2;
-        if(lastPosition != v)
+        if (building)
         {
-            tilemap.SetTile(lastPosition, null);
-            lastPosition = v;
-        }
-        tilemap.SetTile(v, tile);
-        tilemap.SetColor(v, Color.red);
+            Vector3Int v = grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            v.z = 1;
+            if (lastPosition != v)
+            {
+                tilemap.SetTile(lastPosition, lastTile);
+                tilemap.SetColor(lastPosition,Color.white);
+                lastPosition = v;
+                lastTile = tilemap.GetTile(lastPosition);
+            }
+            bool empty = (lastTile == null);
+            tilemap.SetTile(v, tile);
+            tilemap.RemoveTileFlags(v, TileFlags.LockColor);
+            tilemap.SetColor(v, empty ? Color.green : Color.red);
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            tilemap.SetTile(new Vector3Int(v.x,v.y,1),tile);
+            if (Input.GetMouseButtonDown(0) && empty)
+            {
+                lastTile = tile;
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
+                tilemap.SetTile(lastPosition,lastTile);
+                tilemap.color = Color.white;
+                building = false;
+            }
         }
-        
+        else
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                tilemap.color = translucent;
+                building = true;
+            }
+        }
     }
 }
