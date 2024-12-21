@@ -171,9 +171,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 789448208}
   grid: {fileID: 681608618}
-  tile1: {fileID: 11400000, guid: 0b77ab3e948d8ff449768dcfbf6754db, type: 2}
-  tile2: {fileID: 11400000, guid: 8530a7f007d19b540ba1cdb0694fffb6, type: 2}
-  tile3: {fileID: 11400000, guid: 570f77a32b41c8b46a2916f572588e4e, type: 2}
+  tile1: {fileID: 11400000, guid: db8d82ef23847774b9ddacfd81499bba, type: 2}
+  tile2: {fileID: 11400000, guid: 367896f74e87fda4fa9cf87784be7a49, type: 2}
+  tile3: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
