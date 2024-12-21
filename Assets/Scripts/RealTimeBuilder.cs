@@ -9,18 +9,20 @@ public class RealTimeBuilder : MonoBehaviour
     public TileBase tile;
     public Grid grid;
     public Tilemap tilemap;
+
+    //public GameObject buildingPrefab;  // 为添加建筑做测试 暂时先用不到
+
     Vector3Int lastPosition;
     TileBase lastTile;
     Color translucent;
     bool building;
-    // Start is called before the first frame update
+
     void Start()
     {
         translucent = new Color(1, 1, 1, 0.8f);
         lastTile = tilemap.GetTile(lastPosition);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (building)
