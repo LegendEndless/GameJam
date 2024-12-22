@@ -8,6 +8,7 @@ public class BuildingManager : MonoBehaviour
     public static BuildingManager Instance=>instance;
     public SerializableDictionary<string, BuildingInfoPro> buildingInfoDict;
     public Dictionary<string, int> buildingCountDict;
+    public Dictionary<string, float> totalProduction;
     //这样写不用确定地图大小，也能接受异形地图
     public Dictionary<Vector2Int, BaseBuilding> landUseRegister;
     private void Awake()
@@ -23,10 +24,48 @@ public class BuildingManager : MonoBehaviour
             BuildingInfoPro t = new BuildingInfoPro(info);
             buildingInfoDict[info.name] = t;
         }
+        totalProduction = new Dictionary<string, float>
+        {
+            {"Electricity", 0},
+            {"Minerals", 0},
+            {"Food", 0},
+            {"Water", 0},
+            {"Oil", 0},
+            {"Chips", 0},
+            {"Alloy", 0},
+            {"Fibre", 0},
+        };
+    }
+    public void ReportMultiplierChange(MassProductionBuilding building, float deltaMultiplier)
+    {
+        Dictionary<string, float> basicProduction = building.buildingInfoPro.productionList[building.level - 1];
+        foreach(KeyValuePair<string,float> pair in basicProduction)
+        {
+            totalProduction[pair.Key] += pair.Value * deltaMultiplier;
+        }
+    }
+    public void ReportUpgrade(MassProductionBuilding building)
+    {
+        if(building.multiplier == 0)
+        {
+            return;
+        }
+        Dictionary<string, float> currentProduction = building.buildingInfoPro.productionList[building.level - 1];
+        Dictionary<string, float> formerProduction = building.buildingInfoPro.productionList[building.level - 2];
+        float current, former;
+        foreach(string resource in totalProduction.Keys)
+        {
+            current = currentProduction.ContainsKey(resource) ? currentProduction[resource] : 0;
+            former = formerProduction.ContainsKey(resource) ? formerProduction[resource] : 0;
+            totalProduction[resource] += building.multiplier * (current - former);
+        }
     }
     // Update is called once per frame
     void Update()
     {
-        
+        foreach (KeyValuePair<string,float> pair in totalProduction)
+        {
+            ResourceManager.Instance.AddResource(pair.Key, pair.Value * Time.deltaTime);
+        }
     }
 }
