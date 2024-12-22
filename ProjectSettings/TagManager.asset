@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: UI-InGame
+    uniqueID: 1541890827
+    locked: 0
+  - name: Grid
+    uniqueID: 230978675
+    locked: 0
