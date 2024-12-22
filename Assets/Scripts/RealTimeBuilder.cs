@@ -29,7 +29,6 @@ public class RealTimeBuilder : MonoBehaviour
     void Update()
     {
         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - 300 * Time.deltaTime * Input.GetAxis("Mouse ScrollWheel"),2,10);
-        print(Input.mousePosition);
         if (Input.mousePosition.x < padding)
         {
             Camera.main.transform.Translate(5 * Time.deltaTime * Vector2.left);
@@ -80,6 +79,16 @@ public class RealTimeBuilder : MonoBehaviour
             {
                 tilemap.color = translucent;
                 building = true;
+            }
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector3Int v = grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+                Vector2Int v_ = new Vector2Int(v.x,v.y);
+                Dictionary<Vector2Int,BaseBuilding> register = BuildingManager.Instance.landUseRegister;
+                if (register.ContainsKey(v_) && register[v_] != null)
+                {
+                    register[v_].PopUI();
+                }
             }
         }
     }

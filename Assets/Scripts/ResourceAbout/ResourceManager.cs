@@ -11,7 +11,9 @@ public class ResourceManager : MonoBehaviour
         {"Minerals", 0},
         {"Food", 0},
         {"Water", 0},
-        {"Oil", 0}
+        {"Oil", 0},
+        {"People", 0},
+        {"PeopleAvailable", 0},
     };
 
     void Awake()
@@ -27,7 +29,7 @@ public class ResourceManager : MonoBehaviour
         }
     }
 
-    public int GetResource(string type)
+    public int GetResourceCount(string type)
     {
         return resources.ContainsKey(type) ? resources[type] : 0;
     }

@@ -9,7 +9,7 @@ public class BuildingManager : MonoBehaviour
     public SerializableDictionary<string, BuildingInfoPro> buildingInfoDict;
     public Dictionary<string, int> buildingCountDict;
     //这样写不用确定地图大小，也能接受异形地图
-    public Dictionary<Vector2Int, bool> landUseRegister;
+    public Dictionary<Vector2Int, BaseBuilding> landUseRegister;
     private void Awake()
     {
         instance = this;
