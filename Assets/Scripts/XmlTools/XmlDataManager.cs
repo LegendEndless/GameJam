@@ -31,6 +31,7 @@ public class XmlDataManager
         if (!File.Exists(path))
         {
             path = Application.streamingAssetsPath + "/" + filename + ".xml";
+            //Debug.Log(path);
             if (!File.Exists(path))
             {
                 throw new FileNotFoundException(path);

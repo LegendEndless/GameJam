@@ -40,7 +40,7 @@ public class BaseBuilding : MonoBehaviour
     {
         upgrading=true;
         timeSinceUpgrade = 0;
-        currentUpgradeDuration = BuildingManager.Instance.buildingInfoDict[type].upgradeDuration[level];
+        currentUpgradeDuration = BuildingManager.Instance.buildingInfoDict[type].buildingInfo.upgradeDuration[level];
     }
     private void Update()
     {
