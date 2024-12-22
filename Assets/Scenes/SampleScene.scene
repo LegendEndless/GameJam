@@ -364,7 +364,7 @@ GameObject:
   m_Component:
   - component: {fileID: 260943840}
   - component: {fileID: 260943841}
-  m_Layer: 0
+  m_Layer: 5
   m_HasEditorInfo: 1
   m_Name: sunstorm_logo0
   m_TagString: Untagged
@@ -428,7 +428,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1541890827
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 6ed805bbea74425459317261bff78590, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -620,7 +620,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilemap: {fileID: 789448208}
   grid: {fileID: 681608618}
-  tile1: {fileID: 11400000, guid: db8d82ef23847774b9ddacfd81499bba, type: 2}
+  tiles:
+  - {fileID: 11400000, guid: 367896f74e87fda4fa9cf87784be7a49, type: 2}
   tile2: {fileID: 11400000, guid: 367896f74e87fda4fa9cf87784be7a49, type: 2}
   tile3: {fileID: 0}
 --- !u!1 &466081426
@@ -1006,7 +1007,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 230978675
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -1071,7 +1072,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &807564984
 Transform:
   m_ObjectHideFlags: 0
@@ -1102,6 +1103,7 @@ MonoBehaviour:
   tile: {fileID: 11400000, guid: 42ef6a5ca2bdcb747a117037a5546927, type: 2}
   grid: {fileID: 681608618}
   tilemap: {fileID: 789448208}
+  padding: 100
 --- !u!1 &1038210711
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,7 +1152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1348304922}
   - component: {fileID: 1348304923}
-  m_Layer: 0
+  m_Layer: 5
   m_HasEditorInfo: 1
   m_Name: sunstorm_logo1
   m_TagString: Untagged
@@ -1214,7 +1216,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1541890827
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 7bd6ce5934f80d840a88888fb9699641, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1341,7 +1343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1504193094}
   - component: {fileID: 1504193095}
-  m_Layer: 0
+  m_Layer: 5
   m_HasEditorInfo: 1
   m_Name: ui_up_2
   m_TagString: Untagged
@@ -1404,8 +1406,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1541890827
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 28efb50048a908647b544719fa28e107, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1468,7 +1470,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1815370467}
   - component: {fileID: 1815370468}
-  m_Layer: 0
+  m_Layer: 5
   m_HasEditorInfo: 1
   m_Name: Button_Pause
   m_TagString: Untagged
