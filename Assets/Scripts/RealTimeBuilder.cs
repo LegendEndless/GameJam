@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,6 +11,7 @@ public class RealTimeBuilder : MonoBehaviour
     public TileBase tile;
     public Grid grid;
     public Tilemap tilemap;
+    public float padding = 100;
 
     //public GameObject buildingPrefab;  // 为添加建筑做测试 暂时先用不到
 
@@ -25,6 +28,25 @@ public class RealTimeBuilder : MonoBehaviour
 
     void Update()
     {
+        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - 300 * Time.deltaTime * Input.GetAxis("Mouse ScrollWheel"),2,10);
+        print(Input.mousePosition);
+        if (Input.mousePosition.x < padding)
+        {
+            Camera.main.transform.Translate(5 * Time.deltaTime * Vector2.left);
+        }
+        if (Input.mousePosition.x > Screen.width - padding)
+        {
+            Camera.main.transform.Translate(5 * Time.deltaTime * Vector2.right);
+        }
+        if (Input.mousePosition.y < padding)
+        {
+            Camera.main.transform.Translate(5 * Time.deltaTime * Vector2.down);
+        }
+        if (Input.mousePosition.y > Screen.height - padding)
+        {
+            Camera.main.transform.Translate(5 * Time.deltaTime * Vector2.up);
+        }
+
         if (building)
         {
             Vector3Int v = grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));

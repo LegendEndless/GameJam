@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
+    static TimeManager instance;
+    public static TimeManager Instance => instance;
     public float time;
     public float apocalypseStart = 100;
     public float apocalypseDuration = 30;
@@ -16,9 +18,9 @@ public class TimeManager : MonoBehaviour
         }
     }
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        instance = this;
     }
 
     // Update is called once per frame
