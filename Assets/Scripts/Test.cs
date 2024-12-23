@@ -44,7 +44,6 @@ public class Test : MonoBehaviour
             }
             list.Add(dic);
         }
-        print(list);
     }
 
     // Update is called once per frame

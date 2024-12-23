@@ -17,12 +17,9 @@ public class BuildingManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-    }
-    private void Start()
-    {
         BuildingInfoCollection collection = XmlDataManager.Instance.Load<BuildingInfoCollection>("building");
         buildingInfoDict = new SerializableDictionary<string, BuildingInfoPro>();
-        foreach(BuildingInfo info in collection.buildingInfos)
+        foreach (BuildingInfo info in collection.buildingInfos)
         {
             BuildingInfoPro t = new BuildingInfoPro(info);
             buildingInfoDict[info.name] = t;
@@ -42,6 +39,10 @@ public class BuildingManager : MonoBehaviour
         highestLevel = new Dictionary<string, int>();
         buildingCountDict = new Dictionary<string, int>();
         globalMultiplier = 0;
+    }
+    private void Start()
+    {
+        
     }
     public void ReportMultiplierChange(ProductionBuilding building, float deltaMultiplier)
     {
