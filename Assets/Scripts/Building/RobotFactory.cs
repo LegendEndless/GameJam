@@ -5,15 +5,11 @@ using UnityEngine;
 public class RobotFactory : ProductionBuilding
 {
     bool functioning;
-    public override void ManuallyAdjustStation(int delta)
+    public override void OnFunctioningChange(bool functioning)
     {
-        base.ManuallyAdjustStation(delta);
-        if (functioning != (stationedCount != 0))
-        {
-            functioning = (stationedCount != 0);
-            //通知BuildingManager，全局加成量有变化
-            BuildingManager.Instance.globalMultiplier += (functioning ? 1 : -1) * level * 0.03f;//硬编码
-        }
+        base.OnFunctioningChange(functioning);
+        BuildingManager.Instance.globalMultiplier += (functioning ? 1 : -1) * level * 0.03f;//硬编码
+        BuildingManager.Instance.GloballyRecalculate();
     }
     public override void ReportUpgrade()
     {
@@ -21,6 +17,7 @@ public class RobotFactory : ProductionBuilding
         if (functioning)
         {
             BuildingManager.Instance.globalMultiplier += 0.03f;//硬编码
+            BuildingManager.Instance.GloballyRecalculate();
         }
     }
 }

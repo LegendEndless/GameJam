@@ -4,28 +4,22 @@ using UnityEngine;
 
 public class LAN : ProductionBuilding
 {
-    bool functioning;
-    public override void ManuallyAdjustStation(int delta)
+    public override void OnFunctioningChange(bool functioning)
     {
-        base.ManuallyAdjustStation(delta);
-        if(functioning != (stationedCount != 0))
+        base.OnFunctioningChange(functioning);
+        int change = functioning ? 1 : -1;
+        var set = GetNeighborsInRange(2.01f);//硬编码
+        foreach (BaseBuilding b in set)
         {
-            functioning = (stationedCount != 0);
-            //通知范围内的生产建筑，能影响到它们的基站变化了一个
-            int change = functioning ? 1 : -1;
-            var set = GetNeighborsInRange(2.01f);//硬编码
-            foreach (BaseBuilding b in set)
+            if (b is ProductionBuilding)
             {
-                if(b is ProductionBuilding)
-                {
-                    (b as ProductionBuilding).ChangeNumLAN(change);
-                }
+                (b as ProductionBuilding).ChangeNumLAN(change);
             }
         }
     }
     public override void AutoAdjustStation()
     {
-        if (stationedCount == 0 && ResourceManager.Instance.GetResourceCount("PeopleAvailable") <= 0)
+        if (stationedCount == 0 && PopulationManager.Instance.AvailablePopulation <= 0)
         {
             //没人派驻，啥也不做
             return;

@@ -10,6 +10,7 @@ public class BuildingManager : MonoBehaviour
     public Dictionary<string, int> buildingCountDict;
     public Dictionary<string, float> totalProduction;
     public Dictionary<string, int> highestLevel;
+    public HashSet<BaseBuilding> buildings;
     //这样写不用确定地图大小，也能接受异形地图
     public Dictionary<Vector2Int, BaseBuilding> landUseRegister;
 
@@ -39,6 +40,7 @@ public class BuildingManager : MonoBehaviour
         highestLevel = new Dictionary<string, int>();
         buildingCountDict = new Dictionary<string, int>();
         globalMultiplier = 0;
+        buildings = new HashSet<BaseBuilding>();
     }
     private void Start()
     {
@@ -66,6 +68,16 @@ public class BuildingManager : MonoBehaviour
             current = currentProduction.ContainsKey(resource) ? currentProduction[resource] : 0;
             former = formerProduction.ContainsKey(resource) ? formerProduction[resource] : 0;
             totalProduction[resource] += building.multiplier * (current - former);
+        }
+    }
+    public void GloballyRecalculate()
+    {
+        foreach(BaseBuilding building in buildings)
+        {
+            if(building is ProductionBuilding)
+            {
+                (building as ProductionBuilding).RecalculateMultiplier(false,true);
+            }
         }
     }
     // Update is called once per frame

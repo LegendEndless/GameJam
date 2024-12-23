@@ -44,6 +44,14 @@ public class BaseBuilding : MonoBehaviour
         else
             ++cd[name];
 
+        BuildingManager.Instance.buildings.Add(this);
+
+        foreach(var building in GetNeighborsInRange(3.01f))
+        {
+            if (building is ProductionBuilding)
+                (building as ProductionBuilding).RecalculateMultiplier(true, false);
+        }
+
         buildingInfoPro = BuildingManager.Instance.buildingInfoDict[name];
 
         level = 0;
@@ -88,7 +96,12 @@ public class BaseBuilding : MonoBehaviour
         }
         ManuallyAdjustStation(-stationedCount);
         RealTimeBuilder.Instance.Demolish(position);
+        OnDemolish();
         Destroy(gameObject);
+    }
+    public virtual void OnDemolish()
+    {
+
     }
     public void PopUI()
     {
@@ -98,12 +111,12 @@ public class BaseBuilding : MonoBehaviour
     //这个函数方便做弹出UI的派驻功能
     public int StationedMax()
     {
-        return Mathf.Min((level + 5), Mathf.FloorToInt(ResourceManager.Instance.GetResourceCount("PeopleAvailable")));
+        return Mathf.Min((level + 5), Mathf.FloorToInt(PopulationManager.Instance.AvailablePopulation));
     }
 
     public virtual void AutoAdjustStation()
     {
-        if(stationedCount == 0 && ResourceManager.Instance.GetResourceCount("PeopleAvailable") <=0)
+        if(stationedCount == 0 && PopulationManager.Instance.AvailablePopulation <= 0)
         {
             //没人派驻，啥也不做
             return;
@@ -113,12 +126,22 @@ public class BaseBuilding : MonoBehaviour
     }
     public virtual void ManuallyAdjustStation(int delta)
     {
+        bool flag = stationedCount > 0;
         if(delta==0)
         {
             return;
         }
         stationedCount += delta;
-        ResourceManager.Instance.AddResource("PeopleAvailable", -delta);
+        PopulationManager.Instance.stationedPopulation += delta;
+        flag = flag ^ (stationedCount > 0);
+        if (flag)
+        {
+            OnFunctioningChange(stationedCount > 0);
+        }
+    }
+    public virtual void OnFunctioningChange(bool functioning)
+    {
+
     }
     public bool HasNeighbor(string name)
     {
@@ -145,7 +168,7 @@ public class BaseBuilding : MonoBehaviour
         }
         return false;
     }
-    public int CountInRange(string name, float range)
+    public int CountInRange(string name, float range)//name为null就是所有建筑都统计
     {
         Vector2Int u, v;
         int t = Mathf.CeilToInt(range);
@@ -162,7 +185,7 @@ public class BaseBuilding : MonoBehaviour
                         if (ii*ii+jj*jj<=range*range)
                         {
                             u = v + new Vector2Int(ii, jj);
-                            if (register.ContainsKey(u) && register[u]!= null && register[u].name==name)
+                            if (register.ContainsKey(u) && register[u]!= null && (name == null || register[u].name==name))
                                 set.Add(register[u]);
                         }
                     }
