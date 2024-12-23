@@ -162,4 +162,20 @@ public class RealTimeBuilder : MonoBehaviour
 
         return true;
     }
+    //决定在建筑面板中是否置灰
+    public bool CanSelect(string name)
+    {
+        if (BuildingManager.Instance.buildingCountDict[name] == BuildingManager.Instance.buildingInfoDict[name].buildingInfo.maxCount)
+        {
+            return false;
+        }
+        foreach(KeyValuePair<string,int> pair in BuildingManager.Instance.buildingInfoDict[name].upgradeRestrictionList[0])
+        {
+            if (BuildingManager.Instance.highestLevel[pair.Key] < pair.Value)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }

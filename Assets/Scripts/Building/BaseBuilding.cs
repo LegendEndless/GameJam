@@ -37,7 +37,7 @@ public class BaseBuilding : MonoBehaviour
                 register[v] = this;
             }
         }
-
+        //建筑数量也记下来了
         var cd = BuildingManager.Instance.buildingCountDict;
         if (!cd.ContainsKey(name))
             cd[name] = 1;
@@ -209,5 +209,22 @@ public class BaseBuilding : MonoBehaviour
         {
             hl[name] = Mathf.Max(hl[name], level);
         }
+    }
+
+    //决定弹出面板的升级按钮是否置灰
+    public bool CanUpgrade()
+    {
+        if(level == buildingInfoPro.buildingInfo.maxLevel)
+        {
+            return false;
+        }
+        foreach (KeyValuePair<string, int> pair in buildingInfoPro.upgradeRestrictionList[level])
+        {
+            if (BuildingManager.Instance.highestLevel[pair.Key] < pair.Value)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

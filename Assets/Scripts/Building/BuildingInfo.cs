@@ -25,6 +25,7 @@ public class BuildingInfo
     public string upgradeDuration;
     public float stationBonus;
     public string description;
+    public string upgradeRestriction;
 }
 public class BuildingInfoPro
 {
@@ -36,6 +37,7 @@ public class BuildingInfoPro
     public List<float> buffSizeList;
     public List<Dictionary<string, float>> costList;
     public List<float> durationList;
+    public List<Dictionary<string,int>> upgradeRestrictionList;
     public BuildingInfoPro(BuildingInfo info)
     {
         buildingInfo = info;
@@ -106,6 +108,20 @@ public class BuildingInfoPro
         foreach (string part in parts)
         {
             durationList.Add(float.Parse(part));
+        }
+        upgradeRestrictionList = new List<Dictionary<string, int>>();
+        parts = buildingInfo.upgradeRestriction.Split(";");
+        foreach (string part in parts)
+        {
+            Dictionary<string, int> dic = new Dictionary<string, int>();
+            string[] pairs = part.Split(",");
+            foreach (string pair in pairs)
+            {
+                string[] element = pair.Split("|");
+                if (element[0] != "")
+                    dic[element[0]] = int.Parse(element[1]);
+            }
+            upgradeRestrictionList.Add(dic);
         }
     }
 }
