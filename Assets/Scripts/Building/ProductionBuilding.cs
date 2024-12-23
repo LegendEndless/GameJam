@@ -6,11 +6,14 @@ public class ProductionBuilding : BaseBuilding
 {
     public float multiplier;
     public float neighborMultiplier;
+    int numLAN;
     public override void Initialize(string name, Vector2Int position, Vector2Int span)
     {
         base.Initialize(name, position, span);
         multiplier = 0;
         neighborMultiplier = -1;
+        //刚开始就得统计一下周边基站个数
+        numLAN = CountInRange("LAN", 2.01f);//硬编码处
     }
     public override void AutoAdjustStation()
     {
@@ -29,13 +32,13 @@ public class ProductionBuilding : BaseBuilding
             neighborMultiplier = 0;
             foreach (KeyValuePair<string, float> pair in buildingInfoPro.neighborBonusDict)
             {
-                if (Search(pair.Key))
+                if (HasNeighbor(pair.Key))
                 {
                     neighborMultiplier += pair.Value;
                 }
             }
             //这儿还得再看一下有没有那个通用增幅器
-            if (LandBuffed())//To do:记得再判断一下是不是需要考虑通用增幅的建筑种类
+            if (numLAN > 0)//To do:记得再判断一下是不是需要考虑通用增幅的建筑种类
             {
                 neighborMultiplier += 0.2f;//某个硬编码的增幅值
             }
@@ -57,21 +60,9 @@ public class ProductionBuilding : BaseBuilding
         base.ReportUpgrade();
         BuildingManager.Instance.ReportUpgrade(this);
     }
-    public bool LandBuffed()
+    public void ChangeNumLAN(int change)
     {
-        Vector2Int v;
-        Dictionary<Vector2Int,bool> dic = BuildingManager.Instance.landBuff;
-        for (int i = 0; i < span.x; i++)
-        {
-            for (int j = 0; j < span.y; j++)
-            {
-                v = position + new Vector2Int(i, j);
-                if (dic.ContainsKey(v) && dic[v])
-                {
-                    return true;
-                }
-            }
-        }
-        return false;
+        numLAN += change;
+        RecalculateMultiplier(true);
     }
 }

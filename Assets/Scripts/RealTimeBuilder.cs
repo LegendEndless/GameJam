@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -66,6 +68,16 @@ public class RealTimeBuilder : MonoBehaviour
                 flip = !flip;
                 tile = Resources.Load<Tile>("Tiles/" + buildingName + (flip?"_flip":""));
             }
+            BuildingInfo info = BuildingManager.Instance.buildingInfoDict[buildingName].buildingInfo;
+            Vector2Int span;
+            if (!flip)
+            {
+                span = new Vector2Int(info.sizeX, info.sizeY);
+            }
+            else
+            {
+                span = new Vector2Int(info.sizeY, info.sizeX);
+            }
             if (lastPosition != v)
             {
                 tilemap.SetTile(lastPosition, lastTile);
@@ -73,25 +85,16 @@ public class RealTimeBuilder : MonoBehaviour
                 lastPosition = v;
                 lastTile = tilemap.GetTile(lastPosition);
             }
-            bool buildable = Buildable();
+            bool b = CanBuild(name,v,span);
             tilemap.SetTile(v, tile);
             tilemap.RemoveTileFlags(v, TileFlags.LockColor);
-            tilemap.SetColor(v, buildable ? Color.green : Color.red);
+            tilemap.SetColor(v, b ? Color.green : Color.red);
 
-            if (Input.GetMouseButtonDown(0) && buildable)
+            if (Input.GetMouseButtonDown(0) && b)
             {
                 lastTile = tile;
                 GameObject gameObject = new GameObject(buildingName);
-                BuildingInfo info = BuildingManager.Instance.buildingInfoDict[buildingName].buildingInfo;
-                Vector2Int span;
-                if (!flip)
-                {
-                    span = new Vector2Int(info.sizeX, info.sizeY);
-                }
-                else
-                {
-                    span = new Vector2Int(info.sizeY, info.sizeX);
-                }
+                
                 switch (info.type)
                 {
                     case 1://生产建筑
@@ -136,8 +139,27 @@ public class RealTimeBuilder : MonoBehaviour
     {
         tilemap.SetTile(new Vector3Int(v.x,v.y,1),null);
     }
-    public bool Buildable()
+    public bool CanBuild(string name, Vector3Int v, Vector2Int span)
     {
-        return false;
+        var register = BuildingManager.Instance.landUseRegister;
+        Vector2Int v_;
+        for (int i = 0; i < span.x; i++)
+        {
+            for (int j = 0; j < span.y; j++)
+            {
+                v_ = new Vector2Int(v.x + i, v.y + j);
+                if (register.ContainsKey(v_) && register[v_] != null)
+                {
+                    return false;
+                }
+                if ((BuildingManager.Instance.buildingInfoDict[name].restrictionMask & LandscapeManager.Instance.landscapeMap[v_]) == 0)
+                {
+                    return false;
+                }
+            }
+        }
+        //添加特殊规则
+
+        return true;
     }
 }

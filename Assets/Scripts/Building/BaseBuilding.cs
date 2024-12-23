@@ -121,7 +121,7 @@ public class BaseBuilding : MonoBehaviour
         stationedCount += delta;
         ResourceManager.Instance.AddResource("PeopleAvailable", -delta);
     }
-    public bool Search(string name)
+    public bool HasNeighbor(string name)
     {
         Vector2Int u,v;
         int t;
@@ -145,6 +145,58 @@ public class BaseBuilding : MonoBehaviour
             }
         }
         return false;
+    }
+    public int CountInRange(string name, float range)
+    {
+        Vector2Int u, v;
+        int t = Mathf.CeilToInt(range);
+        HashSet<BaseBuilding> set = new();
+        for (int i = 0; i < span.x; i++)
+        {
+            for (int j = 0; j < span.y; j++)
+            {
+                v = position + new Vector2Int(i, j);
+                for (int ii = -t; ii <= t; ++ii)
+                {
+                    for (int jj = -t; jj <= t; ++jj)
+                    {
+                        if (ii*ii+jj*jj<=range*range)
+                        {
+                            u = v + new Vector2Int(ii, jj);
+                            if (register.ContainsKey(u) && register[u]!= null && register[u].name==name)
+                                set.Add(register[u]);
+                        }
+                    }
+                }
+            }
+        }
+        return set.Count;
+    }
+    public HashSet<BaseBuilding> GetNeighborsInRange(float range)
+    {
+        Vector2Int u, v;
+        int t = Mathf.CeilToInt(range);
+        HashSet<BaseBuilding> set = new();
+        for (int i = 0; i < span.x; i++)
+        {
+            for (int j = 0; j < span.y; j++)
+            {
+                v = position + new Vector2Int(i, j);
+                for (int ii = -t; ii <= t; ++ii)
+                {
+                    for (int jj = -t; jj <= t; ++jj)
+                    {
+                        if (ii * ii + jj * jj <= range * range)
+                        {
+                            u = v + new Vector2Int(ii, jj);
+                            if (register.ContainsKey(u) && register[u] != null)
+                                set.Add(register[u]);
+                        }
+                    }
+                }
+            }
+        }
+        return set;
     }
     public virtual void ReportUpgrade()
     {
