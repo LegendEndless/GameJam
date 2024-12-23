@@ -12,7 +12,8 @@ public class BuildingManager : MonoBehaviour
     public Dictionary<string, int> highestLevel;
     //这样写不用确定地图大小，也能接受异形地图
     public Dictionary<Vector2Int, BaseBuilding> landUseRegister;
-    public Dictionary<Vector2Int, bool> landBuff;
+
+    public float globalMultiplier;
     private void Awake()
     {
         instance = this;
@@ -38,9 +39,9 @@ public class BuildingManager : MonoBehaviour
             {"Fibre", 0},
         };
         landUseRegister = new Dictionary<Vector2Int, BaseBuilding>();
-        landBuff = new Dictionary<Vector2Int, bool>();
         highestLevel = new Dictionary<string, int>();
         buildingCountDict = new Dictionary<string, int>();
+        globalMultiplier = 0;
     }
     public void ReportMultiplierChange(ProductionBuilding building, float deltaMultiplier)
     {

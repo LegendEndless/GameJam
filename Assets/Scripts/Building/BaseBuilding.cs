@@ -103,7 +103,6 @@ public class BaseBuilding : MonoBehaviour
 
     public virtual void AutoAdjustStation()
     {
-        
         if(stationedCount == 0 && ResourceManager.Instance.GetResourceCount("PeopleAvailable") <=0)
         {
             //没人派驻，啥也不做
