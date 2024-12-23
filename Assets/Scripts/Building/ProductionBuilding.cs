@@ -55,6 +55,7 @@ public class ProductionBuilding : BaseBuilding
             multiplier = 1f;
             multiplier += (stationedCount - 1) * buildingInfoPro.buildingInfo.stationBonus;
             multiplier += environmentMultiplier;
+            //如果是风力发电，再加上风力加成
         }
         BuildingManager.Instance.ReportMultiplierChange(this,multiplier-lastMultiplier);
     }

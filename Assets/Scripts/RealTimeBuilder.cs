@@ -85,7 +85,7 @@ public class RealTimeBuilder : MonoBehaviour
                 lastPosition = v;
                 lastTile = tilemap.GetTile(lastPosition);
             }
-            bool b = CanBuild(name,v,span);
+            bool b = CanBuild(buildingName,v,span);
             tilemap.SetTile(v, tile);
             tilemap.RemoveTileFlags(v, TileFlags.LockColor);
             tilemap.SetColor(v, b ? Color.green : Color.red);
