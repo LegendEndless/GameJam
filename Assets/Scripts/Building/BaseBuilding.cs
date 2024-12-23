@@ -8,7 +8,7 @@ public class BaseBuilding : MonoBehaviour
     public int level = 0;
     public Vector2Int position;
     public Vector2Int span;
-    public int stationedCount;
+    public int stationedCount;//注意写特殊建筑效果逻辑时也要看看有没有至少派驻一人
 
     public bool upgrading = false;
     //写成两个参数，如果想把升级进度画成环形进度条的话会很方便
@@ -37,9 +37,18 @@ public class BaseBuilding : MonoBehaviour
                 register[v] = this;
             }
         }
+
+        var cd = BuildingManager.Instance.buildingCountDict;
+        if (!cd.ContainsKey(name))
+            cd[name] = 1;
+        else
+            ++cd[name];
+
         buildingInfoPro = BuildingManager.Instance.buildingInfoDict[name];
 
         level = 0;
+
+        stationedCount = 0;
         StartUpgrade();
     }
     public void StartUpgrade()
@@ -55,7 +64,7 @@ public class BaseBuilding : MonoBehaviour
         ReportUpgrade();
         AutoAdjustStation();
     }
-    private void Update()
+    public virtual void Update()
     {
         if (timeSinceUpgrade >= currentUpgradeDuration)
         {
@@ -78,13 +87,10 @@ public class BaseBuilding : MonoBehaviour
             }
         }
         ManuallyAdjustStation(-stationedCount);
+        RealTimeBuilder.Instance.Demolish(position);
         Destroy(gameObject);
     }
     public void PopUI()
-    {
-
-    }
-    public virtual void RecalculateMultiplier(bool causedByNeighbor)
     {
 
     }
@@ -95,25 +101,25 @@ public class BaseBuilding : MonoBehaviour
         return Mathf.Min((level + 5), Mathf.FloorToInt(ResourceManager.Instance.GetResourceCount("PeopleAvailable")));
     }
 
-    public void AutoAdjustStation()
+    public virtual void AutoAdjustStation()
     {
-        int lastCount = stationedCount;
-        //默认给你上满
-        stationedCount = StationedMax();
-        if (stationedCount == 0)
+        
+        if(stationedCount == 0 && ResourceManager.Instance.GetResourceCount("PeopleAvailable") <=0)
         {
-            //没人了可咋办？按理不会在自动派遣时出现啦
+            //没人派驻，啥也不做
+            return;
         }
-        if (stationedCount != lastCount)
-        {
-            RecalculateMultiplier(false);
-        }
+        //不是资源建筑就默认上1吧
+        ManuallyAdjustStation(1-stationedCount);
     }
-    public void ManuallyAdjustStation(int delta)
+    public virtual void ManuallyAdjustStation(int delta)
     {
+        if(delta==0)
+        {
+            return;
+        }
         stationedCount += delta;
         ResourceManager.Instance.AddResource("PeopleAvailable", -delta);
-        RecalculateMultiplier(false);
     }
     public bool Search(string name)
     {
@@ -142,6 +148,15 @@ public class BaseBuilding : MonoBehaviour
     }
     public virtual void ReportUpgrade()
     {
-
+        //所有建筑升级时都还得通知一下，需要记录各种建筑的最高等级
+        var hl = BuildingManager.Instance.highestLevel;
+        if (!hl.ContainsKey(name))
+        {
+            hl[name] = level;
+        }
+        else
+        {
+            hl[name] = Mathf.Max(hl[name], level);
+        }
     }
 }

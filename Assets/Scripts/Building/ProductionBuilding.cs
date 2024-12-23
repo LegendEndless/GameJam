@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MassProductionBuilding : BaseBuilding
+public class ProductionBuilding : BaseBuilding
 {
     public float multiplier;
     public float neighborMultiplier;
@@ -12,9 +12,17 @@ public class MassProductionBuilding : BaseBuilding
         multiplier = 0;
         neighborMultiplier = -1;
     }
-    public override void RecalculateMultiplier(bool causedByNeighbor)
+    public override void AutoAdjustStation()
     {
-        base.RecalculateMultiplier(causedByNeighbor);
+        ManuallyAdjustStation(StationedMax() - stationedCount);
+    }
+    public override void ManuallyAdjustStation(int delta)
+    {
+        base.ManuallyAdjustStation(delta);
+        RecalculateMultiplier(false);
+    }
+    public void RecalculateMultiplier(bool causedByNeighbor)
+    {
         float lastMultiplier = multiplier;
         if (causedByNeighbor || neighborMultiplier == -1)
         {
@@ -25,6 +33,11 @@ public class MassProductionBuilding : BaseBuilding
                 {
                     neighborMultiplier += pair.Value;
                 }
+            }
+            //这儿还得再看一下有没有那个通用增幅器
+            if (LandBuffed())//To do:记得再判断一下是不是需要考虑通用增幅的建筑种类
+            {
+                neighborMultiplier += 0.2f;//某个硬编码的增幅值
             }
         }
         if (stationedCount == 0)
@@ -43,5 +56,22 @@ public class MassProductionBuilding : BaseBuilding
     {
         base.ReportUpgrade();
         BuildingManager.Instance.ReportUpgrade(this);
+    }
+    public bool LandBuffed()
+    {
+        Vector2Int v;
+        Dictionary<Vector2Int,bool> dic = BuildingManager.Instance.landBuff;
+        for (int i = 0; i < span.x; i++)
+        {
+            for (int j = 0; j < span.y; j++)
+            {
+                v = position + new Vector2Int(i, j);
+                if (dic.ContainsKey(v) && dic[v])
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

@@ -17,6 +17,7 @@ public class ResourceManager : MonoBehaviour
         {"Fibre", 0},
         {"People", 0},
         {"PeopleAvailable", 0},
+        //星舰组件倒确实是int类型的，不过float也能凑合用着吧
     };
 
     void Awake()

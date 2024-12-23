@@ -15,10 +15,11 @@ public class BuildingInfo
     public string neighborBonus;
     public int sizeX;
     public int sizeY;
-    public string production;
+    public string massProduction;
+    public string singleProduction;
     public float disasterBoost;
     public int maxCount;
-    public float buffSize;
+    public string buffSize;
     public int maxLevel;
     public string upgradeCost;
     public string upgradeDuration;
@@ -30,7 +31,9 @@ public class BuildingInfoPro
     public BuildingInfo buildingInfo;
     public int restrictionMask;
     public Dictionary<string, float> neighborBonusDict;
-    public List<Dictionary<string, float>> productionList;
+    public List<Dictionary<string, float>> massProductionList;
+    public List<Dictionary<string, float>> singleProductionList;
+    public List<float> buffSizeList;
     public List<Dictionary<string, float>> costList;
     public List<float> durationList;
     public BuildingInfoPro(BuildingInfo info)
@@ -47,10 +50,11 @@ public class BuildingInfoPro
         foreach (string part in parts)
         {
             string[] element = part.Split("|");
-            neighborBonusDict[element[0]] = float.Parse(element[1]);
+            if (element[0] != "")
+                neighborBonusDict[element[0]] = float.Parse(element[1]);
         }
-        productionList = new List<Dictionary<string, float>>();
-        parts = buildingInfo.production.Split(";");
+        massProductionList = new List<Dictionary<string, float>>();
+        parts = buildingInfo.massProduction.Split(";");
         foreach (string part in parts)
         {
             Dictionary<string, float> dic = new Dictionary<string, float>();
@@ -58,9 +62,30 @@ public class BuildingInfoPro
             foreach(string pair in pairs)
             {
                 string[] element = pair.Split("|");
-                dic[element[0]]=float.Parse(element[1]);
+                if (element[0] != "")
+                    dic[element[0]]=float.Parse(element[1]);
             }
-            productionList.Add(dic);
+            massProductionList.Add(dic);
+        }
+        singleProductionList = new List<Dictionary<string, float>>();
+        parts = buildingInfo.singleProduction.Split(";");
+        foreach (string part in parts)
+        {
+            Dictionary<string, float> dic = new Dictionary<string, float>();
+            string[] pairs = part.Split(",");
+            foreach (string pair in pairs)
+            {
+                string[] element = pair.Split("|");
+                if (element[0] != "")
+                    dic[element[0]] = float.Parse(element[1]);
+            }
+            singleProductionList.Add(dic);
+        }
+        buffSizeList = new List<float>();
+        parts = buildingInfo.buffSize.Split(";");
+        foreach (string part in parts)
+        {
+            buffSizeList.Add(float.Parse(part));
         }
         costList = new List<Dictionary<string, float>>();
         parts = buildingInfo.upgradeCost.Split(";");
@@ -71,7 +96,8 @@ public class BuildingInfoPro
             foreach (string pair in pairs)
             {
                 string[] element = pair.Split("|");
-                dic[element[0]] = float.Parse(element[1]);
+                if (element[0] != "")
+                    dic[element[0]] = float.Parse(element[1]);
             }
             costList.Add(dic);
         }

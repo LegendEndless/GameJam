@@ -9,8 +9,10 @@ public class BuildingManager : MonoBehaviour
     public SerializableDictionary<string, BuildingInfoPro> buildingInfoDict;
     public Dictionary<string, int> buildingCountDict;
     public Dictionary<string, float> totalProduction;
+    public Dictionary<string, int> highestLevel;
     //这样写不用确定地图大小，也能接受异形地图
     public Dictionary<Vector2Int, BaseBuilding> landUseRegister;
+    public Dictionary<Vector2Int, bool> landBuff;
     private void Awake()
     {
         instance = this;
@@ -35,23 +37,27 @@ public class BuildingManager : MonoBehaviour
             {"Alloy", 0},
             {"Fibre", 0},
         };
+        landUseRegister = new Dictionary<Vector2Int, BaseBuilding>();
+        landBuff = new Dictionary<Vector2Int, bool>();
+        highestLevel = new Dictionary<string, int>();
+        buildingCountDict = new Dictionary<string, int>();
     }
-    public void ReportMultiplierChange(MassProductionBuilding building, float deltaMultiplier)
+    public void ReportMultiplierChange(ProductionBuilding building, float deltaMultiplier)
     {
-        Dictionary<string, float> basicProduction = building.buildingInfoPro.productionList[building.level - 1];
+        Dictionary<string, float> basicProduction = building.buildingInfoPro.massProductionList[building.level - 1];
         foreach(KeyValuePair<string,float> pair in basicProduction)
         {
             totalProduction[pair.Key] += pair.Value * deltaMultiplier;
         }
     }
-    public void ReportUpgrade(MassProductionBuilding building)
+    public void ReportUpgrade(ProductionBuilding building)
     {
         if(building.multiplier == 0)
         {
             return;
         }
-        Dictionary<string, float> currentProduction = building.buildingInfoPro.productionList[building.level - 1];
-        Dictionary<string, float> formerProduction = building.buildingInfoPro.productionList[building.level - 2];
+        Dictionary<string, float> currentProduction = building.buildingInfoPro.massProductionList[building.level - 1];
+        Dictionary<string, float> formerProduction = building.buildingInfoPro.massProductionList[building.level - 2];
         float current, former;
         foreach(string resource in totalProduction.Keys)
         {

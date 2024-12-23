@@ -8,7 +8,15 @@ using UnityEngine.Tilemaps;
 
 public class RealTimeBuilder : MonoBehaviour
 {
+    public static RealTimeBuilder Instance
+    {
+        get; private set;
+    }
+
     public TileBase tile;
+    public string buildingName;
+    public bool flip;//是否镜像，每次选择新的建筑种类也要重设为false
+
     public Grid grid;
     public Tilemap tilemap;
     public float padding = 100;
@@ -19,7 +27,10 @@ public class RealTimeBuilder : MonoBehaviour
     TileBase lastTile;
     Color translucent;
     bool building;
-
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         translucent = new Color(1, 1, 1, 0.8f);
@@ -50,6 +61,11 @@ public class RealTimeBuilder : MonoBehaviour
         {
             Vector3Int v = grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             v.z = 1;
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                flip = !flip;
+                tile = Resources.Load<Tile>("Tiles/" + buildingName + (flip?"_flip":""));
+            }
             if (lastPosition != v)
             {
                 tilemap.SetTile(lastPosition, lastTile);
@@ -57,14 +73,32 @@ public class RealTimeBuilder : MonoBehaviour
                 lastPosition = v;
                 lastTile = tilemap.GetTile(lastPosition);
             }
-            bool empty = (lastTile == null);
+            bool buildable = Buildable();
             tilemap.SetTile(v, tile);
             tilemap.RemoveTileFlags(v, TileFlags.LockColor);
-            tilemap.SetColor(v, empty ? Color.green : Color.red);
+            tilemap.SetColor(v, buildable ? Color.green : Color.red);
 
-            if (Input.GetMouseButtonDown(0) && empty)
+            if (Input.GetMouseButtonDown(0) && buildable)
             {
                 lastTile = tile;
+                GameObject gameObject = new GameObject(buildingName);
+                BuildingInfo info = BuildingManager.Instance.buildingInfoDict[buildingName].buildingInfo;
+                Vector2Int span;
+                if (!flip)
+                {
+                    span = new Vector2Int(info.sizeX, info.sizeY);
+                }
+                else
+                {
+                    span = new Vector2Int(info.sizeY, info.sizeX);
+                }
+                switch (info.type)
+                {
+                    case 1://生产建筑
+                        gameObject.AddComponent<ProductionBuilding>().Initialize(buildingName,new Vector2Int(v.x,v.y),span);
+                        break;
+                }
+                
             }
             if (Input.GetMouseButtonDown(1))
             {
@@ -91,5 +125,19 @@ public class RealTimeBuilder : MonoBehaviour
                 }
             }
         }
+    }
+    public void Select(string buildingName)
+    {
+        this.buildingName = buildingName;
+        flip = false;
+        tile = Resources.Load<Tile>("Tiles/"+buildingName);
+    }
+    public void Demolish(Vector2Int v)
+    {
+        tilemap.SetTile(new Vector3Int(v.x,v.y,1),null);
+    }
+    public bool Buildable()
+    {
+        return false;
     }
 }
