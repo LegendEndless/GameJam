@@ -31,7 +31,7 @@ public class ProductionBuilding : BaseBuilding
         float lastMultiplier = multiplier;
         if (recalcGlobal || globalMultiplier == -1)
         {
-            if (true)//To do:记得再判断一下是不是需要考虑通用增幅的建筑种类
+            if (buildingInfoPro.buildingInfo.group == 1 || buildingInfoPro.buildingInfo.group == 4)
             {
                 globalMultiplier = BuildingManager.Instance.globalMultiplier + LivabilityManager.Instance.livability * 0.02f;
                 //来自天灾的项
@@ -51,7 +51,7 @@ public class ProductionBuilding : BaseBuilding
                     environmentMultiplier += pair.Value;
                 }
             }
-            if (true)//To do:记得再判断一下是不是需要考虑通用增幅的建筑种类
+            if (buildingInfoPro.buildingInfo.group == 1 || buildingInfoPro.buildingInfo.group == 4)
             {
                 if (numLAN > 0)
                 {

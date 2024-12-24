@@ -20,4 +20,9 @@ public class RobotFactory : ProductionBuilding
             BuildingManager.Instance.GloballyRecalculate();
         }
     }
+    public override void OnDemolish()
+    {
+        base.OnDemolish();
+
+    }
 }

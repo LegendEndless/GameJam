@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LivabilityManager : MonoBehaviour
 {
+    public int eventLivability;
     public int livability;
     public HashSet<ILivability> livabilityBuildings;
     public static LivabilityManager Instance
@@ -13,6 +14,9 @@ public class LivabilityManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        eventLivability = 0;
+        livability = 0;
+        livabilityBuildings = new HashSet<ILivability>();
     }
     public void Recalculate()
     {

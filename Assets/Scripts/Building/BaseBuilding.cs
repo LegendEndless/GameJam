@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BaseBuilding : MonoBehaviour
@@ -18,13 +19,18 @@ public class BaseBuilding : MonoBehaviour
     public BuildingInfoPro buildingInfoPro;
     public Dictionary<Vector2Int, BaseBuilding> register;
 
-    
+    public bool onStrike;//UI也得考虑这个
+    public float strikeTimeLeft;
+    public int stationedCountBeforeStrike;
+
     //有点多余吗。。至少提醒一下挂脚本或者实例化预制体时有哪些参数需要初始化
     public virtual void Initialize(string name,Vector2Int position,Vector2Int span)
     {
         this.name = name;
         this.position = position;
         this.span = span;
+
+        onStrike = false;
 
         register = BuildingManager.Instance.landUseRegister;
 
@@ -57,11 +63,26 @@ public class BaseBuilding : MonoBehaviour
         level = 0;
 
         stationedCount = 0;
+
+        LivabilityManager.Instance.eventLivability += buildingInfoPro.buildingInfo.livabilityBoost;
+        LivabilityManager.Instance.Recalculate();
+
         StartUpgrade();
     }
     public void StartUpgrade()
     {
-        upgrading=true;
+        if (level > 0 && BuildingManager.Instance.freeDict.ContainsKey(name) && BuildingManager.Instance.freeDict[name])
+        {
+            BuildingManager.Instance.freeDict[name] = false;
+        }
+        else
+        {
+            foreach (var t in buildingInfoPro.costList[level])
+            {
+                ResourceManager.Instance.AddResource(t.Key, -t.Value);
+            }
+        }
+        upgrading =true;
         timeSinceUpgrade = 0;
         currentUpgradeDuration = buildingInfoPro.buildingInfo.upgradeDuration[level];
     }
@@ -74,16 +95,33 @@ public class BaseBuilding : MonoBehaviour
     }
     public virtual void Update()
     {
-        if (timeSinceUpgrade >= currentUpgradeDuration)
-        {
-            FinishUpgrade();
-        }
+        
         if (upgrading)
         {
             timeSinceUpgrade += Time.deltaTime;
         }
+        if (timeSinceUpgrade >= currentUpgradeDuration)
+        {
+            FinishUpgrade();
+        }
+        if (onStrike)
+        {
+            strikeTimeLeft -= Time.deltaTime;
+        }
+        if(strikeTimeLeft < 0)
+        {
+            onStrike = false;
+            ManuallyAdjustStation(Mathf.Min(stationedCountBeforeStrike, PopulationManager.Instance.AvailablePopulation));
+        }
     }
     public void Demolish()
+    {
+        ManuallyAdjustStation(-stationedCount);
+        RealTimeBuilder.Instance.Demolish(position);
+        OnDemolish();
+        Destroy(gameObject);
+    }
+    public virtual void OnDemolish()
     {
         Vector2Int v;
         for (int i = 0; i < span.x; i++)
@@ -94,14 +132,7 @@ public class BaseBuilding : MonoBehaviour
                 register[v] = null;
             }
         }
-        ManuallyAdjustStation(-stationedCount);
-        RealTimeBuilder.Instance.Demolish(position);
-        OnDemolish();
-        Destroy(gameObject);
-    }
-    public virtual void OnDemolish()
-    {
-
+        BuildingManager.Instance.buildings.Remove(this);
     }
     public void PopUI()
     {
@@ -133,7 +164,7 @@ public class BaseBuilding : MonoBehaviour
         }
         stationedCount += delta;
         PopulationManager.Instance.stationedPopulation += delta;
-        flag = flag ^ (stationedCount > 0);
+        flag ^= (stationedCount > 0);
         if (flag)
         {
             OnFunctioningChange(stationedCount > 0);
@@ -223,14 +254,14 @@ public class BaseBuilding : MonoBehaviour
     public virtual void ReportUpgrade()
     {
         //所有建筑升级时都还得通知一下，需要记录各种建筑的最高等级
-        var hl = BuildingManager.Instance.highestLevel;
+        var hl = BuildingManager.Instance.highestLevelBuilding;
         if (!hl.ContainsKey(name))
         {
-            hl[name] = level;
+            hl[name] = this;
         }
         else
         {
-            hl[name] = Mathf.Max(hl[name], level);
+            hl[name] = hl[name].level > level ? hl[name]:this;
         }
     }
 
@@ -243,11 +274,28 @@ public class BaseBuilding : MonoBehaviour
         }
         foreach (KeyValuePair<string, int> pair in buildingInfoPro.upgradeRestrictionList[level])
         {
-            if (BuildingManager.Instance.highestLevel[pair.Key] < pair.Value)
+            if (BuildingManager.Instance.highestLevelBuilding[pair.Key].level < pair.Value)
             {
                 return false;
             }
         }
+        if (!BuildingManager.Instance.freeDict.ContainsKey(name) || !BuildingManager.Instance.freeDict[name])
+        {
+            foreach (var t in buildingInfoPro.costList[0])
+            {
+                if (ResourceManager.Instance.GetResourceCount(t.Key) < t.Value)
+                {
+                    return false;
+                }
+            }
+        }
         return true;
+    }
+    public void StartStrike(float time)
+    {
+        onStrike = true;
+        strikeTimeLeft = time;
+        stationedCountBeforeStrike = stationedCount;
+        ManuallyAdjustStation(-stationedCount);
     }
 }
