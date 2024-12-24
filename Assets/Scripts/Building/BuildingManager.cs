@@ -58,6 +58,7 @@ public class BuildingManager : MonoBehaviour
     }
     public void ReportMultiplierChange(ProductionBuilding building, float deltaMultiplier)
     {
+        if (building.level == 0) return;
         Dictionary<string, float> basicProduction = building.buildingInfoPro.massProductionList[building.level - 1];
         foreach(KeyValuePair<string,float> pair in basicProduction)
         {

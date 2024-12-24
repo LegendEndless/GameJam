@@ -149,6 +149,9 @@ public class RealTimeBuilder : MonoBehaviour
                                 break;
                         }
                         break;
+                    case 4:
+                        gameObject.AddComponent<SingleProductionBuilding>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                        break;
                 }
                 
             }

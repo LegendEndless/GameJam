@@ -52,12 +52,6 @@ public class BaseBuilding : MonoBehaviour
 
         BuildingManager.Instance.buildings.Add(this);
 
-        foreach(var building in GetNeighborsInRange(3.01f))
-        {
-            if (building is ProductionBuilding)
-                (building as ProductionBuilding).RecalculateMultiplier(true, false);
-        }
-
         buildingInfoPro = BuildingManager.Instance.buildingInfoDict[name];
 
         level = 0;
@@ -66,6 +60,12 @@ public class BaseBuilding : MonoBehaviour
 
         LivabilityManager.Instance.eventLivability += buildingInfoPro.buildingInfo.livabilityBoost;
         LivabilityManager.Instance.Recalculate();
+
+        foreach (var building in GetNeighborsInRange(3.01f))
+        {
+            if (building is ProductionBuilding && building != this)
+                (building as ProductionBuilding).RecalculateMultiplier(true, false);
+        }
 
         StartUpgrade();
     }
@@ -95,7 +95,6 @@ public class BaseBuilding : MonoBehaviour
     }
     public virtual void Update()
     {
-        
         if (upgrading)
         {
             timeSinceUpgrade += Time.deltaTime;
