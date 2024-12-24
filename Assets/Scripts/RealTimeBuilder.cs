@@ -25,7 +25,7 @@ public class RealTimeBuilder : MonoBehaviour
     public Grid grid;
     public Tilemap tilemap;
     public Tilemap tilemap2;//专门用来画迷雾和不可建造的灰色滤镜
-    public float padding = 100;
+    public float padding = 40;
 
     //public GameObject buildingPrefab;  // 为添加建筑做测试 暂时先用不到
 
@@ -38,18 +38,10 @@ public class RealTimeBuilder : MonoBehaviour
         Instance = this;
     }
 
-
-    public void buildtest()
+    void Start()
     {
         translucent = new Color(1, 1, 1, 0.8f);
         lastTile = tilemap.GetTile(lastPosition);
-        Select("StarshipCenter");
-    }
-
-    void Start()
-    {
-        buildtest();
-
     }
 
 
@@ -161,22 +153,14 @@ public class RealTimeBuilder : MonoBehaviour
                         gameObject.AddComponent<SingleProductionBuilding>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
                         break;
                 }
-                
-            }
-            if (Input.GetMouseButtonDown(1))
-            {
-                tilemap.SetTile(lastPosition,lastTile);
+                tilemap.SetTile(lastPosition, lastTile);
+                tilemap.SetColor(lastPosition, Color.white);
                 tilemap.color = Color.white;
                 building = false;
             }
         }
         else
         {
-            if (Input.GetMouseButtonDown(1))
-            {
-                tilemap.color = translucent;
-                building = true;
-            }
             if (Input.GetMouseButtonDown(0))
             {
                 Vector3Int v = grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
@@ -194,6 +178,8 @@ public class RealTimeBuilder : MonoBehaviour
         this.buildingName = buildingName;
         flip = false;
         tile = Resources.Load<Tile>("Tiles/"+buildingName);
+        tilemap.color = translucent;
+        building = true;
     }
     public void Demolish(Vector2Int v)
     {
