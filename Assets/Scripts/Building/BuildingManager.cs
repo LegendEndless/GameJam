@@ -9,8 +9,9 @@ public class BuildingManager : MonoBehaviour
     public SerializableDictionary<string, BuildingInfoPro> buildingInfoDict;
     public Dictionary<string, int> buildingCountDict;
     public Dictionary<string, float> totalProduction;
-    public Dictionary<string, int> highestLevel;
+    public Dictionary<string, BaseBuilding> highestLevelBuilding;
     public HashSet<BaseBuilding> buildings;
+    public Dictionary<string, bool> freeDict;
     //这样写不用确定地图大小，也能接受异形地图
     public Dictionary<Vector2Int, BaseBuilding> landUseRegister;
 
@@ -37,10 +38,11 @@ public class BuildingManager : MonoBehaviour
             {"Fibre", 0},
         };
         landUseRegister = new Dictionary<Vector2Int, BaseBuilding>();
-        highestLevel = new Dictionary<string, int>();
+        highestLevelBuilding = new Dictionary<string, BaseBuilding>();
         buildingCountDict = new Dictionary<string, int>();
         globalMultiplier = 0;
         buildings = new HashSet<BaseBuilding>();
+        freeDict = new Dictionary<string, bool>();
     }
     private void Start()
     {
@@ -77,6 +79,16 @@ public class BuildingManager : MonoBehaviour
             if(building is ProductionBuilding)
             {
                 (building as ProductionBuilding).RecalculateMultiplier(false,true);
+            }
+        }
+    }
+    public void UpdateHighestLevel(string name)
+    {
+        foreach (BaseBuilding building in buildings)
+        {
+            if(building.name == name && (highestLevelBuilding[name]==null || highestLevelBuilding[name].level < building.level))
+            {
+                highestLevelBuilding[name] = building;
             }
         }
     }

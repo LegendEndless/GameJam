@@ -17,7 +17,7 @@ public class BuildingInfo
     public int sizeY;
     public string massProduction;
     public string singleProduction;
-    public float disasterBoost;
+    public int livabilityBoost;
     public int maxCount;
     public string buffSize;
     public int maxLevel;
@@ -26,6 +26,7 @@ public class BuildingInfo
     public float stationBonus;
     public string description;
     public string upgradeRestriction;
+    public int group;
 }
 public class BuildingInfoPro
 {

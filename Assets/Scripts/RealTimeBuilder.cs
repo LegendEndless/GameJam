@@ -19,6 +19,8 @@ public class RealTimeBuilder : MonoBehaviour
     public string buildingName;
     public bool flip;//是否镜像，每次选择新的建筑种类也要重设为false
 
+    public TileBase mistTile;
+
     public Grid grid;
     public Tilemap tilemap;
     public float padding = 100;
@@ -95,10 +97,35 @@ public class RealTimeBuilder : MonoBehaviour
                 lastTile = tile;
                 GameObject gameObject = new GameObject(buildingName);
                 
-                switch (info.type)
+                switch (info.group)
                 {
-                    case 1://生产建筑
+                    case 1://标准生产建筑
                         gameObject.AddComponent<ProductionBuilding>().Initialize(buildingName,new Vector2Int(v.x,v.y),span);
+                        break;
+                    case 2://消耗物资的功能建筑
+                        switch (info.name)
+                        {
+                            case "NursingHouse":
+                                gameObject.AddComponent<NursingHouse>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                                break;
+                            case "LAN":
+                                gameObject.AddComponent<LAN>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                                break;
+                            case "Gym":
+                                gameObject.AddComponent<Gym>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                                break;
+                            case "RobotFactory":
+                                gameObject.AddComponent<RobotFactory>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                                break;
+                        }
+                        break;
+                    case 3:
+                        switch (info.name)
+                        {
+                            case "EcoGarden":
+                                gameObject.AddComponent<EcoGarden>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                                break;
+                        }
                         break;
                 }
                 
@@ -171,11 +198,21 @@ public class RealTimeBuilder : MonoBehaviour
         }
         foreach(KeyValuePair<string,int> pair in BuildingManager.Instance.buildingInfoDict[name].upgradeRestrictionList[0])
         {
-            if (BuildingManager.Instance.highestLevel[pair.Key] < pair.Value)
+            if (BuildingManager.Instance.highestLevelBuilding[pair.Key].level < pair.Value)
             {
                 return false;
             }
         }
+        //if(!BuildingManager.Instance.freeDict.ContainsKey(name) || !BuildingManager.Instance.freeDict[name])
+        //{
+        //    foreach(var t in BuildingManager.Instance.buildingInfoDict[name].costList[0])
+        //    {
+        //        if(ResourceManager.Instance.GetResourceCount(t.Key) < t.Value)
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //}
         return true;
     }
 }
