@@ -9,6 +9,7 @@ public class BuildingMenuController : MonoBehaviour
     public Button buttonBuild; // 主按钮
     public Button[] categoryButtons; // 分类按钮
     public GameObject[] buildingCategories; // 建筑类别
+    public RealTimeBuilder realTimeBuilder; // 引用RealTimeBuilder
 
     private bool isMenuVisible = false; // 菜单是否可见
 
@@ -45,4 +46,13 @@ public class BuildingMenuController : MonoBehaviour
         // 显示选中的类别
         buildingCategories[index].SetActive(true);
     }
+    public void OnBuildingButtonClicked()
+    {
+        // 关闭菜单
+        ToggleMenu();
+
+        // 调用RealTimeBuilder开始建造
+        RealTimeBuilder.Instance.buildtest();
+    }
+
 }

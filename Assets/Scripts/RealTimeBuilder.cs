@@ -37,13 +37,21 @@ public class RealTimeBuilder : MonoBehaviour
     {
         Instance = this;
     }
-    void Start()
+
+
+    public void buildtest()
     {
         translucent = new Color(1, 1, 1, 0.8f);
         lastTile = tilemap.GetTile(lastPosition);
-        //≤‚ ‘£°
         Select("StarshipCenter");
     }
+
+    void Start()
+    {
+        buildtest();
+
+    }
+
 
     void Update()
     {
