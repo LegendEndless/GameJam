@@ -52,6 +52,14 @@ public class LandscapeManager : MonoBehaviour
         }
         magnetics = new HashSet<Vector2Int>();
         airTowers = new HashSet<Vector2Int>();
+        //≤‚ ‘£°‘› ±’‚√¥–¥
+        for (int i = -10; i <= 10; ++i)
+        {
+            for (int j = -10; j <= 10; ++j)
+            {
+                landscapeMap[new Vector2Int(i, j)] = 1<<0;
+            }
+        }
     }
     private void Start()
     {

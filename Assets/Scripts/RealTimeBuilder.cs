@@ -41,6 +41,8 @@ public class RealTimeBuilder : MonoBehaviour
     {
         translucent = new Color(1, 1, 1, 0.8f);
         lastTile = tilemap.GetTile(lastPosition);
+        //≤‚ ‘£°
+        Select("StarshipCenter");
     }
 
     void Update()
@@ -142,7 +144,9 @@ public class RealTimeBuilder : MonoBehaviour
                             case "CellRepair":
                                 gameObject.AddComponent<CellRepair>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
                                 break;
-
+                            case "RocketBase":
+                                gameObject.AddComponent<RocketBase>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                                break;
                         }
                         break;
                 }
