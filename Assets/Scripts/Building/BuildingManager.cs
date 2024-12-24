@@ -15,7 +15,12 @@ public class BuildingManager : MonoBehaviour
     //这样写不用确定地图大小，也能接受异形地图
     public Dictionary<Vector2Int, BaseBuilding> landUseRegister;
 
+    public int AITimesLeft;
+    public float AIMultiplier;
+
     public float globalMultiplier;
+
+    public bool rocketBaseFunctioning;
     private void Awake()
     {
         instance = this;
@@ -43,6 +48,9 @@ public class BuildingManager : MonoBehaviour
         globalMultiplier = 0;
         buildings = new HashSet<BaseBuilding>();
         freeDict = new Dictionary<string, bool>();
+        AITimesLeft = 3;
+        AIMultiplier = 0;
+        rocketBaseFunctioning = false;
     }
     private void Start()
     {
@@ -98,6 +106,22 @@ public class BuildingManager : MonoBehaviour
         foreach (KeyValuePair<string,float> pair in totalProduction)
         {
             ResourceManager.Instance.AddResource(pair.Key, pair.Value * Time.deltaTime);
+            if(ResourceManager.Instance.GetResourceCount(pair.Key) < 0)
+            {
+                ResourceManager.Instance.AddResource(pair.Key, -ResourceManager.Instance.GetResourceCount(pair.Key));
+                //To do:可以通知一下玩家 有资源归零，所有消耗该资源的建筑都已停工
+                DismissAllRelatedBuilding(pair.Key);
+            }
+        }
+    }
+    public void DismissAllRelatedBuilding(string resource)
+    {
+        foreach(var building in buildings)
+        {
+            if (building.buildingInfoPro.massProductionList[building.level-1].ContainsKey(resource) && building.buildingInfoPro.massProductionList[building.level - 1][resource] < 0)
+            {
+                building.ManuallyAdjustStation(-building.stationedCount);
+            }
         }
     }
 }

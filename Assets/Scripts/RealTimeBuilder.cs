@@ -20,9 +20,11 @@ public class RealTimeBuilder : MonoBehaviour
     public bool flip;//是否镜像，每次选择新的建筑种类也要重设为false
 
     public TileBase mistTile;
+    public TileBase unbuildableTile;
 
     public Grid grid;
     public Tilemap tilemap;
+    public Tilemap tilemap2;//专门用来画迷雾和不可建造的灰色滤镜
     public float padding = 100;
 
     //public GameObject buildingPrefab;  // 为添加建筑做测试 暂时先用不到
@@ -87,7 +89,7 @@ public class RealTimeBuilder : MonoBehaviour
                 lastPosition = v;
                 lastTile = tilemap.GetTile(lastPosition);
             }
-            bool b = CanBuild(buildingName,v,span);
+            bool b = CanBuild(buildingName, v, span);
             tilemap.SetTile(v, tile);
             tilemap.RemoveTileFlags(v, TileFlags.LockColor);
             tilemap.SetColor(v, b ? Color.green : Color.red);
@@ -125,6 +127,22 @@ public class RealTimeBuilder : MonoBehaviour
                             case "EcoGarden":
                                 gameObject.AddComponent<EcoGarden>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
                                 break;
+                            case "Magnetic":
+                                gameObject.AddComponent<Magnetic>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                                break;
+                            case "AirTower":
+                                gameObject.AddComponent<AirTower>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                                break;
+                            case "AILab":
+                                gameObject.AddComponent<AILab>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                                break;
+                            case "Apartment":
+                                gameObject.AddComponent<Apartment>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                                break;
+                            case "CellRepair":
+                                gameObject.AddComponent<CellRepair>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                                break;
+
                         }
                         break;
                 }
@@ -175,6 +193,10 @@ public class RealTimeBuilder : MonoBehaviour
             for (int j = 0; j < span.y; j++)
             {
                 v_ = new Vector2Int(v.x + i, v.y + j);
+                if (!LandscapeManager.Instance.visibleMap.ContainsKey(v_) || !LandscapeManager.Instance.buildableMap.ContainsKey(v_) || !LandscapeManager.Instance.visibleMap[v_] || !LandscapeManager.Instance.buildableMap[v_])
+                {
+                    return false;
+                }
                 if (register.ContainsKey(v_) && register[v_] != null)
                 {
                     return false;

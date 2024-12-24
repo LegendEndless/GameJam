@@ -12,6 +12,7 @@ public class PopulationManager : MonoBehaviour
     public float maxPopulation;
     public float rate;
     public int stationedPopulation;
+    public float time;
     public int AvailablePopulation => Mathf.FloorToInt(currentPopulation) - stationedPopulation;
     // Start is called before the first frame update
     void Awake()
@@ -25,12 +26,18 @@ public class PopulationManager : MonoBehaviour
         maxPopulation = 100;
         rate = 0.05f;
         stationedPopulation = 0;
+        time = 30;//Ó²±àÂë
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        time -= Time.deltaTime;
+        if (time < 0)
+        {
+            PopulationIncrease();
+            time = 30;
+        }
     }
     public void PopulationIncrease()
     {

@@ -20,7 +20,14 @@ public class SingleProductionBuilding : ProductionBuilding
             {
                 localProduction[pair.Key] = 0;
             }
-            localProduction[pair.Key] += multiplier * pair.Value * Time.deltaTime;
+            if(pair.Key == "chip_part")
+            {
+                localProduction[pair.Key] += (multiplier + BuildingManager.Instance.AIMultiplier) * pair.Value * Time.deltaTime;
+            }
+            else
+            {
+                localProduction[pair.Key] += multiplier * pair.Value * Time.deltaTime;
+            }
             if (localProduction[pair.Key] > 1)
             {
                 //需要什么生产完成特效的话往这儿加

@@ -23,7 +23,6 @@ public class RegularEventInfo
     public string choice1, choice2, choice3;
     public string effect1, effect2, effect3;
     public int livabilityForChoice3;
-    public int conditionId;
 }
 public class RegularEventCollection
 {

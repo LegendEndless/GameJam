@@ -5,12 +5,6 @@ using UnityEngine;
 
 public class Magnetic : BaseBuilding
 {
-    public override void ReportUpgrade()
-    {
-        base.ReportUpgrade();
-        LandscapeManager.Instance.magnetics.Add(position);
-        LandscapeManager.Instance.RecalculateVisibility();
-    }
     public override void OnFunctioningChange(bool functioning)
     {
         base.OnFunctioningChange(functioning);

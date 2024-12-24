@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: buildingSample_flip
+  m_Name: StarshipCenter
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: edf7bede8c0d59b4392dbef6eee5e4ae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f65bc3ffa5fe3c44488a310289e1944e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
