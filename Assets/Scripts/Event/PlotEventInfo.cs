@@ -9,6 +9,8 @@ public class PlotEventInfo
     public string picturePath;
     public string effect;
     public float occurrenceTime;
+    internal string[] choices;
+    internal Sprite image;
 }
 public class PlotEventCollection
 {
