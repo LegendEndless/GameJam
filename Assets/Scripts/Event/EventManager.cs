@@ -10,8 +10,15 @@ public class EventManager : MonoBehaviour
     float cdDisaster;
     float cdSocial;
     int plotIndex;
-    RegularEventInfo disasterInfo,socialInfo;
+    RegularEventInfo disasterInfo, socialInfo;
     public static EventManager Instance { get; private set; }
+
+    //引用EventUIManager 1224晚修改
+
+
+
+
+
     private void Awake()
     {
         Instance = this;
@@ -32,23 +39,23 @@ public class EventManager : MonoBehaviour
             ++plotIndex;
         }
         cdDisaster -= (1 - LivabilityManager.Instance.livability / 40) * Time.deltaTime;
-        if( cdDisaster < 0 )
+        if (cdDisaster < 0)
         {
-            disasterInfo = disasterEvents.events[Random.Range(0,disasterEvents.events.Count)];
+            disasterInfo = disasterEvents.events[Random.Range(0, disasterEvents.events.Count)];
             PopRegularUI(disasterInfo);
             cdDisaster = 30;
             disasterEvents.events.Remove(disasterInfo);
-            if(disasterEvents.events.Count == 0)
+            if (disasterEvents.events.Count == 0)
             {
                 disasterEvents = XmlDataManager.Instance.Load<RegularEventCollection>("disaster");
             }
         }
         cdSocial -= Time.deltaTime;
-        if(cdSocial < 0)
+        if (cdSocial < 0)
         {
             socialInfo = socialEvents.events[Random.Range(0, socialEvents.events.Count)];
             PopRegularUI(socialInfo);
-            cdSocial = 30 + Random.Range(-5f,5f);
+            cdSocial = 30 + Random.Range(-5f, 5f);
             socialEvents.events.Remove(socialInfo);
             if (socialEvents.events.Count == 0)
             {
@@ -63,6 +70,7 @@ public class EventManager : MonoBehaviour
     public void PopRegularUI(RegularEventInfo info)
     {
         //每次弹出都得重新设置所有选项能否选择 用CanChoose()
+
 
     }
     public List<UnityAction> TranslateEffect(string effect)
@@ -95,7 +103,7 @@ public class EventManager : MonoBehaviour
                     list.Add(() =>
                     {
                         if (!BuildingManager.Instance.highestLevelBuilding.ContainsKey(element[0])) return;
-                        if(BuildingManager.Instance.highestLevelBuilding[element[0]] == null)
+                        if (BuildingManager.Instance.highestLevelBuilding[element[0]] == null)
                         {
                             BuildingManager.Instance.UpdateHighestLevel(element[0]);
                         }
@@ -132,7 +140,7 @@ public class EventManager : MonoBehaviour
         foreach (string pair in pairs)
         {
             string[] element = pair.Split('|');
-            if (element[0] != "" && ResourceManager.Instance.resources[element[0]] + float.Parse(element[1])<0)
+            if (element[0] != "" && ResourceManager.Instance.resources[element[0]] + float.Parse(element[1]) < 0)
             {
                 return false;
             }
