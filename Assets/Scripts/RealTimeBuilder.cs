@@ -49,19 +49,19 @@ public class RealTimeBuilder : MonoBehaviour
         Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - 300 * Time.deltaTime * Input.GetAxis("Mouse ScrollWheel"),2,18);
         if (Input.mousePosition.x < padding)
         {
-            Camera.main.transform.Translate(5 * Time.deltaTime * Vector2.left);
+            Camera.main.transform.Translate(5 * Time.unscaledDeltaTime * Vector2.left);
         }
         if (Input.mousePosition.x > Screen.width - padding)
         {
-            Camera.main.transform.Translate(5 * Time.deltaTime * Vector2.right);
+            Camera.main.transform.Translate(5 * Time.unscaledDeltaTime * Vector2.right);
         }
         if (Input.mousePosition.y < padding)
         {
-            Camera.main.transform.Translate(5 * Time.deltaTime * Vector2.down);
+            Camera.main.transform.Translate(5 * Time.unscaledDeltaTime * Vector2.down);
         }
         if (Input.mousePosition.y > Screen.height - padding)
         {
-            Camera.main.transform.Translate(5 * Time.deltaTime * Vector2.up);
+            Camera.main.transform.Translate(5 * Time.unscaledDeltaTime * Vector2.up);
         }
 
         if (building)
@@ -185,6 +185,10 @@ public class RealTimeBuilder : MonoBehaviour
                 {
                     register[v_].PopUI();
                 }
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
+                Time.timeScale = 10f;
             }
         }
     }

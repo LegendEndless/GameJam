@@ -26,6 +26,7 @@ public class BuildingInfo
     public string description;
     public string upgradeRestriction;
     public int group;
+    public string nameChinese;
 }
 public class BuildingInfoPro
 {

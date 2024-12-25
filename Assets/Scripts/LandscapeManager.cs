@@ -63,6 +63,7 @@ public class LandscapeManager : MonoBehaviour
             }
         }
         RecalculateVisibility();
+        RecalculateBuildability();
     }
     private void Start()
     {

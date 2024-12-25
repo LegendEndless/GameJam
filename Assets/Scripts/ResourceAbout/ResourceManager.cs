@@ -31,12 +31,6 @@ public class ResourceManager : MonoBehaviour
         if (resources.ContainsKey(type))
         {
             resources[type] += amount;
-
-            // ֪ͨ ResourceDisplay ����
-            if (ResourceDisplay.Instance != null)
-            {
-                ResourceDisplay.Instance.UpdateResourceText(type);
-            }
         }
     }
 

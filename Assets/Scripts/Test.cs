@@ -5,6 +5,7 @@ using UnityEngine;
 public class Test : MonoBehaviour
 {
     // Start is called before the first frame update
+    float time;
     void Start()
     {
         //BuildingInfo testInfo = new BuildingInfo
@@ -29,26 +30,34 @@ public class Test : MonoBehaviour
         //};
         //BuildingInfoCollection collection = XmlDataManager.Instance.Load<BuildingInfoCollection>("building1");
         //print(collection.buildingInfos[1].upgradeCost);
-        string str = ";;;;";
-        List<Dictionary<string,float>> list = new List<Dictionary<string, float>>();
-        string[] parts = str.Split(";");
-        foreach (string part in parts)
-        {
-            Dictionary<string, float> dic = new Dictionary<string, float>();
-            string[] pairs = part.Split(",");
-            foreach (string pair in pairs)
-            {
-                string[] element = pair.Split("|");
-                if (element[0]!="")
-                    dic[element[0]] = float.Parse(element[1]);
-            }
-            list.Add(dic);
-        }
+        //string str = ";;;;";
+        //List<Dictionary<string,float>> list = new List<Dictionary<string, float>>();
+        //string[] parts = str.Split(";");
+        //foreach (string part in parts)
+        //{
+        //    Dictionary<string, float> dic = new Dictionary<string, float>();
+        //    string[] pairs = part.Split(",");
+        //    foreach (string pair in pairs)
+        //    {
+        //        string[] element = pair.Split("|");
+        //        if (element[0]!="")
+        //            dic[element[0]] = float.Parse(element[1]);
+        //    }
+        //    list.Add(dic);
+        //}
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Time.timeScale == 0)
+        {
+            time += Time.unscaledDeltaTime;
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Time.timeScale = 0;
+        }
+        print(time);
     }
 }

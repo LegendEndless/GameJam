@@ -31,14 +31,7 @@ public class TimeManager : MonoBehaviour
         {
             //设置下一次灾变开始的时间
         }
-        if(ApocalypseProgress()==1)
-        {
-            //损失资源
-        }
+        
     }
-    //预警进度，0表示未开始预警，1表示正在灾变中
-    public float ApocalypseProgress()
-    {
-        return Mathf.Clamp((time - apocalypseStart + warningDuration) / warningDuration,0,1);
-    }
+    
 }

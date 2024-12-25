@@ -5210,7 +5210,7 @@ MonoBehaviour:
   buildingName: StarshipCenter
   flip: 0
   mistTile: {fileID: 11400000, guid: 6f19c60f61691d04cbbaced70979313c, type: 2}
-  unbuildableTile: {fileID: 0}
+  unbuildableTile: {fileID: 11400000, guid: 056c2c1f304e23f4eb3c852ccc41575d, type: 2}
   grid: {fileID: 681608618}
   tilemap: {fileID: 789448208}
   padding: 40

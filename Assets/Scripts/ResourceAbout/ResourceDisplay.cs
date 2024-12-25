@@ -63,4 +63,8 @@ public class ResourceDisplay : MonoBehaviour
             UpdateResourceText(resourcePair.Key);
         }
     }
+    private void Update()
+    {
+        UpdateAllResourceTexts();
+    }
 }

@@ -21,10 +21,9 @@ public class RegularEventInfo
 {
     public string title;
     public string description;
-    public string picturePath;
-    public string choice1, choice2, choice3;
+    public string option1, option2, option3;
     public string effect1, effect2, effect3;
-    public int livabilityForChoice3;
+    public int unlock;
 }
 public class RegularEventCollection
 {
