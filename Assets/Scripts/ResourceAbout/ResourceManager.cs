@@ -7,17 +7,19 @@ public class ResourceManager : MonoBehaviour
     public static ResourceManager Instance;
     public Dictionary<string, float> resources = new Dictionary<string, float>
     {
-        {"Electricity", 0},
-        {"Minerals", 0},
-        {"Food", 0},
-        {"Water", 0},
-        {"Oil", 0},
-        {"Chips", 0},
-        {"Alloy", 0},
-        {"Fibre", 0},
-        {"People", 0},
-        {"PeopleAvailable", 0},
+        {"electric", 0},
+        {"mine", 0},
+        {"food", 0},
+        {"water", 0},
+        {"oil", 0},
+        {"chip", 0},
+        {"ti", 0},
+        {"carbon", 0},
         //星舰组件倒确实是int类型的，不过float也能凑合用着吧
+        {"nuclear_part", 0},
+        {"life_part", 0},
+        {"shell_part", 0},
+        {"chip_part", 0},
     };
 
     void Awake()
@@ -36,5 +38,9 @@ public class ResourceManager : MonoBehaviour
     public float GetResourceCount(string type)
     {
         return resources.ContainsKey(type) ? resources[type] : 0;
+    }
+    private void Update()
+    {
+
     }
 }

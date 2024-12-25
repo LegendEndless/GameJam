@@ -18,15 +18,16 @@ public class PopulationManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-    }
-
-    private void Start()
-    {
         currentPopulation = 60;
         maxPopulation = 100;
         rate = 0.05f;
         stationedPopulation = 0;
         time = 30;//Ó²±àÂë
+    }
+
+    private void Start()
+    {
+        
     }
 
     // Update is called once per frame

@@ -24,7 +24,6 @@ public class RealTimeBuilder : MonoBehaviour
 
     public Grid grid;
     public Tilemap tilemap;
-    public Tilemap tilemap2;//专门用来画迷雾和不可建造的灰色滤镜
     public float padding = 40;
 
     //public GameObject buildingPrefab;  // 为添加建筑做测试 暂时先用不到
@@ -47,7 +46,7 @@ public class RealTimeBuilder : MonoBehaviour
 
     void Update()
     {
-        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - 300 * Time.deltaTime * Input.GetAxis("Mouse ScrollWheel"),2,10);
+        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - 300 * Time.deltaTime * Input.GetAxis("Mouse ScrollWheel"),2,18);
         if (Input.mousePosition.x < padding)
         {
             Camera.main.transform.Translate(5 * Time.deltaTime * Vector2.left);
@@ -68,7 +67,7 @@ public class RealTimeBuilder : MonoBehaviour
         if (building)
         {
             Vector3Int v = grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            v.z = 1;
+            v.z = 3;
             if (Input.GetKeyDown(KeyCode.F))
             {
                 flip = !flip;
@@ -86,15 +85,26 @@ public class RealTimeBuilder : MonoBehaviour
             }
             if (lastPosition != v)
             {
+                tilemap.SetTile(new Vector3Int(lastPosition.x, lastPosition.y,4),null);
+
                 tilemap.SetTile(lastPosition, lastTile);
                 tilemap.SetColor(lastPosition,Color.white);
                 lastPosition = v;
                 lastTile = tilemap.GetTile(lastPosition);
             }
             bool b = CanBuild(buildingName, v, span);
+
             tilemap.SetTile(v, tile);
             tilemap.RemoveTileFlags(v, TileFlags.LockColor);
             tilemap.SetColor(v, b ? Color.green : Color.red);
+
+            if(lastTile != mistTile)
+            {
+                var v_ = new Vector3Int(v.x, v.y, 4);
+                tilemap.SetTile(v_, lastTile);
+                tilemap.RemoveTileFlags(v_, TileFlags.LockColor);
+                tilemap.SetColor(v_, translucent);
+            }
 
             if (Input.GetMouseButtonDown(0) && b)
             {
@@ -153,10 +163,11 @@ public class RealTimeBuilder : MonoBehaviour
                         gameObject.AddComponent<SingleProductionBuilding>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
                         break;
                 }
-                tilemap.SetTile(lastPosition, lastTile);
-                tilemap.SetColor(lastPosition, Color.white);
-                tilemap.color = Color.white;
-                building = false;
+                ExitBuildingMode();
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
+                ExitBuildingMode();
             }
         }
         else
@@ -173,6 +184,13 @@ public class RealTimeBuilder : MonoBehaviour
             }
         }
     }
+    public void ExitBuildingMode()
+    {
+        tilemap.SetTile(lastPosition, lastTile);
+        tilemap.SetColor(lastPosition, Color.white);
+        tilemap.color = Color.white;
+        building = false;
+    }
     public void Select(string buildingName)
     {
         this.buildingName = buildingName;
@@ -183,7 +201,7 @@ public class RealTimeBuilder : MonoBehaviour
     }
     public void Demolish(Vector2Int v)
     {
-        tilemap.SetTile(new Vector3Int(v.x,v.y,1),null);
+        tilemap.SetTile(new Vector3Int(v.x,v.y,3),null);
     }
     public bool CanBuild(string name, Vector3Int v, Vector2Int span)
     {
@@ -194,7 +212,7 @@ public class RealTimeBuilder : MonoBehaviour
             for (int j = 0; j < span.y; j++)
             {
                 v_ = new Vector2Int(v.x + i, v.y + j);
-                if (!LandscapeManager.Instance.visibleMap.ContainsKey(v_) || !LandscapeManager.Instance.buildableMap.ContainsKey(v_) || !LandscapeManager.Instance.visibleMap[v_] || !LandscapeManager.Instance.buildableMap[v_])
+                if (!LandscapeManager.Instance.visibilityMap.ContainsKey(v_) || !LandscapeManager.Instance.buildabilityMap.ContainsKey(v_) || !LandscapeManager.Instance.visibilityMap[v_] || !LandscapeManager.Instance.buildabilityMap[v_])
                 {
                     return false;
                 }

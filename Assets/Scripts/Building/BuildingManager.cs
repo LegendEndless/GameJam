@@ -33,14 +33,6 @@ public class BuildingManager : MonoBehaviour
         }
         totalProduction = new Dictionary<string, float>
         {
-            {"Electricity", 0},
-            {"Minerals", 0},
-            {"Food", 0},
-            {"Water", 0},
-            {"Oil", 0},
-            {"Chips", 0},
-            {"Alloy", 0},
-            {"Fibre", 0},
         };
         landUseRegister = new Dictionary<Vector2Int, BaseBuilding>();
         highestLevelBuilding = new Dictionary<string, BaseBuilding>();
@@ -56,12 +48,14 @@ public class BuildingManager : MonoBehaviour
     {
         
     }
+
     public void ReportMultiplierChange(ProductionBuilding building, float deltaMultiplier)
     {
         if (building.level == 0) return;
         Dictionary<string, float> basicProduction = building.buildingInfoPro.massProductionList[building.level - 1];
         foreach(KeyValuePair<string,float> pair in basicProduction)
         {
+            if (!totalProduction.ContainsKey(pair.Key)) totalProduction[pair.Key] = 0;
             totalProduction[pair.Key] += pair.Value * deltaMultiplier;
         }
     }
@@ -72,7 +66,9 @@ public class BuildingManager : MonoBehaviour
             return;
         }
         Dictionary<string, float> currentProduction = building.buildingInfoPro.massProductionList[building.level - 1];
-        Dictionary<string, float> formerProduction = building.buildingInfoPro.massProductionList[building.level - 2];
+        Dictionary<string, float> formerProduction = new Dictionary<string, float>();
+        if(building.level > 1)
+             formerProduction = building.buildingInfoPro.massProductionList[building.level - 2];
         float current, former;
         foreach(string resource in totalProduction.Keys)
         {
@@ -106,6 +102,7 @@ public class BuildingManager : MonoBehaviour
     {
         foreach (KeyValuePair<string,float> pair in totalProduction)
         {
+            print(pair.Key + pair.Value);
             ResourceManager.Instance.AddResource(pair.Key, pair.Value * Time.deltaTime);
             if(ResourceManager.Instance.GetResourceCount(pair.Key) < 0)
             {

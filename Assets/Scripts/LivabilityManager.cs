@@ -15,12 +15,12 @@ public class LivabilityManager : MonoBehaviour
     {
         Instance = this;
         eventLivability = 0;
-        livability = 0;
+        livability = 5;
         livabilityBuildings = new HashSet<ILivability>();
     }
     public void Recalculate()
     {
-        livability = 0;
+        livability = 5;
         foreach(var building in livabilityBuildings)
         {
             livability += building.Livability;

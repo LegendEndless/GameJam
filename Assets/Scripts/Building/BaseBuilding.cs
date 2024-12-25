@@ -71,6 +71,7 @@ public class BaseBuilding : MonoBehaviour
     }
     public void StartUpgrade()
     {
+        if (upgrading) return;
         if (level > 0 && BuildingManager.Instance.freeDict.ContainsKey(name) && BuildingManager.Instance.freeDict[name])
         {
             BuildingManager.Instance.freeDict[name] = false;
@@ -84,12 +85,13 @@ public class BaseBuilding : MonoBehaviour
         }
         upgrading =true;
         timeSinceUpgrade = 0;
-        currentUpgradeDuration = buildingInfoPro.buildingInfo.upgradeDuration[level];
+        currentUpgradeDuration = buildingInfoPro.durationList[level];
     }
     public virtual void FinishUpgrade()
     {
         ++level;
         upgrading = false;
+
         ReportUpgrade();
         AutoAdjustStation();
     }
@@ -98,20 +100,28 @@ public class BaseBuilding : MonoBehaviour
         if (upgrading)
         {
             timeSinceUpgrade += Time.deltaTime;
+            if (timeSinceUpgrade >= currentUpgradeDuration)
+            {
+                FinishUpgrade();
+            }
         }
-        if (timeSinceUpgrade >= currentUpgradeDuration)
+        else
         {
-            FinishUpgrade();
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                StartUpgrade();
+            }
         }
         if (onStrike)
         {
             strikeTimeLeft -= Time.deltaTime;
+            if (strikeTimeLeft < 0)
+            {
+                onStrike = false;
+                ManuallyAdjustStation(Mathf.Min(stationedCountBeforeStrike, PopulationManager.Instance.AvailablePopulation));
+            }
         }
-        if(strikeTimeLeft < 0)
-        {
-            onStrike = false;
-            ManuallyAdjustStation(Mathf.Min(stationedCountBeforeStrike, PopulationManager.Instance.AvailablePopulation));
-        }
+        
     }
     public void Demolish()
     {
@@ -156,6 +166,7 @@ public class BaseBuilding : MonoBehaviour
     }
     public virtual void ManuallyAdjustStation(int delta)
     {
+        print("Stationed " + delta);
         bool flag = stationedCount > 0;
         if(delta==0)
         {
@@ -296,5 +307,21 @@ public class BaseBuilding : MonoBehaviour
         strikeTimeLeft = time;
         stationedCountBeforeStrike = stationedCount;
         ManuallyAdjustStation(-stationedCount);
+    }
+    public bool IsVisible()
+    {
+        Vector2Int v;
+        for (int i = 0; i < span.x; ++i)
+        {
+            for (int j = 0; j < span.y; ++j)
+            {
+                v = position + new Vector2Int(i, j);
+                if (LandscapeManager.Instance.visibilityMap[v])
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
