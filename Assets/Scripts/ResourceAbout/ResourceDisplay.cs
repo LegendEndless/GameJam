@@ -6,53 +6,61 @@ public class ResourceDisplay : MonoBehaviour
 {
     public static ResourceDisplay Instance;
 
-    [System.Serializable]
-    public class ResourceText
+    public Text electricText;
+    public Text mineText;
+    public Text foodText;
+    public Text waterText;
+    public Text oilText;
+    public Text chipText;
+    public Text tiText;
+    public Text carbonText;
+
+    void Start()
     {
-        public string resourceName;
-        public Text textComponent;
+        RegisterResourceText("electric", electricText);
+        RegisterResourceText("mine", mineText);
+        RegisterResourceText("food", foodText);
+        RegisterResourceText("water", waterText);
+        RegisterResourceText("oil", oilText);
+        RegisterResourceText("chip", chipText);
+        RegisterResourceText("ti", tiText);
+        RegisterResourceText("carbon", carbonText);
+
+        UpdateAllResourceTexts(); 
     }
 
-    public List<ResourceText> resourceTexts;
+    public Dictionary<string, Text> resourceTexts = new Dictionary<string, Text>();
 
-    private void Awake()
+    void Awake()
     {
         Instance = this;
     }
 
-    private void Start()
+    public void RegisterResourceText(string resourceName, Text textComponent)
     {
-        UpdateAllResourceTexts();
-    }
-
-    public void UpdateAllResourceTexts()
-    {
-        foreach (var resourceText in resourceTexts)
+        if (!resourceTexts.ContainsKey(resourceName))
         {
-            UpdateResourceText(resourceText.resourceName);
+            resourceTexts.Add(resourceName, textComponent);
         }
     }
 
     public void UpdateResourceText(string resourceName)
     {
-        ResourceText resourceText = resourceTexts.Find(rt => rt.resourceName == resourceName);
-        if (resourceText != null && ResourceManager.Instance != null)
+        if (resourceTexts.ContainsKey(resourceName) && ResourceManager.Instance != null)
         {
-            float value = ResourceManager.Instance.GetResourceCount(resourceName);
-            resourceText.textComponent.text = FormatResourceValue(value);
+            float resourceAmount = ResourceManager.Instance.GetResourceCount(resourceName);
+            resourceTexts[resourceName].text = FormatResourceValue(resourceAmount);
         }
     }
-
- 
     private string FormatResourceValue(float value)
     {
-        if (value < 100)
+        return (value / 1000f).ToString("F1") + "k";
+    }
+    public void UpdateAllResourceTexts()
+    {
+        foreach (var resourcePair in resourceTexts)
         {
-            return value.ToString("F0"); // 对于小于 100 的值，显示为整数
-        }
-        else
-        {
-            return (value / 1000f).ToString("F1") + "k";
+            UpdateResourceText(resourcePair.Key);
         }
     }
 }
