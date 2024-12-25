@@ -15,7 +15,6 @@ public class ResourceManager : MonoBehaviour
         {"chip", 0},
         {"ti", 0},
         {"carbon", 0},
-        //�ǽ������ȷʵ��int���͵ģ�����floatҲ�ܴպ����Ű�
         {"nuclear_part", 0},
         {"life_part", 0},
         {"shell_part", 0},

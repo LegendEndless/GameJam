@@ -88,7 +88,11 @@ public class RealTimeBuilder : MonoBehaviour
                 tilemap.SetTile(new Vector3Int(lastPosition.x, lastPosition.y,4),null);
 
                 tilemap.SetTile(lastPosition, lastTile);
-                tilemap.SetColor(lastPosition,Color.white);
+                tilemap.RemoveTileFlags(lastPosition, TileFlags.LockColor);
+                if (lastTile == mistTile)
+                    tilemap.SetColor(lastPosition,Color.white);
+                else
+                    tilemap.SetColor(lastPosition, translucent);
                 lastPosition = v;
                 lastTile = tilemap.GetTile(lastPosition);
             }
@@ -98,7 +102,7 @@ public class RealTimeBuilder : MonoBehaviour
             tilemap.RemoveTileFlags(v, TileFlags.LockColor);
             tilemap.SetColor(v, b ? Color.green : Color.red);
 
-            if(lastTile != mistTile)
+            if(lastTile != mistTile && lastTile != tile)
             {
                 var v_ = new Vector3Int(v.x, v.y, 4);
                 tilemap.SetTile(v_, lastTile);
@@ -188,7 +192,20 @@ public class RealTimeBuilder : MonoBehaviour
     {
         tilemap.SetTile(lastPosition, lastTile);
         tilemap.SetColor(lastPosition, Color.white);
-        tilemap.color = Color.white;
+        Vector3Int v_;
+        for (int i = -LandscapeManager.Instance.maxSize; i <= LandscapeManager.Instance.maxSize; ++i)
+        {
+            for (int j = -LandscapeManager.Instance.maxSize; j <= LandscapeManager.Instance.maxSize; ++j)
+            {
+                v_ = new Vector3Int(i, j, 3);
+                if (tilemap.GetTile(v_) != mistTile)
+                {
+                    tilemap.RemoveTileFlags(v_, TileFlags.LockColor);
+                    tilemap.SetColor(v_, Color.white);
+                }
+                
+            }
+        }
         building = false;
     }
     public void Select(string buildingName)
@@ -196,7 +213,19 @@ public class RealTimeBuilder : MonoBehaviour
         this.buildingName = buildingName;
         flip = false;
         tile = Resources.Load<Tile>("Tiles/"+buildingName);
-        tilemap.color = translucent;
+        Vector3Int v_;
+        for (int i = -LandscapeManager.Instance.maxSize; i <= LandscapeManager.Instance.maxSize; ++i)
+        {
+            for (int j = -LandscapeManager.Instance.maxSize; j <= LandscapeManager.Instance.maxSize; ++j)
+            {
+                v_ = new Vector3Int(i, j, 3);
+                if (tilemap.GetTile(v_) != mistTile)
+                {
+                    tilemap.RemoveTileFlags(v_, TileFlags.LockColor);
+                    tilemap.SetColor(v_, translucent);
+                }
+            }
+        }
         building = true;
     }
     public void Demolish(Vector2Int v)
