@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SolarStormInfo
 {
@@ -18,6 +19,8 @@ public class SolarStormInfo
 public class SolarStormInfoCollection
 {
     public List<SolarStormInfo> infos;
+    //public Text timeLeftText; // 引用UI
+
 }
 public class SolarStormManager : MonoBehaviour
 {
@@ -79,6 +82,8 @@ public class SolarStormManager : MonoBehaviour
         if (!inStorm)
         {
             time += Time.deltaTime;
+
+            //timeLeftText.text = "Time Left: " + TimeLeft.ToString("F2"); // 更新UI文本
             if (time > stormStart)
             {
                 if(CheckGameOver()) return;

@@ -65,12 +65,12 @@ public class EventManager : MonoBehaviour
     }
     public void PopPlotUI(PlotEventInfo info)
     {
-
+        EventUIManager.Instance.ShowPlotEvent(info);
     }
     public void PopRegularUI(RegularEventInfo info)
     {
         //每次弹出都得重新设置所有选项能否选择 用CanChoose()
-
+        EventUIManager.Instance.ShowRegularEvent(info);
 
     }
     public List<UnityAction> TranslateEffect(string effect)

@@ -15,6 +15,9 @@ public class ResourceDisplay : MonoBehaviour
     public Text tiText;
     public Text carbonText;
 
+    //显示时间
+    //public Text timeLeftText; 
+
     void Start()
     {
         RegisterResourceText("electric", electricText);
@@ -54,17 +57,68 @@ public class ResourceDisplay : MonoBehaviour
     }
     private string FormatResourceValue(float value)
     {
-        return (value / 1000f).ToString("F1") + "k";
+        if (value < 1000)
+        {
+           
+            return value.ToString("F0");
+        }
+        else if (value >= 1000 && value < 10000)
+        {
+
+            return (value / 1000f).ToString("F1") + "k";
+        }
+        else
+        {
+
+            return (value / 10000f).ToString("F1") + "w";
+        }
     }
     public void UpdateAllResourceTexts()
     {
         foreach (var resourcePair in resourceTexts)
         {
             UpdateResourceText(resourcePair.Key);
+           // UpdateTimeText(); // 调用更新时间的方法
         }
     }
     private void Update()
     {
         UpdateAllResourceTexts();
+    
+
     }
+    //更新时间的方法（不知道能不能这么写）
+    //private void UpdateTimeText()
+    //{
+    //    if (SolarStormManager.Instance != null)
+     //   {
+           
+     //       float timeRemaining = SolarStormManager.Instance.TimeLeft; // 剩余时间
+     //       Debug.Log("时间剩余 " + timeRemaining); // 调试
+     //       if (timeRemaining < 0) timeRemaining = 0; 
+
+     //       int minutes = Mathf.FloorToInt(timeRemaining / 60);
+     //       int seconds = Mathf.FloorToInt(timeRemaining % 60);
+
+     //       string formattedTime = string.Format("{0:00}:{1:00}", minutes, seconds);
+
+     //       if (timeLeftText != null)
+      //      {
+      //          timeLeftText.text = formattedTime;
+      //      }
+      //      else
+      //      {
+
+      //      }
+
+       // }
+      //  else
+      //  {
+       //     Debug.LogError("没有SolarStormManager");
+       //     if (timeLeftText != null)
+      //      {
+       //         timeLeftText.text = "00:00"; // 默认值
+       //     }
+       // }
+   // }
 }

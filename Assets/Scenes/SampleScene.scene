@@ -1748,7 +1748,7 @@ MonoBehaviour:
   - {fileID: 1232545003}
   - {fileID: 276694673}
   - {fileID: 766976228}
-  realTimeBuilder: {fileID: 0}
+  realTimeBuilder: {fileID: 807564985}
 --- !u!1 &330675069
 GameObject:
   m_ObjectHideFlags: 0
@@ -4893,6 +4893,7 @@ GameObject:
   - component: {fileID: 750068695}
   - component: {fileID: 750068697}
   - component: {fileID: 750068696}
+  - component: {fileID: 750068698}
   m_Layer: 5
   m_HasEditorInfo: 1
   m_Name: EventPanel
@@ -4965,6 +4966,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 750068694}
   m_CullTransparentMesh: 1
+--- !u!114 &750068698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750068694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16b81e2a0a9bfc3488e91b1a38a2a4c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventTitle: {fileID: 386571216}
+  eventDescription: {fileID: 642665232}
+  eventImage: {fileID: 389399327}
+  choiceButton1: {fileID: 196482649}
+  choiceButton2: {fileID: 1157539486}
+  choiceButton3: {fileID: 1649000563}
 --- !u!1 &754028149
 GameObject:
   m_ObjectHideFlags: 0
@@ -6685,6 +6704,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1160318563}
   m_CullTransparentMesh: 1
+--- !u!1 &1168434524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 7
+  m_Component:
+  - component: {fileID: 1168434525}
+  - component: {fileID: 1168434526}
+  m_Layer: 5
+  m_HasEditorInfo: 1
+  m_Name: SunTimeDisplay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1168434525
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1168434524}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1752595497}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1168434526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1168434524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f15b1a4307df05a48bb823c3ff11bddb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeText: {fileID: 137124310}
 --- !u!1 &1168701791
 GameObject:
   m_ObjectHideFlags: 0
@@ -8652,6 +8721,7 @@ GameObject:
   - component: {fileID: 1600908115}
   - component: {fileID: 1600908114}
   - component: {fileID: 1600908113}
+  - component: {fileID: 1600908117}
   m_Layer: 0
   m_HasEditorInfo: 1
   m_Name: BuildingManager
@@ -8751,6 +8821,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSize: 30
+--- !u!114 &1600908117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600908110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87771c1a1d9c2284e997600599ce4be5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 0
+  unscaledTime: 0
+  stormDuration: 20
+  warningDuration: 180
+  stormStart: 0
+  inStorm: 0
 --- !u!1 &1612235213
 GameObject:
   m_ObjectHideFlags: 0
@@ -9182,6 +9270,7 @@ RectTransform:
   - {fileID: 137124309}
   - {fileID: 1271456834}
   - {fileID: 1449270685}
+  - {fileID: 1168434525}
   m_Father: {fileID: 1124818100}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
