@@ -16,6 +16,10 @@ public class ProductionBuilding : BaseBuilding
         globalMultiplier = -1;
         //刚开始就得统计一下周边基站个数
         numLAN = CountInRange("LAN", 2.01f);//硬编码处
+        if(name == "MantleSampling")
+        {
+            BuildingManager.Instance.sampling[LandscapeManager.Instance.landscapeMap[position]] = true;
+        }
     }
     public override void AutoAdjustStation()
     {
@@ -34,7 +38,6 @@ public class ProductionBuilding : BaseBuilding
             if (buildingInfoPro.buildingInfo.group == 1 || buildingInfoPro.buildingInfo.group == 4)
             {
                 globalMultiplier = BuildingManager.Instance.globalMultiplier + LivabilityManager.Instance.livability * 0.02f;
-                //来自天灾的项
             }
             else
             {
@@ -81,5 +84,13 @@ public class ProductionBuilding : BaseBuilding
     {
         numLAN += change;
         RecalculateMultiplier(true,false);
+    }
+    public override void OnDemolish()
+    {
+        base.OnDemolish();
+        if (name == "MantleSampling")
+        {
+            BuildingManager.Instance.sampling[LandscapeManager.Instance.landscapeMap[position]] = false;
+        }
     }
 }

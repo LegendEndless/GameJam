@@ -12,6 +12,7 @@ public class BuildingManager : MonoBehaviour
     public Dictionary<string, BaseBuilding> highestLevelBuilding;
     public HashSet<BaseBuilding> buildings;
     public Dictionary<string, bool> freeDict;
+    public Dictionary<int, bool> sampling;
     //这样写不用确定地图大小，也能接受异形地图
     public Dictionary<Vector2Int, BaseBuilding> landUseRegister;
 
@@ -40,6 +41,10 @@ public class BuildingManager : MonoBehaviour
         globalMultiplier = 0;
         buildings = new HashSet<BaseBuilding>();
         freeDict = new Dictionary<string, bool>();
+        sampling = new Dictionary<int, bool>
+        {
+            {1,false }, {2,false}, {4,false}, {8,false}, {32,false},
+        };
         AITimesLeft = 3;
         AIMultiplier = 0;
         rocketBaseFunctioning = false;

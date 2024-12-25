@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 
 public class RealTimeBuilder : MonoBehaviour
 {
@@ -260,9 +262,9 @@ public class RealTimeBuilder : MonoBehaviour
             }
         }
         //添加特殊规则
-        if(name == "WaterStation")
+        v_ = new Vector2Int(v.x, v.y);
+        if (name == "WaterStation")
         {
-            v_= new Vector2Int(v.x, v.y);
             if (!(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.left) && LandscapeManager.Instance.landscapeMap[v_+Vector2Int.left] == 16)
                 && !(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.left) && LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.left] == 16)
                 && !(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.left) && LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.left] == 16)
@@ -271,12 +273,65 @@ public class RealTimeBuilder : MonoBehaviour
                 return false;
             }
         }
-        if(name == "EcoGarden")
+        else if(name == "EcoGarden" && IsNear(v_,span,new List<string> { "Mining", "OilWell", "NuclearPlant", "MantleSampling" }))
         {
-
+            return false;
         }
-
+        else if (name == "HighLab" && IsNear(v_, span, new List<string> { "WaterStation","Corn" }))
+        {
+            return false;
+        }
+        else if ((new List<string> { "Mining", "OilWell", "NuclearPlant", "MantleSampling" }.Contains(name)) && IsNear(v_, span, new List<string> { "EcoGarden" }))
+        {
+            return false;
+        }
+        else if ((new List<string> { "WaterStation", "Corn" }.Contains(name)) && IsNear(v_, span, new List<string> { "HighLab" }))
+        {
+            return false;
+        }
+        else if(name == "MantleSampling")
+        {
+            if (LandscapeManager.Instance.landscapeMap[v_]!= LandscapeManager.Instance.landscapeMap[v_+Vector2Int.right]
+                || LandscapeManager.Instance.landscapeMap[v_] != LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.up]
+                || LandscapeManager.Instance.landscapeMap[v_] != LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.up + Vector2Int.right])
+            {
+                return false;
+            }
+            if (BuildingManager.Instance.sampling[LandscapeManager.Instance.landscapeMap[v_]])
+            {
+                return false;
+            }
+        }
         return true;
+    }
+    public bool IsNear(Vector2Int position,Vector2Int span,List<string> names)
+    {
+        Vector2Int u, v;
+        int t;
+        var register = BuildingManager.Instance.landUseRegister;
+        foreach (var name in names)
+        {
+            for (int i = 0; i < span.x; i++)
+            {
+                for (int j = 0; j < span.y; j++)
+                {
+                    v = position + new Vector2Int(i, j);
+                    for (int ii = -3; ii <= 3; ++ii)
+                    {
+                        t = 3 - Mathf.Abs(ii);
+                        for (int jj = -t; jj <= t; ++jj)
+                        {
+                            u = v + new Vector2Int(ii, jj);
+                            if (register.ContainsKey(u) && register[u].name == name)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
     //决定在建筑面板中是否置灰
     public bool CanSelect(string name)
