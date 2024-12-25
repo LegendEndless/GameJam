@@ -43,7 +43,7 @@ public class EventManager : MonoBehaviour
         {
             disasterInfo = disasterEvents.events[Random.Range(0, disasterEvents.events.Count)];
             PopRegularUI(disasterInfo);
-            cdDisaster = 30;
+            cdDisaster = 180;
             disasterEvents.events.Remove(disasterInfo);
             if (disasterEvents.events.Count == 0)
             {
@@ -55,7 +55,7 @@ public class EventManager : MonoBehaviour
         {
             socialInfo = socialEvents.events[Random.Range(0, socialEvents.events.Count)];
             PopRegularUI(socialInfo);
-            cdSocial = 30 + Random.Range(-5f, 5f);
+            cdSocial = 180 + Random.Range(-30f, 30f);
             socialEvents.events.Remove(socialInfo);
             if (socialEvents.events.Count == 0)
             {
