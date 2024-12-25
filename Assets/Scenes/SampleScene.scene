@@ -3617,7 +3617,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1168701792}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.44847172
+  m_Size: 0.44847178
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8720,11 +8720,7 @@ GameObject:
   - component: {fileID: 1600908116}
   - component: {fileID: 1600908115}
   - component: {fileID: 1600908114}
-<<<<<<< HEAD
-  - component: {fileID: 1600908113}
   - component: {fileID: 1600908117}
-=======
->>>>>>> b9141cb2cf6e778ea033c22214cd8e2fb57d54f3
   m_Layer: 0
   m_HasEditorInfo: 1
   m_Name: BuildingManager
