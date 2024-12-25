@@ -6,11 +6,8 @@ public class PlotEventInfo
 {
     public string title;
     public string description;
-    public string picturePath;
-    public string effect;
+    public string option;
     public float occurrenceTime;
-    internal string[] choices;
-    internal Sprite image;
 }
 public class PlotEventCollection
 {

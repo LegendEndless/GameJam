@@ -260,6 +260,17 @@ public class RealTimeBuilder : MonoBehaviour
             }
         }
         //添加特殊规则
+        if(name == "WaterStation")
+        {
+            v_= new Vector2Int(v.x, v.y);
+            if (!(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.left) && LandscapeManager.Instance.landscapeMap[v_+Vector2Int.left] == 16)
+                && !(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.left) && LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.left] == 16)
+                && !(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.left) && LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.left] == 16)
+                && !(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.left) && LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.left] == 16))
+            {
+                return false;
+            }
+        }
 
         return true;
     }
