@@ -52,7 +52,7 @@ public class BuildingMenuController : MonoBehaviour
         ToggleMenu();
 
         // 调用RealTimeBuilder开始建造
-        RealTimeBuilder.Instance.Select("StarshipCenter");
+        RealTimeBuilder.Instance.Select("NursingHouse");
     }
 
 }

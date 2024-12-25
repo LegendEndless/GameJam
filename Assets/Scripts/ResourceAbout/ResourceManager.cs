@@ -15,7 +15,7 @@ public class ResourceManager : MonoBehaviour
         {"chip", 0},
         {"ti", 0},
         {"carbon", 0},
-        //ÐÇ½¢×é¼þµ¹È·ÊµÊÇintÀàÐÍµÄ£¬²»¹ýfloatÒ²ÄÜ´ÕºÏÓÃ×Å°É
+        //ï¿½Ç½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·Êµï¿½ï¿½intï¿½ï¿½ï¿½ÍµÄ£ï¿½ï¿½ï¿½ï¿½ï¿½floatÒ²ï¿½Ü´Õºï¿½ï¿½ï¿½ï¿½Å°ï¿½
         {"nuclear_part", 0},
         {"life_part", 0},
         {"shell_part", 0},
@@ -32,6 +32,12 @@ public class ResourceManager : MonoBehaviour
         if (resources.ContainsKey(type))
         {
             resources[type] += amount;
+
+            // Í¨Öª ResourceDisplay ï¿½ï¿½ï¿½ï¿½
+            if (ResourceDisplay.Instance != null)
+            {
+                ResourceDisplay.Instance.UpdateResourceText(type);
+            }
         }
     }
 
@@ -39,8 +45,7 @@ public class ResourceManager : MonoBehaviour
     {
         return resources.ContainsKey(type) ? resources[type] : 0;
     }
-    private void Update()
-    {
 
-    }
+
+ 
 }
