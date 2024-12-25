@@ -25,21 +25,21 @@ public class EventUIManager : MonoBehaviour
         // 设置UI元素
         eventTitle.text = eventInfo.title;
         eventDescription.text = eventInfo.description;
-        eventImage.sprite = Resources.Load<Sprite>(eventInfo.picturePath);
+        //eventImage.sprite = Resources.Load<Sprite>(eventInfo.picturePath);
 
         // 设置按钮文本和点击事件
         SetButton(choiceButton1, eventInfo.option1, eventInfo.effect1);
         SetButton(choiceButton2, eventInfo.option2, eventInfo.effect2);
 
         // 检查宜居度条件
-        if (LivabilityManager.Instance.livability >= eventInfo.livabilityForChoice3)
-        {
-            SetButton(choiceButton3, eventInfo.option3, eventInfo.effect3);
-        }
-        else
-        {
-            choiceButton3.gameObject.SetActive(false);
-        }
+        //if (LivabilityManager.Instance.livability >= eventInfo.livabilityForChoice3)
+        //{
+        //    SetButton(choiceButton3, eventInfo.option3, eventInfo.effect3);
+        //}
+        //else
+        //{
+        //    choiceButton3.gameObject.SetActive(false);
+        //}
 
         // 显示UI
         gameObject.SetActive(true);
