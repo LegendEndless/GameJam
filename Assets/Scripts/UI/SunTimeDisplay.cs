@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class SunTimeDisplay : MonoBehaviour
 {
-    public Text timeText; // 关联到UI Text组件
+    public Text timeText; 
 
     void Update()
     {
