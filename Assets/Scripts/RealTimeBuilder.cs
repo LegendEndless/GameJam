@@ -24,6 +24,8 @@ public class RealTimeBuilder : MonoBehaviour
     public TileBase mistTile;
     public TileBase unbuildableTile;
 
+
+
     public Grid grid;
     public Tilemap tilemap;
     public float padding = 40;

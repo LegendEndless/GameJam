@@ -10,7 +10,8 @@ public class BaseBuilding : MonoBehaviour
     public Vector2Int position;
     public Vector2Int span;
     public int stationedCount;//注意写特殊建筑效果逻辑时也要看看有没有至少派驻一人
-
+    public GameObject buildingMenuPrefab; //存储UI预制体
+    private BuildingInfoManager buildingInfoManager; //添加引用
     public bool upgrading = false;
     //写成两个参数，如果想把升级进度画成环形进度条的话会很方便
     public float timeSinceUpgrade;
@@ -145,9 +146,22 @@ public class BaseBuilding : MonoBehaviour
     }
     public void PopUI()
     {
+        // 检查是否已经存在UI，如果存在就销毁
+        GameObject existingUI = GameObject.FindGameObjectWithTag("BuildingMenu");
+        if (existingUI != null)
+        {
+            Destroy(existingUI);
+        }
 
+        // 实例化UI预制体
+        GameObject uiInstance = Instantiate(buildingMenuPrefab, transform.position, Quaternion.identity);
+        // 设置UI的信息
+        BuildingInfoManager menuUI = uiInstance.GetComponent<BuildingInfoManager>();
+        if (menuUI != null)
+        {
+            menuUI.SetBuilding(this);
+        }
     }
-
     //这个函数方便做弹出UI的派驻功能
     public int StationedMax()
     {
