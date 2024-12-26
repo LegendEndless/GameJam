@@ -43,6 +43,9 @@ public class RealTimeBuilder : MonoBehaviour
     {
         translucent = new Color(1, 1, 1, 0.8f);
         lastTile = tilemap.GetTile(lastPosition);
+        //Select("StarshipCenter");
+        Build(BuildingManager.Instance.buildingInfoDict["StarshipCenter"].buildingInfo, new Vector3Int(-1, -1, 3),new Vector2Int(3,3));
+        tilemap.SetTile(new Vector3Int(-1, -1, 3), Resources.Load<Tile>("Tiles/StarshipCenter"));
     }
 
 
@@ -70,11 +73,6 @@ public class RealTimeBuilder : MonoBehaviour
         {
             Vector3Int v = grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             v.z = 3;
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                flip = !flip;
-                tile = Resources.Load<Tile>("Tiles/" + buildingName + (flip?"_flip":""));
-            }
             BuildingInfo info = BuildingManager.Instance.buildingInfoDict[buildingName].buildingInfo;
             Vector2Int span;
             if (!flip)
@@ -115,60 +113,7 @@ public class RealTimeBuilder : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && b)
             {
                 lastTile = tile;
-                GameObject gameObject = new GameObject(buildingName);
-                
-                switch (info.group)
-                {
-                    case 1://标准生产建筑
-                        gameObject.AddComponent<ProductionBuilding>().Initialize(buildingName,new Vector2Int(v.x,v.y),span);
-                        break;
-                    case 2://消耗物资的功能建筑
-                        switch (info.name)
-                        {
-                            case "NursingHouse":
-                                gameObject.AddComponent<NursingHouse>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
-                                break;
-                            case "LAN":
-                                gameObject.AddComponent<LAN>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
-                                break;
-                            case "Gym":
-                                gameObject.AddComponent<Gym>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
-                                break;
-                            case "RobotFactory":
-                                gameObject.AddComponent<RobotFactory>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
-                                break;
-                        }
-                        break;
-                    case 3:
-                        switch (info.name)
-                        {
-                            case "EcoGarden":
-                                gameObject.AddComponent<EcoGarden>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
-                                break;
-                            case "Magnetic":
-                                gameObject.AddComponent<Magnetic>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
-                                break;
-                            case "AirTower":
-                                gameObject.AddComponent<AirTower>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
-                                break;
-                            case "AILab":
-                                gameObject.AddComponent<AILab>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
-                                break;
-                            case "Apartment":
-                                gameObject.AddComponent<Apartment>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
-                                break;
-                            case "CellRepair":
-                                gameObject.AddComponent<CellRepair>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
-                                break;
-                            case "RocketBase":
-                                gameObject.AddComponent<RocketBase>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
-                                break;
-                        }
-                        break;
-                    case 4:
-                        gameObject.AddComponent<SingleProductionBuilding>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
-                        break;
-                }
+                Build(info,v,span);
                 ExitBuildingMode();
             }
             if (Input.GetMouseButtonDown(1))
@@ -336,7 +281,7 @@ public class RealTimeBuilder : MonoBehaviour
     //决定在建筑面板中是否置灰
     public bool CanSelect(string name)
     {
-        if (BuildingManager.Instance.buildingCountDict[name] == BuildingManager.Instance.buildingInfoDict[name].buildingInfo.maxCount)
+        if (BuildingManager.Instance.buildingCountDict.ContainsKey(name) && BuildingManager.Instance.buildingCountDict[name] == BuildingManager.Instance.buildingInfoDict[name].buildingInfo.maxCount)
         {
             return false;
         }
@@ -358,5 +303,62 @@ public class RealTimeBuilder : MonoBehaviour
         //    }
         //}
         return true;
+    }
+    public void Build(BuildingInfo info,Vector3Int v,Vector2Int span)
+    {
+        GameObject gameObject = new GameObject(buildingName);
+
+        switch (info.group)
+        {
+            case 1://标准生产建筑
+                gameObject.AddComponent<ProductionBuilding>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                break;
+            case 2://消耗物资的功能建筑
+                switch (info.name)
+                {
+                    case "NursingHouse":
+                        gameObject.AddComponent<NursingHouse>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                        break;
+                    case "LAN":
+                        gameObject.AddComponent<LAN>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                        break;
+                    case "Gym":
+                        gameObject.AddComponent<Gym>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                        break;
+                    case "RobotFactory":
+                        gameObject.AddComponent<RobotFactory>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                        break;
+                }
+                break;
+            case 3:
+                switch (info.name)
+                {
+                    case "EcoGarden":
+                        gameObject.AddComponent<EcoGarden>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                        break;
+                    case "Magnetic":
+                        gameObject.AddComponent<Magnetic>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                        break;
+                    case "AirTower":
+                        gameObject.AddComponent<AirTower>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                        break;
+                    case "AILab":
+                        gameObject.AddComponent<AILab>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                        break;
+                    case "Apartment":
+                        gameObject.AddComponent<Apartment>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                        break;
+                    case "CellRepair":
+                        gameObject.AddComponent<CellRepair>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                        break;
+                    case "RocketBase":
+                        gameObject.AddComponent<RocketBase>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                        break;
+                }
+                break;
+            case 4:
+                gameObject.AddComponent<SingleProductionBuilding>().Initialize(buildingName, new Vector2Int(v.x, v.y), span);
+                break;
+        }
     }
 }

@@ -46,13 +46,18 @@ public class BuildingMenuController : MonoBehaviour
         // 显示选中的类别
         buildingCategories[index].SetActive(true);
     }
-    public void OnBuildingButtonClicked()
+    private void Update()
     {
-        // 关闭菜单
-        ToggleMenu();
-
-        // 调用RealTimeBuilder开始建造
-        RealTimeBuilder.Instance.Select("NursingHouse");
+        foreach (var category in buildingCategories)
+        {
+            if (category.activeInHierarchy)
+            {
+                for (int i = 0; i < category.transform.childCount; i++)
+                {
+                    if(category.transform.GetChild(i).gameObject.activeInHierarchy)
+                        category.transform.GetChild(i).GetComponent<Button>().interactable = RealTimeBuilder.Instance.CanSelect(category.transform.GetChild(i).name);
+                }
+            }
+        }
     }
-
 }
