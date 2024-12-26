@@ -15,6 +15,7 @@ public class BuildingInfoManager : MonoBehaviour
     public Text maxLevelText;
     public Button upgradeButton;
     public Button demolishButton;
+    public Button closeButton;
 
     private BaseBuilding currentBuilding;
 
@@ -32,6 +33,11 @@ public class BuildingInfoManager : MonoBehaviour
         
     }
 
+    public void CloseMenu()
+    {
+        gameObject.SetActive(false);
+    }
+
     public void SetBuilding(BaseBuilding building)
     {
         currentBuilding = building;
@@ -40,14 +46,21 @@ public class BuildingInfoManager : MonoBehaviour
 
     private void UpdateUI()
     {
+
+        closeButton.onClick.RemoveAllListeners();
+        closeButton.onClick.AddListener(CloseMenu);
+
+        gameObject.SetActive(true);
+
+
         if (currentBuilding == null) return;
 
         buildingNameText.text = currentBuilding.name;
         // 设置建筑图片（该方法调取图片池
         // buildingImage.sprite = GetBuildingSprite(currentBuilding.name);
 
-        maxPopulationText.text = $"最大派驻人口: {currentBuilding.StationedMax()}";
-        currentPopulationText.text = $"当前派驻人口: {currentBuilding.stationedCount}";
+        maxPopulationText.text = $"{currentBuilding.StationedMax()}";
+        currentPopulationText.text = $" {currentBuilding.stationedCount}";
 
         // 更新资源生产信息（该方法调取资源池
         // currentResourceText.text = GetCurrentResourceProduction(currentBuilding);
