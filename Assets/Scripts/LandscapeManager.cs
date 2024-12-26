@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
@@ -13,6 +14,7 @@ public class LandscapeManager : MonoBehaviour
     public Dictionary<Vector2Int, bool> buildabilityMap;
     public HashSet<Vector2Int> magnetics;
     public HashSet<Vector2Int> airTowers;
+    public Tilemap tilemap;
     public int maxSize = 30;
     public static LandscapeManager Instance
     {
@@ -54,12 +56,29 @@ public class LandscapeManager : MonoBehaviour
         }
         magnetics = new HashSet<Vector2Int>();
         airTowers = new HashSet<Vector2Int>();
-        //测试！暂时这么写
         for (int i = -10; i <= 10; ++i)
         {
             for (int j = -10; j <= 10; ++j)
             {
-                landscapeMap[new Vector2Int(i, j)] = 1<<0;
+                Vector2Int v = new(i, j);
+                if (tilemap.GetTile(new(i, j, 0)) == null)
+                {
+                    landscapeMap[v] = 0;//虚空
+                    continue;
+                }
+                string tileName = tilemap.GetTile(new(i, j, 0)).name;//卧槽这么写也能认识
+                if (tileName.IndexOf("grass", StringComparison.OrdinalIgnoreCase) != -1)
+                    landscapeMap[v] = 1;
+                else if (tileName.IndexOf("scorched", StringComparison.OrdinalIgnoreCase) != -1)
+                    landscapeMap[v] = 4;
+                else if (tileName.IndexOf("land", StringComparison.OrdinalIgnoreCase) != -1)
+                    landscapeMap[v] = 2;
+                else if (tileName.IndexOf("desert", StringComparison.OrdinalIgnoreCase) != -1)
+                    landscapeMap[v] = 8;
+                else if (tileName.IndexOf("water", StringComparison.OrdinalIgnoreCase) != -1)
+                    landscapeMap[v] = 16;
+                else if (tileName.IndexOf("rock", StringComparison.OrdinalIgnoreCase) != -1)
+                    landscapeMap[v] = 32;
             }
         }
         RecalculateVisibility();

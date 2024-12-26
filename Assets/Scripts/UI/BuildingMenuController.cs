@@ -61,6 +61,7 @@ public class BuildingMenuController : MonoBehaviour
     }
     private void Update()
     {
+        print(RealTimeBuilder.Instance.CanSelect("Magnetic"));
         foreach (var category in buildingCategories)
         {
             if (category.activeInHierarchy)

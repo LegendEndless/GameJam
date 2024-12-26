@@ -22,7 +22,8 @@ public class BuildingManager : MonoBehaviour
     public float globalMultiplier;
 
     public bool rocketBaseFunctioning;
-    private void Awake()
+    List<string> list = new List<string>{ "electric","mine","food","water","oil", "chip","ti","carbon","nuclear_part","life_part","shell_part","chip_part",};
+private void Awake()
     {
         instance = this;
         BuildingInfoCollection collection = XmlDataManager.Instance.Load<BuildingInfoCollection>("building");
@@ -33,7 +34,18 @@ public class BuildingManager : MonoBehaviour
             buildingInfoDict[info.name] = t;
         }
         totalProduction = new Dictionary<string, float>
-        {
+        {{"electric", 0},
+        {"mine", 0},
+        {"food", 0},
+        {"water", 0},
+        {"oil", 0},
+        {"chip", 0},
+        {"ti", 0},
+        {"carbon", 0},
+        {"nuclear_part", 0},
+        {"life_part", 0},
+        {"shell_part", 0},
+        {"chip_part", 0},
         };
         landUseRegister = new Dictionary<Vector2Int, BaseBuilding>();
         highestLevelBuilding = new Dictionary<string, BaseBuilding>();
@@ -75,7 +87,7 @@ public class BuildingManager : MonoBehaviour
         if(building.level > 1)
              formerProduction = building.buildingInfoPro.massProductionList[building.level - 2];
         float current, former;
-        foreach(string resource in totalProduction.Keys)
+        foreach(string resource in list)
         {
             current = currentProduction.ContainsKey(resource) ? currentProduction[resource] : 0;
             former = formerProduction.ContainsKey(resource) ? formerProduction[resource] : 0;
@@ -108,11 +120,14 @@ public class BuildingManager : MonoBehaviour
         foreach (KeyValuePair<string,float> pair in totalProduction)
         {
             ResourceManager.Instance.AddResource(pair.Key, pair.Value * Time.deltaTime);
-            if(ResourceManager.Instance.GetResourceCount(pair.Key) < 0)
+        }
+        foreach (string resource in list)
+        {
+            if (ResourceManager.Instance.GetResourceCount(resource) < 0)
             {
-                ResourceManager.Instance.AddResource(pair.Key, -ResourceManager.Instance.GetResourceCount(pair.Key));
+                ResourceManager.Instance.AddResource(resource, -ResourceManager.Instance.GetResourceCount(resource));
                 //To do:可以通知一下玩家 有资源归零，所有消耗该资源的建筑都已停工
-                DismissAllRelatedBuilding(pair.Key);
+                DismissAllRelatedBuilding(resource);
             }
         }
     }

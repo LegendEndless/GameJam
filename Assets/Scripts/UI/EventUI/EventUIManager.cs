@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class EventUIManager : MonoBehaviour
 {
     public static EventUIManager Instance { get; private set; }
-
+    public Image background;
     public Text eventTitle;
     public Text eventDescription;
     public Text eventDescriptionLarger;
@@ -28,6 +28,7 @@ public class EventUIManager : MonoBehaviour
 
     public void ShowPlotEvent(PlotEventInfo plotInfo)
     {
+        background.sprite = Resources.Load<Sprite>("ui_event_2");
         if (RealTimeBuilder.Instance.isBuilding)
         {
             RealTimeBuilder.Instance.ExitBuildingMode();
@@ -56,10 +57,12 @@ public class EventUIManager : MonoBehaviour
             gameObject.SetActive(false);
             Time.timeScale = 1.0f;
         });
+        choiceButton3.interactable = true;
     }
 
     public void ShowRegularEvent(RegularEventInfo eventInfo)
     {
+        background.sprite = Resources.Load<Sprite>("ui_event_1");
         if (RealTimeBuilder.Instance.isBuilding)
         {
             RealTimeBuilder.Instance.ExitBuildingMode();

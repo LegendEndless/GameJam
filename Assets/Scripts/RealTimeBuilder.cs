@@ -53,7 +53,7 @@ public class RealTimeBuilder : MonoBehaviour
 
     void Update()
     {
-        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - 300 * Time.deltaTime * Input.GetAxis("Mouse ScrollWheel"),2,18);
+        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - 300 * Time.unscaledDeltaTime * Input.GetAxis("Mouse ScrollWheel"),2,18);
         if (Input.mousePosition.x < padding)
         {
             Camera.main.transform.Translate(5 * Time.unscaledDeltaTime * Vector2.left);
@@ -135,10 +135,6 @@ public class RealTimeBuilder : MonoBehaviour
                     register[v_].PopUI();
                 }
             }
-            if (Input.GetMouseButtonDown(1))
-            {
-                Time.timeScale = 10f;
-            }
         }
     }
     public void ExitBuildingMode()
@@ -213,9 +209,9 @@ public class RealTimeBuilder : MonoBehaviour
         if (name == "WaterStation")
         {
             if (!(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.left) && LandscapeManager.Instance.landscapeMap[v_+Vector2Int.left] == 16)
-                && !(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.left) && LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.left] == 16)
-                && !(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.left) && LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.left] == 16)
-                && !(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.left) && LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.left] == 16))
+                && !(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.right) && LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.right] == 16)
+                && !(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.up) && LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.up] == 16)
+                && !(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.down) && LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.down] == 16))
             {
                 return false;
             }

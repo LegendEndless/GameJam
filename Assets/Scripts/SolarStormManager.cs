@@ -30,6 +30,7 @@ public class SolarStormManager : MonoBehaviour
     public float warningDuration = 180;
     public float stormStart;
     public bool inStorm;
+    public Image image;
 
     public SolarStormInfo info;
     SolarStormInfoCollection collection;
@@ -85,6 +86,7 @@ public class SolarStormManager : MonoBehaviour
             //timeLeftText.text = "Time Left: " + TimeLeft.ToString("F2"); // 更新UI文本
             if (time > stormStart)
             {
+                image.gameObject.SetActive(true);
                 info = collection.infos[index];
                 if (CheckGameOver()) return;
                 StartSolarStorm();
@@ -92,11 +94,14 @@ public class SolarStormManager : MonoBehaviour
         }
         else
         {
+            Camera.main.transform.position = new Vector3(Random.Range(-0.05f, 0.05f), Random.Range(-0.05f, 0.05f), -10);
+            print(Camera.main.transform.position);
             unscaledTime += Time.unscaledDeltaTime;
             if (unscaledTime > stormDuration)
             {
                 unscaledTime = 0;
                 inStorm = false;
+                image.gameObject.SetActive(false);
                 EventUIManager.Instance.ShowPlotEvent(new PlotEventInfo
                 {
                     title = "暂时安全",

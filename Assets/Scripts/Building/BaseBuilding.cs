@@ -12,7 +12,7 @@ public class BaseBuilding : MonoBehaviour
     public int stationedCount;//注意写特殊建筑效果逻辑时也要看看有没有至少派驻一人
     public GameObject buildingMenuPrefab; //存储UI预制体
     private BuildingInfoManager buildingInfoManager; //添加引用
-    public bool upgrading = false;
+    public bool isUpgrading = false;
     //写成两个参数，如果想把升级进度画成环形进度条的话会很方便
     public float timeSinceUpgrade;
     public float currentUpgradeDuration;
@@ -23,6 +23,7 @@ public class BaseBuilding : MonoBehaviour
     public bool onStrike;//UI也得考虑这个
     public float strikeTimeLeft;
     public int stationedCountBeforeStrike;
+
 
     //有点多余吗。。至少提醒一下挂脚本或者实例化预制体时有哪些参数需要初始化
     public virtual void Initialize(string name,Vector2Int position,Vector2Int span)
@@ -72,7 +73,7 @@ public class BaseBuilding : MonoBehaviour
     }
     public void StartUpgrade()
     {
-        if (upgrading) return;
+        if (isUpgrading) return;
         if (level > 0 && BuildingManager.Instance.freeDict.ContainsKey(name) && BuildingManager.Instance.freeDict[name])
         {
             BuildingManager.Instance.freeDict[name] = false;
@@ -84,21 +85,21 @@ public class BaseBuilding : MonoBehaviour
                 ResourceManager.Instance.AddResource(t.Key, -t.Value);
             }
         }
-        upgrading =true;
+        isUpgrading =true;
         timeSinceUpgrade = 0;
         currentUpgradeDuration = buildingInfoPro.durationList[level];
     }
     public virtual void FinishUpgrade()
     {
         ++level;
-        upgrading = false;
+        isUpgrading = false;
 
         ReportUpgrade();
         AutoAdjustStation();
     }
     public virtual void Update()
     {
-        if (upgrading)
+        if (isUpgrading)
         {
             timeSinceUpgrade += Time.deltaTime;
             if (timeSinceUpgrade >= currentUpgradeDuration)
