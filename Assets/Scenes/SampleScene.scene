@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 66019159}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_Oil
+  m_Name: OilWell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -355,7 +355,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 66019160}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: OilWell
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &66019160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,7 +420,7 @@ GameObject:
   - component: {fileID: 70624156}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_Corn
+  m_Name: Corn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -702,7 +714,7 @@ GameObject:
   - component: {fileID: 133491777}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_NuclearStation
+  m_Name: NuclearStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -770,7 +782,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 133491778}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: NuclearStation
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &133491778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1266,7 +1290,7 @@ GameObject:
   - component: {fileID: 229486781}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_AirTower
+  m_Name: AirTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1334,7 +1358,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 229486782}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: AirTower
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &229486782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1549,7 +1585,7 @@ GameObject:
   - component: {fileID: 260977182}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_SolarGround
+  m_Name: CSolarPlant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1617,7 +1653,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 260977183}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CSolarPlant
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &260977183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1703,7 +1751,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 2241.55, y: -106}
+  m_AnchoredPosition: {x: 85, y: -106}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &282798705
@@ -1943,7 +1991,7 @@ GameObject:
   - component: {fileID: 372726251}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_CarbonRefine
+  m_Name: Refinery
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2011,7 +2059,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 372726252}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Refinery
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &372726252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2497,7 +2557,7 @@ GameObject:
   - component: {fileID: 458754321}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_NurseHouse
+  m_Name: NursingHouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2565,7 +2625,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 458754322}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: NursingHouse
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &458754322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2781,7 +2853,7 @@ GameObject:
   - component: {fileID: 513203942}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_RadiatLab
+  m_Name: RadiatLab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2849,7 +2921,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 513203943}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: RadiatLab
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &513203943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2997,7 +3081,7 @@ GameObject:
   - component: {fileID: 541958949}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_Cellcenter
+  m_Name: CellRepair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3065,7 +3149,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 541958950}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CellRepair
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &541958950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3318,7 +3414,7 @@ GameObject:
   - component: {fileID: 572569648}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_SolarWater
+  m_Name: FSolarPlant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3386,7 +3482,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 572569649}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: FSolarPlant
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &572569649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3439,7 +3547,7 @@ GameObject:
   - component: {fileID: 593156631}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_Solarstation
+  m_Name: SolarPlant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3507,7 +3615,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 593156632}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: SolarPlant
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &593156632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3767,7 +3887,7 @@ GameObject:
   - component: {fileID: 604986983}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_MagneticStation
+  m_Name: Magnetic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3900,7 +4020,7 @@ GameObject:
   - component: {fileID: 606697168}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_Mining
+  m_Name: Mining
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3968,7 +4088,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 606697169}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Mining
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &606697169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4101,7 +4233,7 @@ GameObject:
   - component: {fileID: 620453611}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_Lab
+  m_Name: HighLab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4169,7 +4301,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 620453612}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: HighLab
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &620453612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4302,7 +4446,7 @@ GameObject:
   - component: {fileID: 642230212}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_WaterPlant
+  m_Name: WaterStation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4370,7 +4514,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 642230213}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: WaterStation
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &642230213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4587,7 +4743,7 @@ GameObject:
   - component: {fileID: 703410570}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_BiomassPlant
+  m_Name: BiomassPlant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4655,7 +4811,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 703410571}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BiomassPlant
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &703410571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4788,7 +4956,7 @@ GameObject:
   - component: {fileID: 731716270}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_Apartment
+  m_Name: Apartment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4856,7 +5024,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 731716271}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Apartment
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &731716271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5847,7 +6027,7 @@ GameObject:
   - component: {fileID: 952680323}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_RobotFactoryButton (Legacy)
+  m_Name: RobotFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5915,7 +6095,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 952680324}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: RobotFactory
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &952680324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6006,7 +6198,7 @@ GameObject:
   - component: {fileID: 1085862046}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_QuatumCenter
+  m_Name: QuantumCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6074,7 +6266,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1085862047}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: QuantumCenter
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1085862047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6367,7 +6571,7 @@ GameObject:
   - component: {fileID: 1126133446}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_ResearchCenter
+  m_Name: ResearchHouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6435,7 +6639,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1126133447}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: ResearchHouse
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1126133447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7035,6 +7251,7 @@ RectTransform:
   - {fileID: 372726250}
   - {fileID: 1797838204}
   - {fileID: 703410569}
+  - {fileID: 1299130702}
   m_Father: {fileID: 1972059301}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -7487,6 +7704,139 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1271456833}
   m_CullTransparentMesh: 1
+--- !u!1 &1299130701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 7
+  m_Component:
+  - component: {fileID: 1299130702}
+  - component: {fileID: 1299130705}
+  - component: {fileID: 1299130704}
+  - component: {fileID: 1299130703}
+  m_Layer: 0
+  m_HasEditorInfo: 1
+  m_Name: WindPlant
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1299130702
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299130701}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1232545004}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 3251, y: -28.65}
+  m_SizeDelta: {x: 206.64, y: 206.64}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1299130703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299130701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1299130704}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: WindPlant
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1299130704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299130701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 9a0e17d712ac0524182005679fb1b4f1, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1299130705
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299130701}
+  m_CullTransparentMesh: 1
 --- !u!1 &1302414024
 GameObject:
   m_ObjectHideFlags: 0
@@ -7660,7 +8010,7 @@ GameObject:
   - component: {fileID: 1393503007}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_RocketLauncher
+  m_Name: RocketBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7728,7 +8078,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1393503008}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: RocketBase
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1393503008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8285,7 +8647,7 @@ GameObject:
   - component: {fileID: 1541023488}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_Nuclear
+  m_Name: NuclearManufactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8353,7 +8715,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1541023489}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: NuclearManufactory
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1541023489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8529,7 +8903,7 @@ GameObject:
   - component: {fileID: 1578169670}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_Lan
+  m_Name: LAN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8597,7 +8971,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1578169671}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: LAN
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1578169671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8927,7 +9313,7 @@ GameObject:
   - component: {fileID: 1612235215}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_MantleSampling
+  m_Name: MantleSampling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8995,7 +9381,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1612235216}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: MantleSampling
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1612235216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9366,7 +9764,7 @@ GameObject:
   - component: {fileID: 1797838205}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_Compression
+  m_Name: Compression
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9434,7 +9832,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1797838206}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Compression
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1797838206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9487,7 +9897,7 @@ GameObject:
   - component: {fileID: 1819080434}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_Stadium
+  m_Name: Gym
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9555,7 +9965,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1819080435}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Gym
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1819080435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9760,7 +10182,7 @@ GameObject:
   - component: {fileID: 1854754575}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_GreenHouse
+  m_Name: EcoHouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9828,7 +10250,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1854754576}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: EcoHouse
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1854754576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9919,7 +10353,7 @@ GameObject:
   - component: {fileID: 1918527342}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_EnvironCenter
+  m_Name: EnvironmentCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9987,7 +10421,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1918527343}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: EnvironmentCenter
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1918527343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10840,7 +11286,7 @@ GameObject:
   - component: {fileID: 2051203871}
   m_Layer: 0
   m_HasEditorInfo: 1
-  m_Name: UI_AILab
+  m_Name: AILab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10908,7 +11354,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2051203872}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 807564985}
+        m_TargetAssemblyTypeName: RealTimeBuilder, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: AILab
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2051203872
 MonoBehaviour:
   m_ObjectHideFlags: 0
