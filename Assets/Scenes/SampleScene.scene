@@ -1351,6 +1351,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 1376491193}
+  isMenuOpen: 0
+  pressTime: 0
+  longPressDuration: 1
+  isPressed: 0
 --- !u!1 &70624154
 GameObject:
   m_ObjectHideFlags: 0
@@ -2323,6 +2327,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 1133977009}
+  isMenuOpen: 0
+  pressTime: 0
+  longPressDuration: 1
+  isPressed: 0
 --- !u!1 &136201089
 GameObject:
   m_ObjectHideFlags: 0
@@ -4822,6 +4830,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 0}
+  isMenuOpen: 0
+  pressTime: 0
+  longPressDuration: 1
+  isPressed: 0
 --- !u!1 &276223739
 GameObject:
   m_ObjectHideFlags: 0
@@ -6311,6 +6323,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 430495624}
+  isMenuOpen: 0
+  pressTime: 0
+  longPressDuration: 1
+  isPressed: 0
 --- !u!1 &375148251
 GameObject:
   m_ObjectHideFlags: 0
@@ -10028,6 +10044,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 445374072}
+  isMenuOpen: 0
+  pressTime: 0
+  longPressDuration: 1
+  isPressed: 0
 --- !u!1 &573941975
 GameObject:
   m_ObjectHideFlags: 0
@@ -10411,6 +10431,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 1695145661}
+  isMenuOpen: 0
+  pressTime: 0
+  longPressDuration: 1
+  isPressed: 0
 --- !u!1 &594062169
 GameObject:
   m_ObjectHideFlags: 0
@@ -10978,6 +11002,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 1411060375}
+  isMenuOpen: 0
+  pressTime: 0
+  longPressDuration: 1
+  isPressed: 0
 --- !u!1 &609003299
 GameObject:
   m_ObjectHideFlags: 0
@@ -12607,6 +12635,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 309736756}
+  isMenuOpen: 0
+  pressTime: 0
+  longPressDuration: 1
+  isPressed: 0
 --- !u!1 &713365929
 GameObject:
   m_ObjectHideFlags: 0
@@ -20816,6 +20848,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 114468480}
+  isMenuOpen: 0
+  pressTime: 0
+  longPressDuration: 1
+  isPressed: 0
 --- !u!1 &1302414024
 GameObject:
   m_ObjectHideFlags: 0
@@ -26652,6 +26688,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 0}
+  isMenuOpen: 0
+  pressTime: 0
+  longPressDuration: 1
+  isPressed: 0
 --- !u!1 &1801678510
 GameObject:
   m_ObjectHideFlags: 0
