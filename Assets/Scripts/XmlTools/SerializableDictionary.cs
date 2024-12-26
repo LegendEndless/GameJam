@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
-using UnityEngine;
 
 public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IXmlSerializable
 {
@@ -17,7 +15,7 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IX
         XmlSerializer keySerializer = new XmlSerializer(typeof(TKey));
         XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
         reader.Read();
-        while(reader.NodeType != XmlNodeType.EndElement)
+        while (reader.NodeType != XmlNodeType.EndElement)
         {
             TKey key = (TKey)keySerializer.Deserialize(reader);
             TValue value = (TValue)valueSerializer.Deserialize(reader);

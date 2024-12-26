@@ -1,16 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class AILab : BaseBuilding
 {
     public override void ReportUpgrade()
     {
         base.ReportUpgrade();
-        if(BuildingManager.Instance.AITimesLeft > 0)
+        if (BuildingManager.Instance.AITimesLeft > 0)
         {
             --BuildingManager.Instance.AITimesLeft;
-            ResourceManager.Instance.AddResource("chip",ResourceManager.Instance.GetResourceCount("chip")/2);
+            ResourceManager.Instance.AddResource("chip", ResourceManager.Instance.GetResourceCount("chip") / 2);
         }
     }
     public override void OnFunctioningChange(bool functioning)

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ public class Gym : ProductionBuilding, ILivability
     {
         2.24f,2.45f,2.65f,2.83f,3.01f
     };//Ó²±àÂë
-    public int Livability => stationedCount != 0 ? CountInRange(null, ranges[level-1]) : 0;
+    public int Livability => stationedCount != 0 ? CountInRange(null, ranges[level - 1]) : 0;
     public override void AutoAdjustStation()
     {
         if (stationedCount == 0 && PopulationManager.Instance.AvailablePopulation <= 0)

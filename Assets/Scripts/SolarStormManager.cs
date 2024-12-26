@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,7 +52,7 @@ public class SolarStormManager : MonoBehaviour
         stormStart = collection.infos[index].second;
         inStorm = false;
     }
-    
+
     public void StartSolarStorm()
     {
         Time.timeScale = 0;

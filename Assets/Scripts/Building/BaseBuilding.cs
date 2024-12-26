@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BaseBuilding : MonoBehaviour
@@ -26,7 +24,7 @@ public class BaseBuilding : MonoBehaviour
 
 
     //有点多余吗。。至少提醒一下挂脚本或者实例化预制体时有哪些参数需要初始化
-    public virtual void Initialize(string name,Vector2Int position,Vector2Int span)
+    public virtual void Initialize(string name, Vector2Int position, Vector2Int span)
     {
         this.name = name;
         this.position = position;
@@ -85,7 +83,7 @@ public class BaseBuilding : MonoBehaviour
                 ResourceManager.Instance.AddResource(t.Key, -t.Value);
             }
         }
-        isUpgrading =true;
+        isUpgrading = true;
         timeSinceUpgrade = 0;
         currentUpgradeDuration = buildingInfoPro.durationList[level];
     }
@@ -123,7 +121,7 @@ public class BaseBuilding : MonoBehaviour
                 ManuallyAdjustStation(Mathf.Min(stationedCountBeforeStrike, PopulationManager.Instance.AvailablePopulation));
             }
         }
-        
+
     }
     public void Demolish()
     {
@@ -157,18 +155,18 @@ public class BaseBuilding : MonoBehaviour
 
     public virtual void AutoAdjustStation()
     {
-        if(stationedCount == 0 && PopulationManager.Instance.AvailablePopulation <= 0)
+        if (stationedCount == 0 && PopulationManager.Instance.AvailablePopulation <= 0)
         {
             //没人派驻，啥也不做
             return;
         }
         //不是资源建筑就默认上1吧
-        ManuallyAdjustStation(1-stationedCount);
+        ManuallyAdjustStation(1 - stationedCount);
     }
     public virtual void ManuallyAdjustStation(int delta)
     {
         bool flag = stationedCount > 0;
-        if(delta==0)
+        if (delta == 0)
         {
             return;
         }
@@ -186,17 +184,17 @@ public class BaseBuilding : MonoBehaviour
     }
     public bool HasNeighbor(string name)
     {
-        Vector2Int u,v;
+        Vector2Int u, v;
         int t;
-        for (int i = 0;i < span.x; i++)
+        for (int i = 0; i < span.x; i++)
         {
-            for(int j = 0;j < span.y; j++)
+            for (int j = 0; j < span.y; j++)
             {
                 v = position + new Vector2Int(i, j);
-                for(int ii = -3; ii <= 3; ++ii)
+                for (int ii = -3; ii <= 3; ++ii)
                 {
                     t = 3 - Mathf.Abs(ii);
-                    for(int jj =-t; jj<=t; ++jj)
+                    for (int jj = -t; jj <= t; ++jj)
                     {
                         u = v + new Vector2Int(ii, jj);
                         if (register.ContainsKey(u) && register[u].name == name)
@@ -223,10 +221,10 @@ public class BaseBuilding : MonoBehaviour
                 {
                     for (int jj = -t; jj <= t; ++jj)
                     {
-                        if (ii*ii+jj*jj<=range*range)
+                        if (ii * ii + jj * jj <= range * range)
                         {
                             u = v + new Vector2Int(ii, jj);
-                            if (register.ContainsKey(u) && register[u]!= null && (name == null || register[u].name==name))
+                            if (register.ContainsKey(u) && register[u] != null && (name == null || register[u].name == name))
                                 set.Add(register[u]);
                         }
                     }
@@ -271,20 +269,20 @@ public class BaseBuilding : MonoBehaviour
         }
         else
         {
-            hl[name] = hl[name].level > level ? hl[name]:this;
+            hl[name] = hl[name].level > level ? hl[name] : this;
         }
     }
 
     //决定弹出面板的升级按钮是否置灰
     public bool CanUpgrade()
     {
-        if(level == buildingInfoPro.buildingInfo.maxLevel)
+        if (level == buildingInfoPro.buildingInfo.maxLevel)
         {
             return false;
         }
         foreach (KeyValuePair<string, int> pair in buildingInfoPro.upgradeRestrictionList[level])
         {
-            if (BuildingManager.Instance.highestLevelBuilding[pair.Key].level < pair.Value)
+            if (!BuildingManager.Instance.highestLevelBuilding.ContainsKey(pair.Key) || BuildingManager.Instance.highestLevelBuilding[pair.Key].level < pair.Value)
             {
                 return false;
             }

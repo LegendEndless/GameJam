@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PopulationManager : MonoBehaviour
@@ -27,7 +25,7 @@ public class PopulationManager : MonoBehaviour
 
     private void Start()
     {
-        
+
     }
 
     // Update is called once per frame

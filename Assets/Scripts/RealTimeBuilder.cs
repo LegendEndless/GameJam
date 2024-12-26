@@ -1,14 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 
 public class RealTimeBuilder : MonoBehaviour
 {
@@ -46,14 +38,14 @@ public class RealTimeBuilder : MonoBehaviour
         translucent = new Color(1, 1, 1, 0.8f);
         lastTile = tilemap.GetTile(lastPosition);
         //Select("StarshipCenter");
-        Build(BuildingManager.Instance.buildingInfoDict["StarshipCenter"].buildingInfo, new Vector3Int(-1, -1, 3),new Vector2Int(3,3));
+        Build(BuildingManager.Instance.buildingInfoDict["StarshipCenter"].buildingInfo, new Vector3Int(-1, -1, 3), new Vector2Int(3, 3));
         tilemap.SetTile(new Vector3Int(-1, -1, 3), Resources.Load<Tile>("Tiles/Building/StarshipCenter"));
     }
 
 
     void Update()
     {
-        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - 300 * Time.unscaledDeltaTime * Input.GetAxis("Mouse ScrollWheel"),2,18);
+        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - 300 * Time.unscaledDeltaTime * Input.GetAxis("Mouse ScrollWheel"), 2, 18);
         if (Input.mousePosition.x < padding)
         {
             Camera.main.transform.Translate(5 * Time.unscaledDeltaTime * Vector2.left);
@@ -87,12 +79,12 @@ public class RealTimeBuilder : MonoBehaviour
             }
             if (lastPosition != v)
             {
-                tilemap.SetTile(new Vector3Int(lastPosition.x, lastPosition.y,4),null);
+                tilemap.SetTile(new Vector3Int(lastPosition.x, lastPosition.y, 4), null);
 
                 tilemap.SetTile(lastPosition, lastTile);
                 tilemap.RemoveTileFlags(lastPosition, TileFlags.LockColor);
                 if (lastTile == mistTile)
-                    tilemap.SetColor(lastPosition,Color.white);
+                    tilemap.SetColor(lastPosition, Color.white);
                 else
                     tilemap.SetColor(lastPosition, translucent);
                 lastPosition = v;
@@ -104,7 +96,7 @@ public class RealTimeBuilder : MonoBehaviour
             tilemap.RemoveTileFlags(v, TileFlags.LockColor);
             tilemap.SetColor(v, b ? Color.green : Color.red);
 
-            if(lastTile != mistTile && lastTile != tile)
+            if (lastTile != mistTile && lastTile != tile)
             {
                 var v_ = new Vector3Int(v.x, v.y, 4);
                 tilemap.SetTile(v_, lastTile);
@@ -115,7 +107,7 @@ public class RealTimeBuilder : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && b)
             {
                 lastTile = tile;
-                Build(info,v,span);
+                Build(info, v, span);
                 ExitBuildingMode();
             }
             if (Input.GetMouseButtonDown(1))
@@ -125,11 +117,18 @@ public class RealTimeBuilder : MonoBehaviour
         }
         else
         {
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                foreach (string resource in BuildingManager.Instance.list)
+                {
+                    ResourceManager.Instance.AddResource(resource, 10000);
+                }
+            }
             if (Input.GetMouseButtonDown(0))
             {
                 Vector3Int v = grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-                Vector2Int v_ = new Vector2Int(v.x,v.y);
-                Dictionary<Vector2Int,BaseBuilding> register = BuildingManager.Instance.landUseRegister;
+                Vector2Int v_ = new Vector2Int(v.x, v.y);
+                Dictionary<Vector2Int, BaseBuilding> register = BuildingManager.Instance.landUseRegister;
                 if (register.ContainsKey(v_) && register[v_] != null)
                 {
                     register[v_].PopUI();
@@ -152,7 +151,7 @@ public class RealTimeBuilder : MonoBehaviour
                     tilemap.RemoveTileFlags(v_, TileFlags.LockColor);
                     tilemap.SetColor(v_, Color.white);
                 }
-                
+
             }
         }
         isBuilding = false;
@@ -179,7 +178,7 @@ public class RealTimeBuilder : MonoBehaviour
     }
     public void Demolish(Vector2Int v)
     {
-        tilemap.SetTile(new Vector3Int(v.x,v.y,3),null);
+        tilemap.SetTile(new Vector3Int(v.x, v.y, 3), null);
     }
     public bool CanBuild(string name, Vector3Int v, Vector2Int span)
     {
@@ -208,7 +207,7 @@ public class RealTimeBuilder : MonoBehaviour
         v_ = new Vector2Int(v.x, v.y);
         if (name == "WaterStation")
         {
-            if (!(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.left) && LandscapeManager.Instance.landscapeMap[v_+Vector2Int.left] == 16)
+            if (!(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.left) && LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.left] == 16)
                 && !(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.right) && LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.right] == 16)
                 && !(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.up) && LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.up] == 16)
                 && !(LandscapeManager.Instance.landscapeMap.ContainsKey(v_ + Vector2Int.down) && LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.down] == 16))
@@ -216,11 +215,11 @@ public class RealTimeBuilder : MonoBehaviour
                 return false;
             }
         }
-        else if(name == "EcoGarden" && IsNear(v_,span,new List<string> { "Mining", "OilWell", "NuclearPlant", "MantleSampling" }))
+        else if (name == "EcoGarden" && IsNear(v_, span, new List<string> { "Mining", "OilWell", "NuclearPlant", "MantleSampling" }))
         {
             return false;
         }
-        else if (name == "HighLab" && IsNear(v_, span, new List<string> { "WaterStation","Corn" }))
+        else if (name == "HighLab" && IsNear(v_, span, new List<string> { "WaterStation", "Corn" }))
         {
             return false;
         }
@@ -232,9 +231,9 @@ public class RealTimeBuilder : MonoBehaviour
         {
             return false;
         }
-        else if(name == "MantleSampling")
+        else if (name == "MantleSampling")
         {
-            if (LandscapeManager.Instance.landscapeMap[v_]!= LandscapeManager.Instance.landscapeMap[v_+Vector2Int.right]
+            if (LandscapeManager.Instance.landscapeMap[v_] != LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.right]
                 || LandscapeManager.Instance.landscapeMap[v_] != LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.up]
                 || LandscapeManager.Instance.landscapeMap[v_] != LandscapeManager.Instance.landscapeMap[v_ + Vector2Int.up + Vector2Int.right])
             {
@@ -247,7 +246,7 @@ public class RealTimeBuilder : MonoBehaviour
         }
         return true;
     }
-    public bool IsNear(Vector2Int position,Vector2Int span,List<string> names)
+    public bool IsNear(Vector2Int position, Vector2Int span, List<string> names)
     {
         Vector2Int u, v;
         int t;
@@ -283,7 +282,7 @@ public class RealTimeBuilder : MonoBehaviour
         {
             return false;
         }
-        foreach(KeyValuePair<string,int> pair in BuildingManager.Instance.buildingInfoDict[name].upgradeRestrictionList[0])
+        foreach (KeyValuePair<string, int> pair in BuildingManager.Instance.buildingInfoDict[name].upgradeRestrictionList[0])
         {
             if (!BuildingManager.Instance.highestLevelBuilding.ContainsKey(pair.Key) || BuildingManager.Instance.highestLevelBuilding[pair.Key].level < pair.Value)
             {
@@ -302,7 +301,7 @@ public class RealTimeBuilder : MonoBehaviour
         }
         return true;
     }
-    public void Build(BuildingInfo info,Vector3Int v,Vector2Int span)
+    public void Build(BuildingInfo info, Vector3Int v, Vector2Int span)
     {
         GameObject gameObject = new GameObject(buildingName);
 

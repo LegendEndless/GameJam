@@ -1,8 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Serialization;
-using Unity.VisualScripting.FullSerializer;
-using UnityEngine;
 
 //另写一个buildingInfo类是为了对于每种建筑都只读取一次配置文件
 public class BuildingInfo
@@ -37,7 +33,7 @@ public class BuildingInfoPro
     public List<Dictionary<string, float>> singleProductionList;
     public List<Dictionary<string, float>> costList;
     public List<float> durationList;
-    public List<Dictionary<string,int>> upgradeRestrictionList;
+    public List<Dictionary<string, int>> upgradeRestrictionList;
     public BuildingInfoPro(BuildingInfo info)
     {
         buildingInfo = info;
@@ -57,11 +53,11 @@ public class BuildingInfoPro
         {
             Dictionary<string, float> dic = new Dictionary<string, float>();
             string[] pairs = part.Split(",");
-            foreach(string pair in pairs)
+            foreach (string pair in pairs)
             {
                 string[] element = pair.Split("|");
                 if (element[0] != "")
-                    dic[element[0]]=float.Parse(element[1]);
+                    dic[element[0]] = float.Parse(element[1]);
             }
             massProductionList.Add(dic);
         }

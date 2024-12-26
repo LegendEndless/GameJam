@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class BuildingInfoManager : MonoBehaviour
@@ -65,7 +63,7 @@ public class BuildingInfoManager : MonoBehaviour
         if (currentBuilding is ProductionBuilding)
         {
             float f = currentBuilding.buildingInfoPro.buildingInfo.stationBonus;
-            productivity.text = "每额外派遣一人,\n生产/消耗倍率" + (f>0?"+":"")+(f * 100) + "%"
+            productivity.text = "每额外派遣一人,\n生产/消耗倍率" + (f > 0 ? "+" : "") + (f * 100) + "%"
             + "\n当前倍率: " + ((currentBuilding as ProductionBuilding).multiplier * 100).ToString() + "%";
             currentResourceText.text = "当前基础生产/消耗率(每秒)\n" + GetCurrentResourceProduction(currentBuilding);
             if (currentBuilding.level < currentBuilding.buildingInfoPro.buildingInfo.maxLevel && currentBuilding.name != "NursingHouse")
@@ -105,7 +103,7 @@ public class BuildingInfoManager : MonoBehaviour
         }
         else
         {
-            upgradeCostText.text = "升级消耗: "+GetUpgradeCost(currentBuilding);
+            upgradeCostText.text = "升级消耗: " + GetUpgradeCost(currentBuilding);
             foreach (var pair in currentBuilding.buildingInfoPro.upgradeRestrictionList[currentBuilding.level])
             {
                 upgradeCostText.text += "\n需要有" + BuildingManager.Instance.buildingInfoDict[pair.Key].buildingInfo.nameChinese + "达到" + pair.Value + "级";
@@ -134,9 +132,9 @@ public class BuildingInfoManager : MonoBehaviour
     private string GetUpgradeCost(BaseBuilding currentBuilding)
     {
         string str = "";
-        foreach(var pair in currentBuilding.buildingInfoPro.costList[currentBuilding.level])
+        foreach (var pair in currentBuilding.buildingInfoPro.costList[currentBuilding.level])
         {
-            str += dic[pair.Key] +"*"+pair.Value.ToString()+" ";
+            str += dic[pair.Key] + "*" + pair.Value.ToString() + " ";
         }
         return str;
     }
@@ -146,7 +144,7 @@ public class BuildingInfoManager : MonoBehaviour
         string str = "";
         foreach (var pair in currentBuilding.buildingInfoPro.massProductionList[currentBuilding.level])
         {
-            str += (pair.Value > 0 ? "+" : "")+pair.Value.ToString() + dic[pair.Key] + " ";
+            str += (pair.Value > 0 ? "+" : "") + pair.Value.ToString() + dic[pair.Key] + " ";
         }
         if (currentBuilding.buildingInfoPro.singleProductionList.Count > currentBuilding.level)
         {
@@ -162,7 +160,7 @@ public class BuildingInfoManager : MonoBehaviour
     {
         string str = "";
         if (currentBuilding.level == 0) return str;
-        foreach (var pair in currentBuilding.buildingInfoPro.massProductionList[currentBuilding.level-1])
+        foreach (var pair in currentBuilding.buildingInfoPro.massProductionList[currentBuilding.level - 1])
         {
             str += (pair.Value > 0 ? "+" : "") + pair.Value.ToString() + dic[pair.Key] + " ";
         }

@@ -1,11 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingManager : MonoBehaviour
 {
     static BuildingManager instance;
-    public static BuildingManager Instance=>instance;
+    public static BuildingManager Instance => instance;
     public SerializableDictionary<string, BuildingInfoPro> buildingInfoDict;
     public Dictionary<string, int> buildingCountDict;
     public Dictionary<string, float> totalProduction;
@@ -22,8 +21,8 @@ public class BuildingManager : MonoBehaviour
     public float globalMultiplier;
 
     public bool rocketBaseFunctioning;
-    List<string> list = new List<string>{ "electric","mine","food","water","oil", "chip","ti","carbon","nuclear_part","life_part","shell_part","chip_part",};
-private void Awake()
+    public List<string> list = new List<string> { "electric", "mine", "food", "water", "oil", "chip", "ti", "carbon", "nuclear_part", "life_part", "shell_part", "chip_part", };
+    private void Awake()
     {
         instance = this;
         BuildingInfoCollection collection = XmlDataManager.Instance.Load<BuildingInfoCollection>("building");
@@ -63,14 +62,14 @@ private void Awake()
     }
     private void Start()
     {
-        
+
     }
 
     public void ReportMultiplierChange(ProductionBuilding building, float deltaMultiplier)
     {
         if (building.level == 0) return;
         Dictionary<string, float> basicProduction = building.buildingInfoPro.massProductionList[building.level - 1];
-        foreach(KeyValuePair<string,float> pair in basicProduction)
+        foreach (KeyValuePair<string, float> pair in basicProduction)
         {
             if (!totalProduction.ContainsKey(pair.Key)) totalProduction[pair.Key] = 0;
             totalProduction[pair.Key] += pair.Value * deltaMultiplier;
@@ -78,16 +77,16 @@ private void Awake()
     }
     public void ReportUpgrade(ProductionBuilding building)
     {
-        if(building.multiplier == 0)
+        if (building.multiplier == 0)
         {
             return;
         }
         Dictionary<string, float> currentProduction = building.buildingInfoPro.massProductionList[building.level - 1];
         Dictionary<string, float> formerProduction = new Dictionary<string, float>();
-        if(building.level > 1)
-             formerProduction = building.buildingInfoPro.massProductionList[building.level - 2];
+        if (building.level > 1)
+            formerProduction = building.buildingInfoPro.massProductionList[building.level - 2];
         float current, former;
-        foreach(string resource in list)
+        foreach (string resource in list)
         {
             current = currentProduction.ContainsKey(resource) ? currentProduction[resource] : 0;
             former = formerProduction.ContainsKey(resource) ? formerProduction[resource] : 0;
@@ -96,11 +95,11 @@ private void Awake()
     }
     public void GloballyRecalculate()
     {
-        foreach(BaseBuilding building in buildings)
+        foreach (BaseBuilding building in buildings)
         {
-            if(building is ProductionBuilding)
+            if (building is ProductionBuilding)
             {
-                (building as ProductionBuilding).RecalculateMultiplier(false,true);
+                (building as ProductionBuilding).RecalculateMultiplier(false, true);
             }
         }
     }
@@ -108,7 +107,7 @@ private void Awake()
     {
         foreach (BaseBuilding building in buildings)
         {
-            if(building.name == name && (highestLevelBuilding[name]==null || highestLevelBuilding[name].level < building.level))
+            if (building.name == name && (highestLevelBuilding[name] == null || highestLevelBuilding[name].level < building.level))
             {
                 highestLevelBuilding[name] = building;
             }
@@ -117,7 +116,7 @@ private void Awake()
     // Update is called once per frame
     void Update()
     {
-        foreach (KeyValuePair<string,float> pair in totalProduction)
+        foreach (KeyValuePair<string, float> pair in totalProduction)
         {
             ResourceManager.Instance.AddResource(pair.Key, pair.Value * Time.deltaTime);
         }
@@ -133,10 +132,10 @@ private void Awake()
     }
     public void DismissAllRelatedBuilding(string resource)
     {
-        foreach(var building in buildings)
+        foreach (var building in buildings)
         {
             if (building.level == 0) return;
-            if (building.buildingInfoPro.massProductionList[building.level-1].ContainsKey(resource) && building.buildingInfoPro.massProductionList[building.level - 1][resource] < 0)
+            if (building.buildingInfoPro.massProductionList[building.level - 1].ContainsKey(resource) && building.buildingInfoPro.massProductionList[building.level - 1][resource] < 0)
             {
                 building.ManuallyAdjustStation(-building.stationedCount);
             }

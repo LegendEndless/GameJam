@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices.ComTypes;
 using System.Xml.Serialization;
 using UnityEngine;
 
@@ -15,7 +12,7 @@ public class XmlDataManager
     {
         XmlSerializer serializer = new XmlSerializer(obj.GetType());
         string path = Application.persistentDataPath + "/" + filename + ".xml";
-        if(saveToStreamingAssets)
+        if (saveToStreamingAssets)
         {
             path = Application.streamingAssetsPath + "/" + filename + ".xml";
         }

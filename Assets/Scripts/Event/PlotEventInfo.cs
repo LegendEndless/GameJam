@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class PlotEventInfo
 {
@@ -16,6 +14,7 @@ public class PlotEventCollection
 
 public class RegularEventInfo
 {
+    public int id;
     public string title;
     public string description;
     public string option1, option2, option3;

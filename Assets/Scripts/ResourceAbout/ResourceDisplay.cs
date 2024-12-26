@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class ResourceDisplay : MonoBehaviour
 {
@@ -29,7 +29,7 @@ public class ResourceDisplay : MonoBehaviour
         RegisterResourceText("ti", tiText);
         RegisterResourceText("carbon", carbonText);
 
-        UpdateAllResourceTexts(); 
+        UpdateAllResourceTexts();
     }
 
     public Dictionary<string, Text> resourceTexts = new Dictionary<string, Text>();
@@ -59,7 +59,7 @@ public class ResourceDisplay : MonoBehaviour
     {
         if (value < 1000)
         {
-           
+
             return value.ToString("F0");
         }
         else if (value >= 1000 && value < 10000)
@@ -78,7 +78,7 @@ public class ResourceDisplay : MonoBehaviour
         foreach (var resourcePair in resourceTexts)
         {
             UpdateResourceText(resourcePair.Key);
-           // UpdateTimeText(); // 调用更新时间的方法
+            // UpdateTimeText(); // 调用更新时间的方法
         }
     }
     private void Update()

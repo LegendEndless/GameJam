@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +15,7 @@ public class ProductionBuilding : BaseBuilding
         globalMultiplier = -1;
         //刚开始就得统计一下周边基站个数
         numLAN = CountInRange("LAN", 2.01f);//硬编码处
-        if(name == "MantleSampling")
+        if (name == "MantleSampling")
         {
             BuildingManager.Instance.sampling[LandscapeManager.Instance.landscapeMap[position]] = true;
         }
@@ -28,7 +27,7 @@ public class ProductionBuilding : BaseBuilding
     public override void ManuallyAdjustStation(int delta)
     {
         base.ManuallyAdjustStation(delta);
-        RecalculateMultiplier(false,false);
+        RecalculateMultiplier(false, false);
     }
     public void RecalculateMultiplier(bool recalcEnvironment, bool recalcGlobal)
     {
@@ -73,7 +72,7 @@ public class ProductionBuilding : BaseBuilding
             multiplier += environmentMultiplier;
             multiplier += globalMultiplier;
         }
-        BuildingManager.Instance.ReportMultiplierChange(this,multiplier-lastMultiplier);
+        BuildingManager.Instance.ReportMultiplierChange(this, multiplier - lastMultiplier);
     }
     public override void ReportUpgrade()
     {
@@ -83,7 +82,7 @@ public class ProductionBuilding : BaseBuilding
     public void ChangeNumLAN(int change)
     {
         numLAN += change;
-        RecalculateMultiplier(true,false);
+        RecalculateMultiplier(true, false);
     }
     public override void OnDemolish()
     {

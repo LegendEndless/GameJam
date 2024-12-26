@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 
 public class LandscapeManager : MonoBehaviour
 {
@@ -86,7 +83,7 @@ public class LandscapeManager : MonoBehaviour
     }
     private void Start()
     {
-        
+
     }
     public void RecalculateVisibility()
     {
@@ -102,10 +99,10 @@ public class LandscapeManager : MonoBehaviour
         {
             for (int j = -10; j <= 10; ++j)
             {
-                visibilityMap[new Vector2Int(i,j)] = true;
+                visibilityMap[new Vector2Int(i, j)] = true;
             }
         }
-        foreach(Vector2Int v in magnetics)
+        foreach (Vector2Int v in magnetics)
         {
             int t = Mathf.CeilToInt(range);
             for (int ii = -t; ii <= t; ++ii)
@@ -119,18 +116,18 @@ public class LandscapeManager : MonoBehaviour
                 }
             }
         }
-        foreach(var building in BuildingManager.Instance.buildings)
+        foreach (var building in BuildingManager.Instance.buildings)
         {
             if (building.IsVisible())
             {
                 TileBase tile = GetBuildingTile(building.name);
-                RealTimeBuilder.Instance.tilemap.SetTile(new Vector3Int(building.position.x,building.position.y,3),tile);
+                RealTimeBuilder.Instance.tilemap.SetTile(new Vector3Int(building.position.x, building.position.y, 3), tile);
             }
         }
         Vector2Int v_;
-        for(int i=-maxSize; i<=maxSize; ++i)
+        for (int i = -maxSize; i <= maxSize; ++i)
         {
-            for (int j=-maxSize; j<=maxSize; ++j)
+            for (int j = -maxSize; j <= maxSize; ++j)
             {
                 v_ = new Vector2Int(i, j);
                 var register = BuildingManager.Instance.landUseRegister;
@@ -145,7 +142,7 @@ public class LandscapeManager : MonoBehaviour
                 }
                 else
                 {
-                    if(RealTimeBuilder.Instance.tilemap.GetTile(new Vector3Int(v_.x, v_.y, 3)) == RealTimeBuilder.Instance.mistTile)
+                    if (RealTimeBuilder.Instance.tilemap.GetTile(new Vector3Int(v_.x, v_.y, 3)) == RealTimeBuilder.Instance.mistTile)
                     {
                         RealTimeBuilder.Instance.tilemap.SetTile(new Vector3Int(v_.x, v_.y, 3), null);
                     }

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,7 +23,7 @@ public class LivabilityManager : MonoBehaviour
     public void Recalculate()
     {
         livability = 5;
-        foreach(var building in livabilityBuildings)
+        foreach (var building in livabilityBuildings)
         {
             livability += building.Livability;
         }
@@ -33,6 +32,6 @@ public class LivabilityManager : MonoBehaviour
         BuildingManager.Instance.GloballyRecalculate();
         //最后记得更新给UI
         livabilityText.text = livability.ToString();
-        pointer.eulerAngles = new Vector3 (pointer.eulerAngles.x, pointer.eulerAngles.y, -6.5f * livability);
+        pointer.eulerAngles = new Vector3(pointer.eulerAngles.x, pointer.eulerAngles.y, -6.5f * livability);
     }
 }
