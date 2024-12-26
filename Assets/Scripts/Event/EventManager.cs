@@ -12,13 +12,6 @@ public class EventManager : MonoBehaviour
     int plotIndex;
     RegularEventInfo disasterInfo, socialInfo;
     public static EventManager Instance { get; private set; }
-
-    //引用EventUIManager 1224晚修改
-
-
-
-
-
     private void Awake()
     {
         Instance = this;
@@ -27,13 +20,15 @@ public class EventManager : MonoBehaviour
         socialEvents = XmlDataManager.Instance.Load<RegularEventCollection>("social");
         time = 0;
         plotIndex = 0;
+        cdDisaster = 180;
+        cdSocial = 180;
     }
 
     // Update is called once per frame
     void Update()
     {
         time += Time.deltaTime;
-        if (plotIndex > plotEvents.events.Count || time > plotEvents.events[plotIndex].occurrenceTime)
+        if (plotIndex < plotEvents.events.Count && time > plotEvents.events[plotIndex].occurrenceTime)
         {
             PopPlotUI(plotEvents.events[plotIndex]);
             ++plotIndex;
@@ -71,7 +66,6 @@ public class EventManager : MonoBehaviour
     {
         //每次弹出都得重新设置所有选项能否选择 用CanChoose()
         EventUIManager.Instance.ShowRegularEvent(info);
-
     }
     public List<UnityAction> TranslateEffect(string effect)
     {

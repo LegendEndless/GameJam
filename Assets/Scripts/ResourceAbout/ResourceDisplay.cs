@@ -84,41 +84,50 @@ public class ResourceDisplay : MonoBehaviour
     private void Update()
     {
         UpdateAllResourceTexts();
-    
-
     }
+
+    public void Pause()
+    {
+        if (Time.timeScale == 0) Time.timeScale = 1;
+        else Time.timeScale = 0;
+    }
+    public void Accelerate()
+    {
+        Time.timeScale = 10;
+    }
+
     //更新时间的方法（不知道能不能这么写）
     //private void UpdateTimeText()
     //{
     //    if (SolarStormManager.Instance != null)
-     //   {
-           
-     //       float timeRemaining = SolarStormManager.Instance.TimeLeft; // 剩余时间
-     //       Debug.Log("时间剩余 " + timeRemaining); // 调试
-     //       if (timeRemaining < 0) timeRemaining = 0; 
+    //   {
 
-     //       int minutes = Mathf.FloorToInt(timeRemaining / 60);
-     //       int seconds = Mathf.FloorToInt(timeRemaining % 60);
+    //       float timeRemaining = SolarStormManager.Instance.TimeLeft; // 剩余时间
+    //       Debug.Log("时间剩余 " + timeRemaining); // 调试
+    //       if (timeRemaining < 0) timeRemaining = 0; 
 
-     //       string formattedTime = string.Format("{0:00}:{1:00}", minutes, seconds);
+    //       int minutes = Mathf.FloorToInt(timeRemaining / 60);
+    //       int seconds = Mathf.FloorToInt(timeRemaining % 60);
 
-     //       if (timeLeftText != null)
-      //      {
-      //          timeLeftText.text = formattedTime;
-      //      }
-      //      else
-      //      {
+    //       string formattedTime = string.Format("{0:00}:{1:00}", minutes, seconds);
 
-      //      }
+    //       if (timeLeftText != null)
+    //      {
+    //          timeLeftText.text = formattedTime;
+    //      }
+    //      else
+    //      {
 
-       // }
-      //  else
-      //  {
-       //     Debug.LogError("没有SolarStormManager");
-       //     if (timeLeftText != null)
-      //      {
-       //         timeLeftText.text = "00:00"; // 默认值
-       //     }
-       // }
-   // }
+    //      }
+
+    // }
+    //  else
+    //  {
+    //     Debug.LogError("没有SolarStormManager");
+    //     if (timeLeftText != null)
+    //      {
+    //         timeLeftText.text = "00:00"; // 默认值
+    //     }
+    // }
+    // }
 }

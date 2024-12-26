@@ -287,21 +287,21 @@ public class RealTimeBuilder : MonoBehaviour
         }
         foreach(KeyValuePair<string,int> pair in BuildingManager.Instance.buildingInfoDict[name].upgradeRestrictionList[0])
         {
-            if (BuildingManager.Instance.highestLevelBuilding[pair.Key].level < pair.Value)
+            if (!BuildingManager.Instance.highestLevelBuilding.ContainsKey(pair.Key) || BuildingManager.Instance.highestLevelBuilding[pair.Key].level < pair.Value)
             {
                 return false;
             }
         }
-        //if(!BuildingManager.Instance.freeDict.ContainsKey(name) || !BuildingManager.Instance.freeDict[name])
-        //{
-        //    foreach(var t in BuildingManager.Instance.buildingInfoDict[name].costList[0])
-        //    {
-        //        if(ResourceManager.Instance.GetResourceCount(t.Key) < t.Value)
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //}
+        if (!BuildingManager.Instance.freeDict.ContainsKey(name) || !BuildingManager.Instance.freeDict[name])
+        {
+            foreach (var t in BuildingManager.Instance.buildingInfoDict[name].costList[0])
+            {
+                if (ResourceManager.Instance.GetResourceCount(t.Key) < t.Value)
+                {
+                    return false;
+                }
+            }
+        }
         return true;
     }
     public void Build(BuildingInfo info,Vector3Int v,Vector2Int span)

@@ -107,7 +107,6 @@ public class BuildingManager : MonoBehaviour
     {
         foreach (KeyValuePair<string,float> pair in totalProduction)
         {
-            print(pair.Key + pair.Value);
             ResourceManager.Instance.AddResource(pair.Key, pair.Value * Time.deltaTime);
             if(ResourceManager.Instance.GetResourceCount(pair.Key) < 0)
             {
@@ -121,6 +120,7 @@ public class BuildingManager : MonoBehaviour
     {
         foreach(var building in buildings)
         {
+            if (building.level == 0) return;
             if (building.buildingInfoPro.massProductionList[building.level-1].ContainsKey(resource) && building.buildingInfoPro.massProductionList[building.level - 1][resource] < 0)
             {
                 building.ManuallyAdjustStation(-building.stationedCount);

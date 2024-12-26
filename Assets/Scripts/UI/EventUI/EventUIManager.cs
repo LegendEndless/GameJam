@@ -9,6 +9,7 @@ public class EventUIManager : MonoBehaviour
 
     public Text eventTitle;
     public Text eventDescription;
+    public Text eventDescriptionLarger;
     public Image eventImage;
     public Button choiceButton1;
     public Button choiceButton2;
@@ -27,10 +28,15 @@ public class EventUIManager : MonoBehaviour
 
     public void ShowPlotEvent(PlotEventInfo plotInfo)
     {
+        Time.timeScale = 0;
         // 设置UI元素
         eventTitle.text = plotInfo.title;
-        eventDescription.text = plotInfo.description;
+        // eventDescription.text = plotInfo.description;
         // eventImage.sprite = Resources.Load<Sprite>(plotInfo.picturePath); // 如果有图片路径
+        eventDescription.gameObject.SetActive(false);
+        eventImage.gameObject.SetActive(false);
+        eventDescriptionLarger.gameObject.SetActive(true);
+        eventDescriptionLarger.text = plotInfo.description;
 
         // 显示UI
         gameObject.SetActive(true);
@@ -38,25 +44,44 @@ public class EventUIManager : MonoBehaviour
         // 隐藏不必要的按钮
         choiceButton1.gameObject.SetActive(false);
         choiceButton2.gameObject.SetActive(false);
-        choiceButton3.gameObject.SetActive(false);
+        //choiceButton3.gameObject.SetActive(false);
+        choiceButton3.GetComponentInChildren<Text>().text = plotInfo.option;
+        choiceButton3.onClick.AddListener(() =>
+        {
+            // 隐藏UI
+            gameObject.SetActive(false);
+            Time.timeScale = 1.0f;
+        });
     }
 
     public void ShowRegularEvent(RegularEventInfo eventInfo)
     {
+        Time.timeScale = 0;
         // 设置UI元素
         eventTitle.text = eventInfo.title;
         eventDescription.text = eventInfo.description;
         // eventImage.sprite = Resources.Load<Sprite>(eventInfo.picturePath);
+        eventDescription.gameObject.SetActive(true);
+        eventImage.gameObject.SetActive(true);
+        eventDescriptionLarger.gameObject.SetActive(false);
 
         // 设置按钮文本和点击事件
         SetButton(choiceButton1, eventInfo.option1, eventInfo.effect1);
         SetButton(choiceButton2, eventInfo.option2, eventInfo.effect2);
 
-        if (eventInfo.option3 != null && eventInfo.effect3 != null)
+        if (eventInfo.option3 != "" && eventInfo.effect3 != "")
         {
             SetButton(choiceButton3, eventInfo.option3, eventInfo.effect3);
         }
-        else
+        if (!EventManager.Instance.CanChoose(eventInfo.effect1))
+        {
+            choiceButton1.gameObject.SetActive(false);
+        }
+        if (!EventManager.Instance.CanChoose(eventInfo.effect2))
+        {
+            choiceButton2.gameObject.SetActive(false);
+        }
+        if (!EventManager.Instance.CanChoose(eventInfo.effect3) || LivabilityManager.Instance.livability < eventInfo.unlock)
         {
             choiceButton3.gameObject.SetActive(false);
         }
@@ -82,6 +107,7 @@ public class EventUIManager : MonoBehaviour
             action.Invoke();
         }
 
+        Time.timeScale = 1.0f;
         // 隐藏UI
         gameObject.SetActive(false);
     }

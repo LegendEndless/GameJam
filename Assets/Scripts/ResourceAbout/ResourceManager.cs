@@ -38,7 +38,8 @@ public class ResourceManager : MonoBehaviour
     {
         return resources.ContainsKey(type) ? resources[type] : 0;
     }
-
-
- 
+    private void Update()
+    {
+        print(resources["electric"]);
+    }
 }

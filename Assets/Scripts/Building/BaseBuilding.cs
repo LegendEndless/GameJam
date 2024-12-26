@@ -166,7 +166,6 @@ public class BaseBuilding : MonoBehaviour
     }
     public virtual void ManuallyAdjustStation(int delta)
     {
-        print("Stationed " + delta);
         bool flag = stationedCount > 0;
         if(delta==0)
         {

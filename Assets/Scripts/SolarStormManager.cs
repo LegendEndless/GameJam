@@ -26,7 +26,7 @@ public class SolarStormManager : MonoBehaviour
 {
     public float time;
     public float unscaledTime;
-    public float stormDuration = 20;
+    public float stormDuration = 5;//
     public float warningDuration = 180;
     public float stormStart;
     public bool inStorm;
@@ -58,7 +58,6 @@ public class SolarStormManager : MonoBehaviour
     {
         Time.timeScale = 0;
         inStorm = true;
-        info = collection.infos[index];
     }
     public bool CheckGameOver()
     {
@@ -86,7 +85,8 @@ public class SolarStormManager : MonoBehaviour
             //timeLeftText.text = "Time Left: " + TimeLeft.ToString("F2"); // 更新UI文本
             if (time > stormStart)
             {
-                if(CheckGameOver()) return;
+                info = collection.infos[index];
+                if (CheckGameOver()) return;
                 StartSolarStorm();
             }
         }
@@ -96,8 +96,16 @@ public class SolarStormManager : MonoBehaviour
             if (unscaledTime > stormDuration)
             {
                 unscaledTime = 0;
-                inStorm = false; 
+                inStorm = false;
                 //弹事件 事件选项都默认绑一个恢复timeScale
+                EventUIManager.Instance.ShowPlotEvent(new PlotEventInfo
+                {
+                    title = "暂时安全",
+                    description = "成功了！我们活下来了！终于可以暂时喘口气了，但是下次风暴还会降临。我们必须打造出星舰，奔向宇宙的远方，才能彻底摆脱它。",
+                    option = "加油！"
+                });
+                ++index;
+                stormStart = collection.infos[index].second;
             }
             ResourceManager.Instance.AddResource("food", -info.foodDemand / stormDuration * Time.unscaledDeltaTime);
             ResourceManager.Instance.AddResource("water", -info.waterDemand / stormDuration * Time.unscaledDeltaTime);
