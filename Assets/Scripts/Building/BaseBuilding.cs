@@ -146,21 +146,7 @@ public class BaseBuilding : MonoBehaviour
     }
     public void PopUI()
     {
-        // 检查是否已经存在UI，如果存在就销毁
-        GameObject existingUI = GameObject.FindGameObjectWithTag("BuildingMenu");
-        if (existingUI != null)
-        {
-            Destroy(existingUI);
-        }
-
-        // 实例化UI预制体
-        GameObject uiInstance = Instantiate(buildingMenuPrefab, transform.position, Quaternion.identity);
-        // 设置UI的信息
-        BuildingInfoManager menuUI = uiInstance.GetComponent<BuildingInfoManager>();
-        if (menuUI != null)
-        {
-            menuUI.SetBuilding(this);
-        }
+        BuildingInfoManager.Instance.SetBuilding(this);
     }
     //这个函数方便做弹出UI的派驻功能
     public int StationedMax()

@@ -28,6 +28,10 @@ public class EventUIManager : MonoBehaviour
 
     public void ShowPlotEvent(PlotEventInfo plotInfo)
     {
+        if (RealTimeBuilder.Instance.isBuilding)
+        {
+            RealTimeBuilder.Instance.ExitBuildingMode();
+        }
         Time.timeScale = 0;
         // 设置UI元素
         eventTitle.text = plotInfo.title;
@@ -44,7 +48,7 @@ public class EventUIManager : MonoBehaviour
         // 隐藏不必要的按钮
         choiceButton1.gameObject.SetActive(false);
         choiceButton2.gameObject.SetActive(false);
-        //choiceButton3.gameObject.SetActive(false);
+        choiceButton3.gameObject.SetActive(true);
         choiceButton3.GetComponentInChildren<Text>().text = plotInfo.option;
         choiceButton3.onClick.AddListener(() =>
         {
@@ -56,6 +60,10 @@ public class EventUIManager : MonoBehaviour
 
     public void ShowRegularEvent(RegularEventInfo eventInfo)
     {
+        if (RealTimeBuilder.Instance.isBuilding)
+        {
+            RealTimeBuilder.Instance.ExitBuildingMode();
+        }
         Time.timeScale = 0;
         // 设置UI元素
         eventTitle.text = eventInfo.title;
@@ -73,17 +81,21 @@ public class EventUIManager : MonoBehaviour
         {
             SetButton(choiceButton3, eventInfo.option3, eventInfo.effect3);
         }
+        else
+        {
+            choiceButton3.gameObject.SetActive(false);
+        }
         if (!EventManager.Instance.CanChoose(eventInfo.effect1))
         {
-            choiceButton1.gameObject.SetActive(false);
+            choiceButton1.interactable = false;
         }
         if (!EventManager.Instance.CanChoose(eventInfo.effect2))
         {
-            choiceButton2.gameObject.SetActive(false);
+            choiceButton2.interactable = false;
         }
         if (!EventManager.Instance.CanChoose(eventInfo.effect3) || LivabilityManager.Instance.livability < eventInfo.unlock)
         {
-            choiceButton3.gameObject.SetActive(false);
+            choiceButton3.interactable = false;
         }
 
         // 显示UI

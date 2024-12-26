@@ -35,7 +35,7 @@ public class RealTimeBuilder : MonoBehaviour
     Vector3Int lastPosition;
     TileBase lastTile;
     Color translucent;
-    bool building;
+    public bool isBuilding;
     private void Awake()
     {
         Instance = this;
@@ -47,7 +47,7 @@ public class RealTimeBuilder : MonoBehaviour
         lastTile = tilemap.GetTile(lastPosition);
         //Select("StarshipCenter");
         Build(BuildingManager.Instance.buildingInfoDict["StarshipCenter"].buildingInfo, new Vector3Int(-1, -1, 3),new Vector2Int(3,3));
-        tilemap.SetTile(new Vector3Int(-1, -1, 3), Resources.Load<Tile>("Tiles/StarshipCenter"));
+        tilemap.SetTile(new Vector3Int(-1, -1, 3), Resources.Load<Tile>("Tiles/Building/StarshipCenter"));
     }
 
 
@@ -71,7 +71,7 @@ public class RealTimeBuilder : MonoBehaviour
             Camera.main.transform.Translate(5 * Time.unscaledDeltaTime * Vector2.up);
         }
 
-        if (building)
+        if (isBuilding)
         {
             Vector3Int v = grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             v.z = 3;
@@ -159,13 +159,13 @@ public class RealTimeBuilder : MonoBehaviour
                 
             }
         }
-        building = false;
+        isBuilding = false;
     }
     public void Select(string buildingName)
     {
         this.buildingName = buildingName;
         flip = false;
-        tile = Resources.Load<Tile>("Tiles/"+buildingName);
+        tile = Resources.Load<Tile>("Tiles/Building/" + buildingName);
         Vector3Int v_;
         for (int i = -LandscapeManager.Instance.maxSize; i <= LandscapeManager.Instance.maxSize; ++i)
         {
@@ -179,7 +179,7 @@ public class RealTimeBuilder : MonoBehaviour
                 }
             }
         }
-        building = true;
+        isBuilding = true;
     }
     public void Demolish(Vector2Int v)
     {

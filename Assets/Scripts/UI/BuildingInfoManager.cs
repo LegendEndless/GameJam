@@ -18,6 +18,20 @@ public class BuildingInfoManager : MonoBehaviour
 
     private BaseBuilding currentBuilding;
 
+    public static BuildingInfoManager Instance
+    {
+        get; private set;
+    }
+    private void Awake()
+    {
+        Instance = this;
+        gameObject.SetActive(false);
+    }
+    private void Start()
+    {
+        
+    }
+
     public void SetBuilding(BaseBuilding building)
     {
         currentBuilding = building;
@@ -70,6 +84,8 @@ public class BuildingInfoManager : MonoBehaviour
 
         demolishButton.onClick.RemoveAllListeners();
         demolishButton.onClick.AddListener(DemolishBuilding);
+
+        gameObject.SetActive(true);
     }
 
     private void AdjustPopulation(int delta)
@@ -87,7 +103,7 @@ public class BuildingInfoManager : MonoBehaviour
     private void DemolishBuilding()
     {
         currentBuilding.Demolish();
-        Destroy(gameObject); // 关闭UI
+        //Destroy(gameObject); // 关闭UI
     }
 
     // 还需要一些方法来获取信息，例如

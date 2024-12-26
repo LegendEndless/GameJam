@@ -2854,7 +2854,6 @@ GameObject:
   m_Component:
   - component: {fileID: 282798707}
   - component: {fileID: 282798708}
-  - component: {fileID: 282798709}
   m_Layer: 0
   m_HasEditorInfo: 1
   m_Name: GUIController
@@ -2903,30 +2902,6 @@ MonoBehaviour:
   realTimeBuilder: {fileID: 807564985}
   launchPanel: {fileID: 1825766831}
   buttonLaunch: {fileID: 1160318565}
---- !u!114 &282798709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 282798705}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4cef0860c3bcc1439250719a35740f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildingNameText: {fileID: 598306460}
-  buildingImage: {fileID: 1138393995}
-  maxPopulationText: {fileID: 1994135348}
-  currentPopulationText: {fileID: 1968133787}
-  decreasePopulationButton: {fileID: 233673570}
-  increasePopulationButton: {fileID: 231214184}
-  currentResourceText: {fileID: 164012671}
-  nextLevelResourceText: {fileID: 1232890274}
-  upgradeCostText: {fileID: 1558689112}
-  maxLevelText: {fileID: 2122951145}
-  upgradeButton: {fileID: 1054146783}
-  demolishButton: {fileID: 90129896}
 --- !u!1 &330675069
 GameObject:
   m_ObjectHideFlags: 0
@@ -4642,6 +4617,7 @@ GameObject:
   - component: {fileID: 558766475}
   - component: {fileID: 558766477}
   - component: {fileID: 558766476}
+  - component: {fileID: 558766478}
   m_Layer: 5
   m_HasEditorInfo: 1
   m_Name: BuildingInfo
@@ -4649,7 +4625,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &558766475
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4715,6 +4691,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 558766474}
   m_CullTransparentMesh: 1
+--- !u!114 &558766478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558766474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4cef0860c3bcc1439250719a35740f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingNameText: {fileID: 598306460}
+  buildingImage: {fileID: 1138393995}
+  maxPopulationText: {fileID: 1994135348}
+  currentPopulationText: {fileID: 1968133787}
+  decreasePopulationButton: {fileID: 233673570}
+  increasePopulationButton: {fileID: 231214184}
+  currentResourceText: {fileID: 164012671}
+  nextLevelResourceText: {fileID: 1232890274}
+  upgradeCostText: {fileID: 1558689112}
+  maxLevelText: {fileID: 2122951145}
+  upgradeButton: {fileID: 1054146783}
+  demolishButton: {fileID: 90129896}
 --- !u!1 &564081783
 GameObject:
   m_ObjectHideFlags: 0
@@ -7141,6 +7141,7 @@ MonoBehaviour:
   grid: {fileID: 681608618}
   tilemap: {fileID: 789448208}
   padding: 40
+  isBuilding: 0
 --- !u!1 &811241525
 GameObject:
   m_ObjectHideFlags: 0
@@ -9104,7 +9105,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 718dd5bdac0f2be4a8e3c2ea37322c20, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 628de36c01d40434a844be32dca5b3fb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -20,8 +20,8 @@ public class EventManager : MonoBehaviour
         socialEvents = XmlDataManager.Instance.Load<RegularEventCollection>("social");
         time = 0;
         plotIndex = 0;
-        cdDisaster = 180;
-        cdSocial = 180;
+        cdDisaster = 140;
+        cdSocial = 120;
     }
 
     // Update is called once per frame

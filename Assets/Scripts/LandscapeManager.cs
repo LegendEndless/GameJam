@@ -136,7 +136,7 @@ public class LandscapeManager : MonoBehaviour
     }
     public TileBase GetBuildingTile(string name)
     {
-        return Resources.Load<TileBase>("Tiles/" + name);
+        return Resources.Load<TileBase>("Tiles/Building/" + name);
     }
     public void RecalculateBuildability()
     {

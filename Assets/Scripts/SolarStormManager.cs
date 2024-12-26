@@ -97,7 +97,6 @@ public class SolarStormManager : MonoBehaviour
             {
                 unscaledTime = 0;
                 inStorm = false;
-                //弹事件 事件选项都默认绑一个恢复timeScale
                 EventUIManager.Instance.ShowPlotEvent(new PlotEventInfo
                 {
                     title = "暂时安全",
