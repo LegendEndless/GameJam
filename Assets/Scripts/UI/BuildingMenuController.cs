@@ -11,15 +11,23 @@ public class BuildingMenuController : MonoBehaviour
     public GameObject[] buildingCategories; // 建筑类别
     public RealTimeBuilder realTimeBuilder; // 引用RealTimeBuilder
 
-    private bool isMenuVisible = false; // 菜单是否可见
+    public GameObject launchPanel; // 发射菜单
+    public Button buttonLaunch; // 发射按钮
+
+    private bool isMenuVisible = false; // 建筑菜单是否可见
+    private bool isLaunchVisible = false; // 发射菜单是否可见
 
     void Start()
     {
         // 初始化菜单为隐藏状态
         menuPanel.SetActive(false);
+        launchPanel.SetActive(false);
+
 
         // 绑定主按钮点击事件
         buttonBuild.onClick.AddListener(ToggleMenu);
+        // 绑定发射按钮点击事件
+        buttonLaunch.onClick.AddListener(ToggleLaunchMenu);
 
         // 绑定分类按钮点击事件
         for (int i = 0; i < categoryButtons.Length; i++)
@@ -33,6 +41,11 @@ public class BuildingMenuController : MonoBehaviour
     {
         isMenuVisible = !isMenuVisible;
         menuPanel.SetActive(isMenuVisible);
+    }
+    void ToggleLaunchMenu()
+    {
+        isLaunchVisible = !isLaunchVisible;
+        launchPanel.SetActive(isLaunchVisible);
     }
 
     void ShowCategory(int index)
