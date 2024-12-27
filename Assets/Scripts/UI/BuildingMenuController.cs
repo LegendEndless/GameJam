@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -88,6 +89,19 @@ public class BuildingMenuController : MonoBehaviour
                 SceneManager.LoadScene("GameOverScene");
             }
         });
+        if (ResourceManager.Instance.GetResourceCount("life_part") >= 10
+            && ResourceManager.Instance.GetResourceCount("chip_part") >= 2
+            && ResourceManager.Instance.GetResourceCount("nuclear_part") >= 5
+            && ResourceManager.Instance.GetResourceCount("shell_part") >= 5
+            && BuildingManager.Instance.buildingCountDict.ContainsKey("RocketBase")
+            && BuildingManager.Instance.buildingCountDict["RocketBase"]>0)
+        {
+            buttonWin.interactable = true;
+        }
+        else
+        {
+            buttonWin.interactable = false;
+        }
     }
 
     void ToggleMenu()

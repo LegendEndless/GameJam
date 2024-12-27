@@ -103,11 +103,13 @@ public class BuildingInfoManager : MonoBehaviour
         }
         else
         {
-            upgradeCostText.text = "升级消耗: " + GetUpgradeCost(currentBuilding);
+            upgradeCostText.text = $"当前{currentBuilding.level}级，";
+            upgradeCostText.text += "升级消耗: " + GetUpgradeCost(currentBuilding);
             foreach (var pair in currentBuilding.buildingInfoPro.upgradeRestrictionList[currentBuilding.level])
             {
                 upgradeCostText.text += "\n需要有" + BuildingManager.Instance.buildingInfoDict[pair.Key].buildingInfo.nameChinese + "达到" + pair.Value + "级";
             }
+            upgradeCostText.text += "\n用时: " + currentBuilding.buildingInfoPro.durationList[currentBuilding.level] + "s";
             upgradeButton.interactable = currentBuilding.CanUpgrade();
         }
 

@@ -92,13 +92,25 @@ public class EventUIManager : MonoBehaviour
         {
             choiceButton1.interactable = false;
         }
+        else
+        {
+            choiceButton1.interactable = true;
+        }
         if (!EventManager.Instance.CanChoose(eventInfo.effect2))
         {
             choiceButton2.interactable = false;
         }
+        else
+        {
+            choiceButton2.interactable = true;
+        }
         if (!EventManager.Instance.CanChoose(eventInfo.effect3) || LivabilityManager.Instance.livability < eventInfo.unlock)
         {
             choiceButton3.interactable = false;
+        }
+        else
+        {
+            choiceButton3.interactable = true;
         }
 
         // ÏÔÊ¾UI
