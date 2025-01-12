@@ -3,16 +3,18 @@ using UnityEngine;
 
 public class SingleProductionBuilding : ProductionBuilding
 {
+    Dictionary<string, float> singleProduction;
     Dictionary<string, float> localProduction;
     public override void Initialize(string name, Vector2Int position, Vector2Int span)
     {
         base.Initialize(name, position, span);
         localProduction = new Dictionary<string, float>();
+        singleProduction = new Dictionary<string, float>();
     }
     public override void Update()
     {
         base.Update();
-        Dictionary<string, float> singleProduction = BuildingManager.Instance.buildingInfoDict[name].singleProductionList[level - 1];
+        if(level>0) singleProduction = BuildingManager.Instance.buildingInfoDict[name].singleProductionList[level - 1];
         foreach (KeyValuePair<string, float> pair in singleProduction)
         {
             if (!localProduction.ContainsKey(pair.Key))

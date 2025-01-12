@@ -55,7 +55,7 @@ public class EventUIManager : MonoBehaviour
         {
             // Òþ²ØUI
             gameObject.SetActive(false);
-            Time.timeScale = 1.0f;
+            Time.timeScale = ResourceDisplay.Instance.pause * ResourceDisplay.Instance.speed;
         });
         choiceButton3.interactable = true;
     }
@@ -71,7 +71,7 @@ public class EventUIManager : MonoBehaviour
         // ÉèÖÃUIÔªËØ
         eventTitle.text = eventInfo.title;
         eventDescription.text = eventInfo.description;
-        // eventImage.sprite = Resources.Load<Sprite>(eventInfo.picturePath);
+        eventImage.sprite = Resources.Load<Sprite>("Sprites/Events/"+eventInfo.id);
         eventDescription.gameObject.SetActive(true);
         eventImage.gameObject.SetActive(true);
         eventDescriptionLarger.gameObject.SetActive(false);
@@ -134,7 +134,7 @@ public class EventUIManager : MonoBehaviour
             action.Invoke();
         }
 
-        Time.timeScale = 1.0f;
+        Time.timeScale = ResourceDisplay.Instance.pause* ResourceDisplay.Instance.speed;
         // Òþ²ØUI
         gameObject.SetActive(false);
     }

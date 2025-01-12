@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
 public class RealTimeBuilder : MonoBehaviour
@@ -28,6 +29,7 @@ public class RealTimeBuilder : MonoBehaviour
     TileBase lastTile;
     Color translucent;
     public bool isBuilding;
+    public float range;
     private void Awake()
     {
         Instance = this;
@@ -36,7 +38,7 @@ public class RealTimeBuilder : MonoBehaviour
     void Start()
     {
         translucent = new Color(1, 1, 1, 0.8f);
-        lastTile = tilemap.GetTile(lastPosition);
+        //lastTile = tilemap.GetTile(lastPosition);
         //Select("StarshipCenter");
         Build(BuildingManager.Instance.buildingInfoDict["StarshipCenter"].buildingInfo, new Vector3Int(-1, -1, 3), new Vector2Int(3, 3));
         tilemap.SetTile(new Vector3Int(-1, -1, 3), Resources.Load<Tile>("Tiles/Building/StarshipCenter"));
@@ -63,6 +65,22 @@ public class RealTimeBuilder : MonoBehaviour
             Camera.main.transform.Translate(5 * Time.unscaledDeltaTime * Vector2.up);
         }
 
+        if (Camera.main.transform.position.x < -range)
+        {
+            Camera.main.transform.position = new Vector3(-range, Camera.main.transform.position.y, Camera.main.transform.position.z);
+        }
+        if (Camera.main.transform.position.x > range)
+        {
+            Camera.main.transform.position = new Vector3(range, Camera.main.transform.position.y, Camera.main.transform.position.z);
+        }
+        if (Camera.main.transform.position.y < -range)
+        {
+            Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x,-range, Camera.main.transform.position.z);
+        }
+        if (Camera.main.transform.position.y > range)
+        {
+            Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, range, Camera.main.transform.position.z);
+        }
         if (isBuilding)
         {
             Vector3Int v = grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
@@ -90,10 +108,12 @@ public class RealTimeBuilder : MonoBehaviour
                 lastPosition = v;
                 lastTile = tilemap.GetTile(lastPosition);
             }
-            bool b = CanBuild(buildingName, v, span);
+            
 
             tilemap.SetTile(v, tile);
             tilemap.RemoveTileFlags(v, TileFlags.LockColor);
+
+            bool b = CanBuild(buildingName, v, span);
             tilemap.SetColor(v, b ? Color.green : Color.red);
 
             if (lastTile != mistTile && lastTile != tile)
@@ -106,6 +126,13 @@ public class RealTimeBuilder : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0) && b)
             {
+                print(EventSystem.current.IsPointerOverGameObject());
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    print(EventSystem.current.IsPointerOverGameObject());
+                    // 如果鼠标在UI对象上，不执行鼠标输入逻辑
+                    return;
+                }
                 lastTile = tile;
                 Build(info, v, span);
                 ExitBuildingMode();
@@ -126,6 +153,11 @@ public class RealTimeBuilder : MonoBehaviour
             }
             if (Input.GetMouseButtonDown(0))
             {
+                if (EventSystem.current.IsPointerOverGameObject())
+                {
+                    // 如果鼠标在UI对象上，不执行鼠标输入逻辑
+                    return;
+                }
                 Vector3Int v = grid.WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition));
                 Vector2Int v_ = new Vector2Int(v.x, v.y);
                 Dictionary<Vector2Int, BaseBuilding> register = BuildingManager.Instance.landUseRegister;
@@ -158,6 +190,7 @@ public class RealTimeBuilder : MonoBehaviour
     }
     public void Select(string buildingName)
     {
+        ExitBuildingMode();
         this.buildingName = buildingName;
         flip = false;
         tile = Resources.Load<Tile>("Tiles/Building/" + buildingName);
@@ -175,6 +208,7 @@ public class RealTimeBuilder : MonoBehaviour
             }
         }
         isBuilding = true;
+        lastTile = tilemap.GetTile(lastPosition);
     }
     public void Demolish(Vector2Int v)
     {
@@ -229,6 +263,7 @@ public class RealTimeBuilder : MonoBehaviour
         }
         else if ((new List<string> { "WaterStation", "Corn" }.Contains(name)) && IsNear(v_, span, new List<string> { "HighLab" }))
         {
+            print("ahhhhhhhhhhh");
             return false;
         }
         else if (name == "MantleSampling")
@@ -264,7 +299,7 @@ public class RealTimeBuilder : MonoBehaviour
                         for (int jj = -t; jj <= t; ++jj)
                         {
                             u = v + new Vector2Int(ii, jj);
-                            if (register.ContainsKey(u) && register[u].name == name)
+                            if (register.ContainsKey(u) && register[u]!=null && register[u].name == name)
                             {
                                 return true;
                             }

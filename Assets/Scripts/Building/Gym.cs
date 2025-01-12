@@ -5,7 +5,7 @@ public class Gym : ProductionBuilding, ILivability
 {
     public List<float> ranges = new List<float>
     {
-        2.24f,2.45f,2.65f,2.83f,3.01f
+        6.01f,8.01f,10.01f,12.01f,14.01f
     };//Ó²±àÂë
     public int Livability => stationedCount != 0 ? CountInRange(null, ranges[level - 1]) : 0;
     public override void AutoAdjustStation()

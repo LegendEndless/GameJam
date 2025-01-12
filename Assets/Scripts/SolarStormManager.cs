@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SolarStormInfo
@@ -27,12 +28,13 @@ public class SolarStormManager : MonoBehaviour
     public float stormDuration = 5;//
     public float warningDuration = 180;
     public float stormStart;
-    public bool inStorm;
+    public bool isInStorm;
     public Image image;
 
     public SolarStormInfo info;
     SolarStormInfoCollection collection;
     int index;
+    bool isGameOver;
     public static SolarStormManager Instance
     {
         get; private set;
@@ -50,13 +52,16 @@ public class SolarStormManager : MonoBehaviour
         collection = XmlDataManager.Instance.Load<SolarStormInfoCollection>("solar");
         index = 0;
         stormStart = collection.infos[index].second;
-        inStorm = false;
+        isInStorm = false;
+        isGameOver = false;
     }
 
     public void StartSolarStorm()
     {
+        image.gameObject.SetActive(true);
         Time.timeScale = 0;
-        inStorm = true;
+        isInStorm = true;
+        MusicManager.Instance.PlaySolarStormMusic();
     }
     public bool CheckGameOver()
     {
@@ -70,6 +75,16 @@ public class SolarStormManager : MonoBehaviour
         || info.chipDemand > ResourceManager.Instance.GetResourceCount("chip"))
         {
             //弹一个UI提示玩家没能撑过风暴，点确定就跳出Scene啦
+            EventUIManager.Instance.choiceButton3.onClick.AddListener(() =>
+            {
+                SceneManager.LoadScene("MainMenu");
+            });
+            EventUIManager.Instance.ShowPlotEvent(new PlotEventInfo
+            {
+                title = "文明寂灭",
+                description = "由于没有准备好应对太阳风暴的物资，据点在强烈的辐射中被摧毁殆尽。人类，面对这无尽天启，终究还是无能为力吗？",
+                option = "不！这是……一场噩梦？"
+            });
             return true;
         }
         return false;
@@ -77,29 +92,33 @@ public class SolarStormManager : MonoBehaviour
 
     void Update()
     {
-        if (!inStorm)
+        if (isGameOver) return;
+        if (!isInStorm)
         {
             time += Time.deltaTime;
 
             //timeLeftText.text = "Time Left: " + TimeLeft.ToString("F2"); // 更新UI文本
             if (time > stormStart)
             {
-                image.gameObject.SetActive(true);
                 info = collection.infos[index];
-                if (CheckGameOver()) return;
+                if (CheckGameOver())
+                {
+                    isGameOver = true;
+                    return;
+                }
                 StartSolarStorm();
             }
         }
         else
         {
             Camera.main.transform.position = new Vector3(Random.Range(-0.05f, 0.05f), Random.Range(-0.05f, 0.05f), -10);
-            print(Camera.main.transform.position);
             unscaledTime += Time.unscaledDeltaTime;
             if (unscaledTime > stormDuration)
             {
                 unscaledTime = 0;
-                inStorm = false;
+                isInStorm = false;
                 image.gameObject.SetActive(false);
+                MusicManager.Instance.PlayRandomAmbientMusic();
                 EventUIManager.Instance.ShowPlotEvent(new PlotEventInfo
                 {
                     title = "暂时安全",

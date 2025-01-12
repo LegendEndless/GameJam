@@ -4,7 +4,6 @@ using System.Collections.Generic;
 public class BuildingInfo
 {
     public string name;
-    public string icon;
     public int type;
     public string restriction;
     public int extraRestrictionId;
@@ -20,6 +19,7 @@ public class BuildingInfo
     public string upgradeDuration;
     public float stationBonus;
     public string description;
+    public string effect;
     public string upgradeRestriction;
     public int group;
     public string nameChinese;

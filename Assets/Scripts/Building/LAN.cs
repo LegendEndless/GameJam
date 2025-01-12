@@ -4,7 +4,7 @@ public class LAN : ProductionBuilding
     {
         base.OnFunctioningChange(functioning);
         int change = functioning ? 1 : -1;
-        var set = GetNeighborsInRange(2.01f);//Ó²±àÂë
+        var set = GetNeighborsInRange(4.01f);//Ó²±àÂë
         foreach (BaseBuilding b in set)
         {
             if (b is ProductionBuilding)

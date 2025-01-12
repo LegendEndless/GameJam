@@ -27,6 +27,7 @@ public class LivabilityManager : MonoBehaviour
         {
             livability += building.Livability;
         }
+        livability += eventLivability;
         livability -= Mathf.FloorToInt(PopulationManager.Instance.currentPopulation / 15);
         livability = Mathf.Clamp(livability, -20, 20);
         BuildingManager.Instance.GloballyRecalculate();

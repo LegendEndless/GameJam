@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -86,22 +85,21 @@ public class BuildingMenuController : MonoBehaviour
             && ResourceManager.Instance.GetResourceCount("nuclear_part") >= 5
             && ResourceManager.Instance.GetResourceCount("shell_part") >= 5)
             {
-                SceneManager.LoadScene("GameOverScene");
+                launchPanel.SetActive(false);
+                EventUIManager.Instance.choiceButton3.onClick.AddListener(() =>
+                {
+                    SceneManager.LoadScene("MainMenu");
+                });
+                EventUIManager.Instance.ShowPlotEvent(new PlotEventInfo
+                {
+                    title = "宇宙漂流",
+                    description = "我们成功地打造了星舰，暂时逃脱了被无尽天启吞噬的命运。依靠剩余物资，我们航行了"
+                    + (ResourceManager.Instance.GetResourceCount("chip_part") * 10 + ResourceManager.Instance.GetResourceCount("nuclear_part") * 4) * (ResourceManager.Instance.GetResourceCount("life_part") * 2 + ResourceManager.Instance.GetResourceCount("shell_part") * 5) / 400
+                    + "光年，最终来到下一处星球据点。文明还在延续，希望从未消失……",
+                    option = "It never ends!"
+                });
             }
         });
-        if (ResourceManager.Instance.GetResourceCount("life_part") >= 10
-            && ResourceManager.Instance.GetResourceCount("chip_part") >= 2
-            && ResourceManager.Instance.GetResourceCount("nuclear_part") >= 5
-            && ResourceManager.Instance.GetResourceCount("shell_part") >= 5
-            && BuildingManager.Instance.buildingCountDict.ContainsKey("RocketBase")
-            && BuildingManager.Instance.buildingCountDict["RocketBase"]>0)
-        {
-            buttonWin.interactable = true;
-        }
-        else
-        {
-            buttonWin.interactable = false;
-        }
     }
 
     void ToggleMenu()
@@ -145,6 +143,19 @@ public class BuildingMenuController : MonoBehaviour
                     category.transform.GetChild(i).gameObject.GetComponent<Image>().color = interactable[i] ? Color.white : Color.grey;
                 }
             }
+        }
+        if (ResourceManager.Instance.GetResourceCount("life_part") >= 10
+            && ResourceManager.Instance.GetResourceCount("chip_part") >= 2
+            && ResourceManager.Instance.GetResourceCount("nuclear_part") >= 5
+            && ResourceManager.Instance.GetResourceCount("shell_part") >= 5
+            && BuildingManager.Instance.highestLevelBuilding.ContainsKey("RocketBase")
+            && BuildingManager.Instance.highestLevelBuilding["RocketBase"].stationedCount > 0)
+        {
+            buttonWin.interactable = true;
+        }
+        else
+        {
+            buttonWin.interactable = false;
         }
     }
 }

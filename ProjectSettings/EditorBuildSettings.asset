@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.scene
+    guid: fb63b451c742de54298a87f699582a3c
+  - enabled: 1
     path: Assets/Scenes/SampleScene.scene
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/GameOverScene.scene
-    guid: 11eb8d18b6132f24f87c90c6b060cb87
   m_configObjects: {}
   m_SlimFeaturesWeixinMiniGame:
     AllocateOverhead: 1

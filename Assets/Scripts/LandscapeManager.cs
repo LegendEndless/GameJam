@@ -87,7 +87,7 @@ public class LandscapeManager : MonoBehaviour
     }
     public void RecalculateVisibility()
     {
-        float range = 3.17f;//Ó²±àÂë
+        float range = 20.1f;//Ó²±àÂë
         for (int i = -maxSize; i <= maxSize; ++i)
         {
             for (int j = -maxSize; j <= maxSize; ++j)
@@ -156,7 +156,7 @@ public class LandscapeManager : MonoBehaviour
     }
     public void RecalculateBuildability()
     {
-        float range = 2.24f;//Ó²±àÂë
+        float range = 12.1f;//Ó²±àÂë
         for (int i = -maxSize; i <= maxSize; ++i)
         {
             for (int j = -maxSize; j <= maxSize; ++j)

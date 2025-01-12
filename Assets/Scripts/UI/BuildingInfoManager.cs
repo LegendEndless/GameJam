@@ -16,6 +16,7 @@ public class BuildingInfoManager : MonoBehaviour
     public Button demolishButton;
     public Text productivity;
     public Text currentResourceText;
+    public Button buttonClose;
 
     public Dictionary<string, string> dic = new Dictionary<string, string>
     {
@@ -43,6 +44,10 @@ public class BuildingInfoManager : MonoBehaviour
     {
         Instance = this;
         gameObject.SetActive(false);
+        buttonClose.onClick.AddListener(() =>
+        {
+            gameObject.SetActive(false);
+        });
     }
     private void Update()
     {
@@ -84,11 +89,11 @@ public class BuildingInfoManager : MonoBehaviour
                     break;
             }
         }
-        buildingNameText.text = currentBuilding.name;
+        buildingNameText.text = currentBuilding.buildingInfoPro.buildingInfo.nameChinese;
         // 设置建筑图片（该方法调取图片池
         buildingImage.sprite = GetBuildingSprite(currentBuilding.name);
 
-        maxPopulationText.text = $"{currentBuilding.StationedMax()}";
+        maxPopulationText.text = $"{currentBuilding.level + 5}";
         currentPopulationText.text = $"{currentBuilding.stationedCount}";
 
         if (currentBuilding.level >= currentBuilding.buildingInfoPro.buildingInfo.maxLevel)
@@ -126,7 +131,11 @@ public class BuildingInfoManager : MonoBehaviour
         demolishButton.onClick.RemoveAllListeners();
         demolishButton.onClick.AddListener(DemolishBuilding);
 
-        demolishButton.interactable = true;
+        demolishButton.interactable = currentBuilding.name != "StarshipCenter";
+
+
+        decreasePopulationButton.interactable = !(currentBuilding.stationedCount == 0);
+        increasePopulationButton.interactable = !(currentBuilding.stationedCount >= currentBuilding.level + 5);
 
         gameObject.SetActive(true);
     }
@@ -178,7 +187,7 @@ public class BuildingInfoManager : MonoBehaviour
 
     private Sprite GetBuildingSprite(string name)
     {
-        return Resources.Load<Sprite>("Building/" + name);
+        return Resources.Load<Sprite>("Sprites/Buildings/" + name);
     }
 
     private void AdjustPopulation(int delta)

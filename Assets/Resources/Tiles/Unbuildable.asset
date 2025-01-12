@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Unbuildable
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 21300000, guid: 1eb3beef7d326f0408fdfbee61f1dde5, type: 3}
-  m_Color: {r: 0.12578613, g: 0.12380835, b: 0.12380835, a: 1}
+  m_Color: {r: 0.12578613, g: 0.12380835, b: 0.12380835, a: 0.5372549}
   m_Transform:
     e00: 1
     e01: 0

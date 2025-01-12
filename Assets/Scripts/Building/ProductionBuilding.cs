@@ -14,7 +14,7 @@ public class ProductionBuilding : BaseBuilding
         environmentMultiplier = -1;
         globalMultiplier = -1;
         //刚开始就得统计一下周边基站个数
-        numLAN = CountInRange("LAN", 2.01f);//硬编码处
+        numLAN = CountInRange("LAN", 4.01f);//硬编码处
         if (name == "MantleSampling")
         {
             BuildingManager.Instance.sampling[LandscapeManager.Instance.landscapeMap[position]] = true;

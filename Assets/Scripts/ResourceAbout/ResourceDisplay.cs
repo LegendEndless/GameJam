@@ -15,6 +15,11 @@ public class ResourceDisplay : MonoBehaviour
     public Text tiText;
     public Text carbonText;
 
+    public int pause = 1;
+    public int speed = 1;
+
+    public Sprite normalS, fastS, pauseS,continueS;
+
     //显示时间
     //public Text timeLeftText; 
 
@@ -86,14 +91,37 @@ public class ResourceDisplay : MonoBehaviour
         UpdateAllResourceTexts();
     }
 
-    public void Pause()
+    public void Pause(GameObject go)
     {
-        if (Time.timeScale == 0) Time.timeScale = 1;
-        else Time.timeScale = 0;
+        if (pause == 1)
+        {
+            pause = 0;
+            go.GetComponent<Image>().sprite = continueS;
+        }
+        else
+        {
+            pause = 1;
+            go.GetComponent<Image>().sprite = pauseS;
+        }
+        Time.timeScale = pause * speed;
     }
-    public void Accelerate()
+    public void Accelerate(GameObject go)
     {
-        Time.timeScale = 10;
+        if (speed == 10)
+        {
+            speed = 1;
+            go.GetComponent<Image>().sprite = normalS;
+        }
+        else
+        {
+            speed = 10;
+            go.GetComponent<Image>().sprite = fastS;
+        }
+        Time.timeScale = pause * speed;
+    }
+    public void ExitGame()
+    {
+        ExitPanel.Instance.gameObject.SetActive(true);
     }
 
     //更新时间的方法（不知道能不能这么写）

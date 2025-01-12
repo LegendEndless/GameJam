@@ -11,6 +11,9 @@ public class PopulationDisplay : MonoBehaviour
         float currentPopulation = PopulationManager.Instance.currentPopulation;
 
         // 更新UI显示
-        populationText.text = "当前人口：" + Mathf.FloorToInt(currentPopulation).ToString();
+        populationText.text = "当前人口：" + Mathf.FloorToInt(currentPopulation).ToString()
+            +"\n空闲人口：" + Mathf.FloorToInt(PopulationManager.Instance.AvailablePopulation)
+            +"\n人口上限：" + PopulationManager.Instance.maxPopulation
+            +"\n人口增长率：" + PopulationManager.Instance.rate * 100 + "%";
     }
 }

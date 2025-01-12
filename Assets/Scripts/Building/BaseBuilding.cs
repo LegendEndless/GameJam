@@ -43,13 +43,6 @@ public class BaseBuilding : MonoBehaviour
                 register[v] = this;
             }
         }
-        //建筑数量也记下来了
-        var cd = BuildingManager.Instance.buildingCountDict;
-        if (!cd.ContainsKey(name))
-            cd[name] = 1;
-        else
-            ++cd[name];
-
         BuildingManager.Instance.buildings.Add(this);
 
         buildingInfoPro = BuildingManager.Instance.buildingInfoDict[name];
@@ -261,6 +254,12 @@ public class BaseBuilding : MonoBehaviour
     }
     public virtual void ReportUpgrade()
     {
+        //建筑数量也记下来了
+        var cd = BuildingManager.Instance.buildingCountDict;
+        if (!cd.ContainsKey(name))
+            cd[name] = 1;
+        else
+            ++cd[name];
         //所有建筑升级时都还得通知一下，需要记录各种建筑的最高等级
         var hl = BuildingManager.Instance.highestLevelBuilding;
         if (!hl.ContainsKey(name))
